@@ -351,17 +351,28 @@ const HeroMasterpiece = () => {
                 />
 
                 {/* Subline - Locked Hook with full version per spec */}
-                <motion.p
+                <motion.div
                   className={`text-deep-brown/80 text-base md:text-lg mb-4 max-w-xl ${isArabic ? 'font-body-ar' : 'font-body'}`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7, duration: 0.7 }}
                 >
-                  {isArabic 
-                    ? "تعرف أنك وجدته لحظة ما تشوفه. راحة صُنعت لأصحاب الذوق الرفيع. أهدِ نفسك هدية الراحة 🎁"
-                    : "You know you found it the moment you see it. Comfort crafted for the finest. Give yourself the gift of comfort 🎁"
-                  }
-                </motion.p>
+                  {isArabic ? (
+                    <div className="space-y-1">
+                      <p>تعرفه من اللحظة الأولى.</p>
+                      <p>راحة صُنعت لأرقى المعايير.</p>
+                      <p>هدية تحتفظ بها.</p>
+                      <p>وهدية يقدرونها كل يوم.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-1">
+                      <p>You know it the moment you see it.</p>
+                      <p>Comfort crafted for the finest.</p>
+                      <p>A gift you keep.</p>
+                      <p>A gift they remember — every day.</p>
+                    </div>
+                  )}
+                </motion.div>
 
                 {/* Rotating Belief Statement */}
                 <AnimatePresence mode="wait">
