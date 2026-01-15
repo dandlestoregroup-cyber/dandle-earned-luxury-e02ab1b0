@@ -29,3 +29,9 @@ verify_jwt = false
 
 [functions.generate-site-image]
 verify_jwt = false
+
+[functions.serve-zip-images]
+verify_jwt = false
+
+[functions.extract-zip-images]
+verify_jwt = false
