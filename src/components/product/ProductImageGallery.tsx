@@ -162,9 +162,7 @@ export const ProductImageGallery = ({
               <Button
                 variant="outline"
                 size="icon"
-                className={`absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-background/90 backdrop-blur-sm shadow-lg z-10 ${
-                  isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                } transition-opacity`}
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-background/90 backdrop-blur-sm shadow-lg z-10 opacity-100 transition-opacity"
                 onClick={goToPrev}
                 aria-label="Previous image"
               >
@@ -175,9 +173,7 @@ export const ProductImageGallery = ({
               <Button
                 variant="outline"
                 size="icon"
-                className={`absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-background/90 backdrop-blur-sm shadow-lg z-10 ${
-                  isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                } transition-opacity`}
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-background/90 backdrop-blur-sm shadow-lg z-10 opacity-100 transition-opacity"
                 onClick={goToNext}
                 aria-label="Next image"
               >

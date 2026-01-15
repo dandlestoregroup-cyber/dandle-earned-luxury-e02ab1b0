@@ -713,6 +713,32 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
           {displayTruth}
         </p>
         
+        {/* Color Swatches - ALWAYS VISIBLE */}
+        {colors.length > 0 && !product.comingSoon && !product.beFirstToKnow && (
+          <div className="flex gap-2 mb-3 flex-wrap">
+            {colors.slice(0, 6).map((color, index) => (
+              <button
+                key={color}
+                onClick={(e) => handleSwatchClick(e, color)}
+                className={cn(
+                  "relative w-6 h-6 rounded-full border-2 transition-all duration-200",
+                  selectedColor === color 
+                    ? "border-champagne scale-110 ring-2 ring-champagne/30" 
+                    : "border-charcoal/20 hover:border-champagne/60"
+                )}
+                style={{ 
+                  backgroundColor: getColorHex(color),
+                  boxShadow: selectedColor === color 
+                    ? "0 0 8px rgba(212, 175, 55, 0.4)" 
+                    : "0 1px 3px rgba(0,0,0,0.1)",
+                }}
+                title={color}
+                aria-label={`Select ${color}`}
+              />
+            ))}
+          </div>
+        )}
+        
         {(product.comingSoon || product.beFirstToKnow) ? (
           <p className={cn(
             "text-sm text-dandle-orange",
