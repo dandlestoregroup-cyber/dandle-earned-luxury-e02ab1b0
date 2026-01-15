@@ -5,12 +5,12 @@ import { Product } from "@/types/product";
 import { getLovableProduct } from "@/catalog/lovableCatalog";
 import { cn } from "@/lib/utils";
 import { productColorImages, getProductColorImage } from "@/data/productColorImages";
+import { productSwatches } from "@/data/productSwatches";
 import { PALETTE_MAP } from "@/data/palette";
 import { getLangFromStorage, type LangKey } from "@/i18n/strings";
 import WishlistButton from "@/components/WishlistButton";
 
 // Arabic product translations with proper format: Arabic name (English name)
-// Arabic product translations with proper format: Arabic name + (English name) with LTR English
 const productTranslations: Record<string, { name: string; englishName: string; tagline: string; truth: string }> = {
   relaxmax: { 
     name: "ريلاكس ماكس", 
@@ -68,51 +68,6 @@ const productTranslations: Record<string, { name: string; englishName: string; t
   },
 };
 
-// Map product color names to palette keys
-const colorToPaletteKey: Record<string, string> = {
-  "Urban Charcoal": "desert-grey",
-  "Off White": "alexandria-linen",
-  "Elephant Grey": "coastal-fog",
-  "Chic Red": "nile-mist",
-  "Tan Beige": "amber-sand",
-  "Pink Rose": "desert-sage",
-  "Sunshine Yellow": "giza-gold",
-  "Ocean Blue": "nile-sapphire",
-  "Warm Grey": "mocha-taupe",
-  "Creamy Beige": "alexandria-linen",
-  "Slate Grey": "desert-grey",
-  "Espresso Brown": "mocha-taupe",
-  "Stone Grey": "coastal-fog",
-  "Navy Blue": "blue-nile-denim",
-  "Coordinated Styles": "alexandria-linen",
-};
-
-const getColorHex = (colorName: string): string => {
-  const paletteKey = colorToPaletteKey[colorName];
-  if (paletteKey) {
-    const paletteEntry = PALETTE_MAP.get(paletteKey);
-    if (paletteEntry) return paletteEntry.hex;
-  }
-  const fallbackColors: Record<string, string> = {
-    "Urban Charcoal": "#3D3D3D",
-    "Off White": "#F5F5DC",
-    "Elephant Grey": "#8B8B8B",
-    "Chic Red": "#C41E3A",
-    "Tan Beige": "#D2B48C",
-    "Pink Rose": "#E8B4B8",
-    "Sunshine Yellow": "#FFD700",
-    "Ocean Blue": "#1E4D7B",
-    "Warm Grey": "#9B8B7A",
-    "Creamy Beige": "#F5E6D3",
-    "Slate Grey": "#708090",
-    "Espresso Brown": "#4A3728",
-    "Stone Grey": "#928E85",
-    "Navy Blue": "#1B365D",
-    "Coordinated Styles": "#E8DFD1",
-  };
-  return fallbackColors[colorName] || "#CCC";
-};
-
 interface ProductCardProps {
   product: Product;
   onClick: () => void;
@@ -154,37 +109,53 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
   const isArabic = lang === 'ar';
   const translation = productTranslations[product.id];
   
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [currentColorIndex, setCurrentColorIndex] = useState(0);
-  const colors = product.colors || [];
+  // Get swatches from productSwatches (palette keys) instead of product.colors
+  const swatchKeys = productSwatches[product.id] || [];
+  const [currentSwatchIndex, setCurrentSwatchIndex] = useState(0);
 
+  // Get the current swatch key and its image
+  const currentSwatchKey = swatchKeys[currentSwatchIndex] || null;
+  
   const displayImage = useMemo(() => {
-    const colorToUse = selectedColor || (colors.length > 0 ? colors[currentColorIndex] : null);
-    if (colorToUse) {
-      const paletteKey = colorToPaletteKey[colorToUse];
-      if (paletteKey) {
-        const colorImage = getProductColorImage(product.id, paletteKey);
-        if (colorImage) return colorImage;
-      }
+    if (currentSwatchKey) {
+      const colorImage = getProductColorImage(product.id, currentSwatchKey);
+      if (colorImage) return colorImage;
     }
     return defaultHeroImage;
-  }, [selectedColor, currentColorIndex, defaultHeroImage, product.id, colors]);
+  }, [currentSwatchIndex, currentSwatchKey, defaultHeroImage, product.id]);
+
+  // Get hex color for a palette key
+  const getSwatchHex = (swatchKey: string): string => {
+    const paletteEntry = PALETTE_MAP.get(swatchKey);
+    return paletteEntry?.hex || "#CCC";
+  };
+
+  // Get display name for a palette key
+  const getSwatchName = (swatchKey: string): string => {
+    const paletteEntry = PALETTE_MAP.get(swatchKey);
+    if (!paletteEntry) return swatchKey;
+    return isArabic ? paletteEntry.nameAr : paletteEntry.nameEn;
+  };
 
   // Navigation handlers for image arrows
   const handlePrevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (colors.length > 0) {
-      setCurrentColorIndex(prev => prev === 0 ? colors.length - 1 : prev - 1);
-      setSelectedColor(null);
+    if (swatchKeys.length > 0) {
+      setCurrentSwatchIndex(prev => prev === 0 ? swatchKeys.length - 1 : prev - 1);
     }
   };
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (colors.length > 0) {
-      setCurrentColorIndex(prev => prev === colors.length - 1 ? 0 : prev + 1);
-      setSelectedColor(null);
+    if (swatchKeys.length > 0) {
+      setCurrentSwatchIndex(prev => prev === swatchKeys.length - 1 ? 0 : prev + 1);
     }
+  };
+
+  // Handle swatch click - instantly update the image
+  const handleSwatchClick = (e: React.MouseEvent, index: number) => {
+    e.stopPropagation();
+    setCurrentSwatchIndex(index);
   };
 
   const formatPrice = (price: number) => {
@@ -201,11 +172,6 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
       return `${formatPrice(product.priceManual)} — ${formatPrice(product.pricePower)}`;
     }
     return product.price ? formatPrice(product.price) : "Contact for Price";
-  };
-
-  const handleSwatchClick = (e: React.MouseEvent, colorName: string) => {
-    e.stopPropagation();
-    setSelectedColor(colorName === selectedColor ? null : colorName);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -237,7 +203,6 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
   // WhatsApp notification for ComingSoon or BeFirstToKnow products
   const handleCardClick = () => {
     if (product.comingSoon || product.beFirstToKnow) {
-      // Use Arabic-only name for WhatsApp message
       const productName = isArabic && translation ? translation.name : product.name;
       const message = `ممكن تنبهوني أول ما ${productName} يبقى متاح؟`;
       const encodedMessage = encodeURIComponent(message);
@@ -247,8 +212,7 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
     }
   };
 
-  // Display names - Arabic WITH English in brackets per spec: سبيس سيفر (SpaceSaver)
-  // English inside parentheses must render LTR even in RTL context
+  // Display names - Arabic WITH English in brackets
   const displayName = isArabic && translation 
     ? <>{translation.name} (<span dir="ltr">{translation.englishName}</span>)</>
     : product.name;
@@ -348,15 +312,15 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
               product={{ 
                 id: product.id, 
                 name: product.name,
-                color: selectedColor || undefined 
+                color: currentSwatchKey || undefined 
               }} 
               size="sm"
             />
           </div>
         )}
         
-        {/* Image Navigation Arrows - Always visible when multiple colors */}
-        {colors.length > 1 && !product.comingSoon && !product.beFirstToKnow && (
+        {/* Image Navigation Arrows - Always visible when multiple swatches */}
+        {swatchKeys.length > 1 && !product.comingSoon && !product.beFirstToKnow && (
           <>
             <button
               onClick={handlePrevImage}
@@ -374,12 +338,12 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
             </button>
             {/* Image counter indicator */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex gap-1.5">
-              {colors.slice(0, 7).map((_, index) => (
+              {swatchKeys.slice(0, 7).map((_, index) => (
                 <span
                   key={index}
                   className={cn(
                     "w-1.5 h-1.5 rounded-full transition-all duration-200",
-                    currentColorIndex === index 
+                    currentSwatchIndex === index 
                       ? "bg-dandle-orange w-3" 
                       : "bg-deep-brown/40"
                   )}
@@ -624,10 +588,10 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
             )}
           </motion.div>
 
-          {/* Color Swatches - staggered pop-in */}
-          {colors.length > 0 && !product.comingSoon && !product.beFirstToKnow && (
+          {/* Color Swatches on hover - staggered pop-in */}
+          {swatchKeys.length > 0 && !product.comingSoon && !product.beFirstToKnow && (
             <motion.div 
-              className="flex gap-2 mt-3"
+              className="flex gap-2 mt-3 flex-wrap"
               initial={{ opacity: 0, y: 10 }}
               animate={{ 
                 opacity: isHovered ? 1 : 0, 
@@ -638,21 +602,21 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
                 delay: isHovered ? choreographyDelays.swatches : 0,
               }}
             >
-              {colors.slice(0, 5).map((color, index) => (
+              {swatchKeys.slice(0, 6).map((swatchKey, index) => (
                 <motion.button
-                  key={color}
-                  onClick={(e) => handleSwatchClick(e, color)}
+                  key={swatchKey}
+                  onClick={(e) => handleSwatchClick(e, index)}
                   onMouseEnter={() => setHoveredSwatchIndex(index)}
                   onMouseLeave={() => setHoveredSwatchIndex(null)}
                   className={cn(
                     "relative w-6 h-6 rounded-full border-2 transition-all duration-200",
-                    selectedColor === color 
+                    currentSwatchIndex === index 
                       ? "border-champagne scale-110" 
                       : "border-white/40 hover:border-champagne/60"
                   )}
                   style={{ 
-                    backgroundColor: getColorHex(color),
-                    boxShadow: selectedColor === color 
+                    backgroundColor: getSwatchHex(swatchKey),
+                    boxShadow: currentSwatchIndex === index 
                       ? "0 0 12px rgba(212, 175, 55, 0.4)" 
                       : "0 2px 8px rgba(0,0,0,0.2)",
                   }}
@@ -668,17 +632,17 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
                     stiffness: 400,
                     damping: 15,
                   }}
-                  title={color}
+                  title={getSwatchName(swatchKey)}
                 >
                   {/* Tooltip */}
                   {hoveredSwatchIndex === index && (
                     <motion.span
-                      className="absolute -top-8 left-1/2 -translate-x-1/2 bg-obsidian/90 text-warm-white text-[10px] px-2 py-1 rounded whitespace-nowrap"
+                      className="absolute -top-8 left-1/2 -translate-x-1/2 bg-obsidian/90 text-warm-white text-[10px] px-2 py-1 rounded whitespace-nowrap z-50"
                       initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
                     >
-                      {color}
+                      {getSwatchName(swatchKey)}
                     </motion.span>
                   )}
                 </motion.button>
@@ -714,26 +678,26 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
         </p>
         
         {/* Color Swatches - ALWAYS VISIBLE */}
-        {colors.length > 0 && !product.comingSoon && !product.beFirstToKnow && (
+        {swatchKeys.length > 0 && !product.comingSoon && !product.beFirstToKnow && (
           <div className="flex gap-2 mb-3 flex-wrap">
-            {colors.slice(0, 6).map((color, index) => (
+            {swatchKeys.slice(0, 6).map((swatchKey, index) => (
               <button
-                key={color}
-                onClick={(e) => handleSwatchClick(e, color)}
+                key={swatchKey}
+                onClick={(e) => handleSwatchClick(e, index)}
                 className={cn(
                   "relative w-6 h-6 rounded-full border-2 transition-all duration-200",
-                  selectedColor === color 
+                  currentSwatchIndex === index 
                     ? "border-champagne scale-110 ring-2 ring-champagne/30" 
                     : "border-charcoal/20 hover:border-champagne/60"
                 )}
                 style={{ 
-                  backgroundColor: getColorHex(color),
-                  boxShadow: selectedColor === color 
+                  backgroundColor: getSwatchHex(swatchKey),
+                  boxShadow: currentSwatchIndex === index 
                     ? "0 0 8px rgba(212, 175, 55, 0.4)" 
                     : "0 1px 3px rgba(0,0,0,0.1)",
                 }}
-                title={color}
-                aria-label={`Select ${color}`}
+                title={getSwatchName(swatchKey)}
+                aria-label={`Select ${getSwatchName(swatchKey)}`}
               />
             ))}
           </div>
