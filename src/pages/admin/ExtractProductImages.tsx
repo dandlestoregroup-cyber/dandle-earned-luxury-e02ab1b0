@@ -125,34 +125,43 @@ export default function ExtractProductImages() {
 
   const loadStorageImages = async () => {
     try {
-      const { data, error } = await supabase.storage
-        .from('product-images')
-        .list('extracted-products', { limit: 500 });
+      // List all product subdirectories
+      const productFolders = ['relaxmax', 'diva', 'cozycompanion', 'comfortplus', 'easyup', 'easyup-compact', 'worknest', 'spacesaver', 'complete-set', 'extracted-products'];
+      const allImages: ExtractedImage[] = [];
       
-      if (error) {
-        console.error('Error loading storage images:', error);
-        return;
+      for (const folder of productFolders) {
+        const { data, error } = await supabase.storage
+          .from('product-images')
+          .list(folder, { limit: 100 });
+        
+        if (error) {
+          console.log(`No images in ${folder}:`, error.message);
+          continue;
+        }
+        
+        const images = (data || [])
+          .filter(file => !file.name.startsWith('.') && file.name.includes('.'))
+          .map(file => {
+            const { productKey, swatchKey } = parseFilename(file.name);
+            const storagePath = `${folder}/${file.name}`;
+            const { data: urlData } = supabase.storage
+              .from('product-images')
+              .getPublicUrl(storagePath);
+            
+            return {
+              name: file.name,
+              path: storagePath,
+              url: urlData.publicUrl,
+              productKey: folder === 'extracted-products' ? productKey : folder,
+              swatchKey,
+              inStorage: true,
+            };
+          });
+        
+        allImages.push(...images);
       }
       
-      const images: ExtractedImage[] = (data || [])
-        .filter(file => !file.name.startsWith('.'))
-        .map(file => {
-          const { productKey, swatchKey } = parseFilename(file.name);
-          const { data: urlData } = supabase.storage
-            .from('product-images')
-            .getPublicUrl(`extracted-products/${file.name}`);
-          
-          return {
-            name: file.name,
-            path: `extracted-products/${file.name}`,
-            url: urlData.publicUrl,
-            productKey,
-            swatchKey,
-            inStorage: true,
-          };
-        });
-      
-      setStorageImages(images);
+      setStorageImages(allImages);
     } catch (err) {
       console.error('Failed to load storage images:', err);
     }
@@ -257,9 +266,9 @@ export default function ExtractProductImages() {
       }
     }
     
-    // Get base URL for storage
+    // Get base URL for storage - use product subdirectories
     const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID || 'rbvbrxjnhmgrtxvwusxr';
-    const baseUrl = `https://${projectId}.supabase.co/storage/v1/object/public/product-images/extracted-products`;
+    const baseUrl = `https://${projectId}.supabase.co/storage/v1/object/public/product-images`;
     
     // Generate TypeScript code
     let code = `/**
@@ -289,7 +298,8 @@ export const productColorImages: Record<string, ColorVariant[]> = {\n`;
         if (seenSwatches.has(swatchKey)) continue;
         seenSwatches.add(swatchKey);
         
-        const imagePath = `${baseUrl}/${encodeURIComponent(img.name)}`;
+        // Use product subdirectory path
+        const imagePath = `${baseUrl}/${productKey}/${encodeURIComponent(img.name)}`;
         code += `    { swatchKey: '${swatchKey}', imageSrc: '${imagePath}' },\n`;
       }
       code += `  ],\n`;
