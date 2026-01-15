@@ -69,7 +69,7 @@ serve(async (req: Request) => {
     console.log("Extracting ZIP...");
     const zip = await JSZip.loadAsync(zipData);
     
-    const results: { name: string; uploaded: boolean; error?: string; productKey?: string; swatchKey?: string }[] = [];
+    const results: { name: string; uploaded: boolean; error?: string; productKey?: string; swatchKey?: string; path?: string }[] = [];
     
     // Parse filename patterns
     const parseFilename = (filename: string): { productKey?: string; swatchKey?: string } => {
@@ -163,20 +163,25 @@ serve(async (req: Request) => {
         : ext === 'gif' ? 'image/gif'
         : 'image/jpeg';
       
-      console.log(`Uploading: ${name} (${productKey}/${swatchKey})`);
+      // Upload to product subdirectory if product key is found, otherwise to extracted-products
+      const uploadPath = productKey 
+        ? `${productKey}/${name}` 
+        : `extracted-products/${name}`;
+      
+      console.log(`Uploading: ${name} to ${uploadPath} (${productKey}/${swatchKey})`);
       
       const { error: uploadError } = await supabase.storage
         .from('product-images')
-        .upload(`extracted-products/${name}`, data, {
+        .upload(uploadPath, data, {
           contentType,
           upsert: true,
         });
       
       if (uploadError) {
         console.error(`Upload error for ${name}:`, uploadError);
-        results.push({ name, uploaded: false, error: uploadError.message, productKey, swatchKey });
+        results.push({ name, uploaded: false, error: uploadError.message, productKey, swatchKey, path: uploadPath });
       } else {
-        results.push({ name, uploaded: true, productKey, swatchKey });
+        results.push({ name, uploaded: true, productKey, swatchKey, path: uploadPath });
       }
     }
     
