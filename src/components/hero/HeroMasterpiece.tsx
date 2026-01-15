@@ -15,12 +15,12 @@ const VIDEO_SCENES = [
   { en: "For Real Homes", ar: "لبيوت حقيقية" },
 ];
 
-// Hero belief rotation - 4th line: non-snobby version per spec
+// Hero belief rotation - gift-aligned messaging
 const BELIEF_STATEMENTS = [
-  { en: "This is my seat.", ar: "هذا مقعدي." },
-  { en: "The room feels right.", ar: "الغرفة تبدو صحيحة." },
-  { en: "I enjoy using it.", ar: "أستمتع باستخدامه." },
-  { en: "A gift I'd be happy to give.", ar: "هدية أسعد بتقديمها." },
+  { en: "I knew it was the one.", ar: "عرفته من أول نظرة." },
+  { en: "A gift I keep for myself.", ar: "هدية أحتفظ بها لنفسي." },
+  { en: "They'll remember this every day.", ar: "سيتذكرونها كل يوم." },
+  { en: "This is where comfort lives.", ar: "هنا تسكن الراحة." },
 ];
 
 const HeroMasterpiece = () => {
@@ -378,7 +378,7 @@ const HeroMasterpiece = () => {
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={currentBelief}
-                    className={`text-dandle-orange font-medium text-lg md:text-xl mb-8 ${isArabic ? 'font-body-ar' : 'font-body'}`}
+                    className={`text-dandle-orange font-medium text-lg md:text-xl mb-8 italic ${isArabic ? 'font-body-ar' : "font-['Playfair_Display']"}`}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
