@@ -1,14 +1,18 @@
-/* Prompt 2F: 7 swatches per product */
+/* Updated per user spec: specific swatches for DIVA, WORKNEST, COZYCOMPANION, COMPLETE SET */
 
-// Each product gets 7 colors from PALETTE_14
+// Each product gets specific colors from PALETTE_14
 export const productSwatches: Record<string, string[]> = {
   'relaxmax': ['nile-sapphire', 'alexandria-linen', 'desert-sage', 'mocha-taupe', 'nile-mist', 'giza-gold', 'oasis-green'],
   'comfortplus': ['alexandria-linen', 'desert-grey', 'amber-sand', 'coastal-fog', 'papyrus-stripe', 'clay-pottery', 'mocha-taupe'],
-  'diva': ['nile-sapphire', 'desert-sage', 'nile-mist', 'sandstorm-ochre', 'oasis-green', 'blue-nile-denim', 'giza-gold'],
-  'cozycompanion': ['alexandria-linen', 'mocha-taupe', 'coastal-fog', 'amber-sand', 'papyrus-stripe', 'desert-grey', 'clay-pottery'],
+  // DIVA: Sapphire Blue, Amber Sand, Desert Grey, Terracotta, Giza Gold, Alexandria Linen
+  'diva': ['nile-sapphire', 'amber-sand', 'desert-grey', 'nile-mist', 'giza-gold', 'alexandria-linen'],
+  // COZYCOMPANION: Mocha Taupe, Sandstorm Ochre, Clay Pottery, Papyrus Stripe, Oasis Green, Amber Sand
+  'cozycompanion': ['mocha-taupe', 'sandstorm-ochre', 'clay-pottery', 'papyrus-stripe', 'oasis-green', 'amber-sand'],
   'easyup': ['desert-grey', 'coastal-fog', 'mocha-taupe', 'amber-sand', 'alexandria-linen', 'papyrus-stripe', 'nile-sapphire'],
   'easyup-compact': ['nile-sapphire', 'desert-grey', 'mocha-taupe'], // Limited to 3 colors: Navy Blue, Stone Grey, Espresso Brown
-  'worknest': ['blue-nile-denim', 'desert-grey', 'coastal-fog', 'nile-sapphire', 'oasis-green', 'mocha-taupe', 'amber-sand'],
+  // WORKNEST: Desert Grey, Coastal Fog, Desert Sage, Blue Nile, Mocha Taupe, Alexandria Linen
+  'worknest': ['desert-grey', 'coastal-fog', 'desert-sage', 'blue-nile-denim', 'mocha-taupe', 'alexandria-linen'],
   'spacesaver': ['nile-mist', 'alexandria-linen', 'desert-sage', 'papyrus-stripe', 'amber-sand', 'giza-gold', 'sandstorm-ochre'],
-  'complete-set': ['alexandria-linen', 'mocha-taupe', 'desert-sage', 'coastal-fog', 'nile-mist', 'amber-sand', 'papyrus-stripe'],
+  // COMPLETE SET: Alexandria Linen, Coastal Fog, Nile Sapphire, Oasis Green, Giza Gold, Blue Nile
+  'complete-set': ['alexandria-linen', 'coastal-fog', 'nile-sapphire', 'oasis-green', 'giza-gold', 'blue-nile-denim'],
 };

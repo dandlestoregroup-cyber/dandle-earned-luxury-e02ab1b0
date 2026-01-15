@@ -1,77 +1,98 @@
 /**
  * Maps each product to available color variants with actual product images
  * Keys match the palette keys from palette.ts
- * Each product gets 4-6 strategic swatches with corresponding images
+ * Images served from Supabase Storage (product-images bucket)
  */
+
+const STORAGE_BASE = 'https://rbvbrxjnhmgrtxvwusxr.supabase.co/storage/v1/object/public/product-images';
 
 export type ColorVariant = {
   swatchKey: string;
   imageSrc: string;
 };
 
-// Product-specific color variants with actual images
+// Product-specific color variants with Supabase Storage URLs
 export const productColorImages: Record<string, ColorVariant[]> = {
   'relaxmax': [
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/relaxmax-hero-offwhite.jpg' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/relaxmax-brown-lifestyle.jpg' },
-    { swatchKey: 'nile-sapphire', imageSrc: '/images/dandle-relaxmax-flagship.webp' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/dandle-relaxmax.jpg' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/relaxmax-lifestyle-day.png' },
+    { swatchKey: 'alexandria-linen', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-alexandria-linen.webp` },
+    { swatchKey: 'mocha-taupe', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-mocha-taupe.webp` },
+    { swatchKey: 'nile-sapphire', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-nile-sapphire.webp` },
+    { swatchKey: 'desert-grey', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-desert-grey.webp` },
+    { swatchKey: 'coastal-fog', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-coastal-fog.webp` },
+    { swatchKey: 'desert-sage', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-desert-sage.webp` },
+    { swatchKey: 'nile-mist', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-nile-mist.webp` },
+    { swatchKey: 'giza-gold', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-giza-gold.webp` },
+    { swatchKey: 'oasis-green', imageSrc: `${STORAGE_BASE}/relaxmax/relaxmax-oasis-green.webp` },
   ],
   'diva': [
-    { swatchKey: 'nile-mist', imageSrc: '/images/diva-terracotta-reclined.webp' },
-    { swatchKey: 'desert-sage', imageSrc: '/images/diva-desert-sage-green.webp' },
-    { swatchKey: 'giza-gold', imageSrc: '/images/diva-giza-gold.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/diva-oasis-green.webp' },
-    { swatchKey: 'nile-sapphire', imageSrc: '/images/dandle-diva.jpg' },
+    // DIVA: Sapphire Blue, Amber Sand, Desert Grey, Terracotta, Giza Gold, Alexandria Linen
+    { swatchKey: 'nile-sapphire', imageSrc: `${STORAGE_BASE}/diva/diva-nile-sapphire.webp` },
+    { swatchKey: 'amber-sand', imageSrc: `${STORAGE_BASE}/diva/diva-amber-sand.webp` },
+    { swatchKey: 'desert-grey', imageSrc: `${STORAGE_BASE}/diva/diva-desert-grey.webp` },
+    { swatchKey: 'nile-mist', imageSrc: `${STORAGE_BASE}/diva/diva-nile-mist.webp` }, // Terracotta
+    { swatchKey: 'giza-gold', imageSrc: `${STORAGE_BASE}/diva/diva-giza-gold.webp` },
+    { swatchKey: 'alexandria-linen', imageSrc: `${STORAGE_BASE}/diva/diva-alexandria-linen.webp` },
   ],
   'cozycompanion': [
-    { swatchKey: 'giza-gold', imageSrc: '/images/cozycompanion-yellow-front.jpg' },
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/cozycompanion-beige-front.jpg' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/cozycompanion-mocha-taupe.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/cozycompanion-coastal-fog.webp' },
-    { swatchKey: 'amber-sand', imageSrc: '/images/cozycompanion-beige-front.jpg' },
+    // COZYCOMPANION: Mocha Taupe, Sandstorm Ochre, Clay Pottery, Papyrus Stripe, Oasis Green, Amber Sand
+    { swatchKey: 'mocha-taupe', imageSrc: `${STORAGE_BASE}/cozycompanion/cozycompanion-mocha-taupe.webp` },
+    { swatchKey: 'sandstorm-ochre', imageSrc: `${STORAGE_BASE}/cozycompanion/cozycompanion-sandstorm-ochre.webp` },
+    { swatchKey: 'clay-pottery', imageSrc: `${STORAGE_BASE}/cozycompanion/cozycompanion-clay-pottery.webp` },
+    { swatchKey: 'papyrus-stripe', imageSrc: `${STORAGE_BASE}/cozycompanion/cozycompanion-papyrus-stripe.webp` },
+    { swatchKey: 'oasis-green', imageSrc: `${STORAGE_BASE}/cozycompanion/cozycompanion-oasis-green.webp` },
+    { swatchKey: 'amber-sand', imageSrc: `${STORAGE_BASE}/cozycompanion/cozycompanion-amber-sand.webp` },
   ],
   'comfortplus': [
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/comfortplus-tan-front.webp' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/dandle-comfortplus.jpg' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/dandle-comfortplus.jpg' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/dandle-comfortplus.jpg' },
-    { swatchKey: 'amber-sand', imageSrc: '/images/comfortplus-tan-front.webp' },
+    { swatchKey: 'alexandria-linen', imageSrc: `${STORAGE_BASE}/comfortplus/comfortplus-alexandria-linen.webp` },
+    { swatchKey: 'desert-grey', imageSrc: `${STORAGE_BASE}/comfortplus/comfortplus-desert-grey.webp` },
+    { swatchKey: 'mocha-taupe', imageSrc: `${STORAGE_BASE}/comfortplus/comfortplus-mocha-taupe.webp` },
+    { swatchKey: 'coastal-fog', imageSrc: `${STORAGE_BASE}/comfortplus/comfortplus-coastal-fog.webp` },
+    { swatchKey: 'amber-sand', imageSrc: `${STORAGE_BASE}/comfortplus/comfortplus-amber-sand.webp` },
+    { swatchKey: 'papyrus-stripe', imageSrc: `${STORAGE_BASE}/comfortplus/comfortplus-papyrus-stripe.webp` },
+    { swatchKey: 'clay-pottery', imageSrc: `${STORAGE_BASE}/comfortplus/comfortplus-clay-pottery.webp` },
   ],
   'easyup': [
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/easyup-beige-front.jpg' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/easyup-standard-grey-front.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/easyup-standard-coastal-fog.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/easyup-standard-mocha-taupe.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/easyup-standard-oasis-green.webp' },
+    { swatchKey: 'alexandria-linen', imageSrc: `${STORAGE_BASE}/easyup/easyup-alexandria-linen.webp` },
+    { swatchKey: 'desert-grey', imageSrc: `${STORAGE_BASE}/easyup/easyup-desert-grey.webp` },
+    { swatchKey: 'coastal-fog', imageSrc: `${STORAGE_BASE}/easyup/easyup-coastal-fog.webp` },
+    { swatchKey: 'mocha-taupe', imageSrc: `${STORAGE_BASE}/easyup/easyup-mocha-taupe.webp` },
+    { swatchKey: 'oasis-green', imageSrc: `${STORAGE_BASE}/easyup/easyup-oasis-green.webp` },
+    { swatchKey: 'amber-sand', imageSrc: `${STORAGE_BASE}/easyup/easyup-amber-sand.webp` },
+    { swatchKey: 'papyrus-stripe', imageSrc: `${STORAGE_BASE}/easyup/easyup-papyrus-stripe.webp` },
+    { swatchKey: 'nile-sapphire', imageSrc: `${STORAGE_BASE}/easyup/easyup-nile-sapphire.webp` },
   ],
   'easyup-compact': [
-    // Limited to 3 colors only: Navy Blue, Stone Grey, Espresso Brown (OMASH Damsuk textured leather)
-    { swatchKey: 'nile-sapphire', imageSrc: '/images/easyup-compact-charcoal-front.jpg' }, // Navy Blue
-    { swatchKey: 'desert-grey', imageSrc: '/images/easyup-compact-grey-front.webp' }, // Stone Grey
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/easyup-compact-charcoal-reclined.png' }, // Espresso Brown
+    // Limited to 3 colors only: Navy Blue, Stone Grey, Espresso Brown
+    { swatchKey: 'nile-sapphire', imageSrc: `${STORAGE_BASE}/easyup-compact/easyup-compact-nile-sapphire.webp` },
+    { swatchKey: 'desert-grey', imageSrc: `${STORAGE_BASE}/easyup-compact/easyup-compact-desert-grey.webp` },
+    { swatchKey: 'mocha-taupe', imageSrc: `${STORAGE_BASE}/easyup-compact/easyup-compact-mocha-taupe.webp` },
   ],
   'worknest': [
-    { swatchKey: 'blue-nile-denim', imageSrc: '/images/worknest-blue-front.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/worknest-oasis-green.webp' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/worknest-desert-grey-reclined.webp' },
-    { swatchKey: 'nile-sapphire', imageSrc: '/images/worknest-blue-front.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/dandle-worknest.jpg' },
+    // WORKNEST: Desert Grey, Coastal Fog, Desert Sage, Blue Nile, Mocha Taupe, Alexandria Linen
+    { swatchKey: 'desert-grey', imageSrc: `${STORAGE_BASE}/worknest/worknest-desert-grey.webp` },
+    { swatchKey: 'coastal-fog', imageSrc: `${STORAGE_BASE}/worknest/worknest-coastal-fog.webp` },
+    { swatchKey: 'desert-sage', imageSrc: `${STORAGE_BASE}/worknest/worknest-desert-sage.webp` },
+    { swatchKey: 'blue-nile-denim', imageSrc: `${STORAGE_BASE}/worknest/worknest-blue-nile-denim.webp` },
+    { swatchKey: 'mocha-taupe', imageSrc: `${STORAGE_BASE}/worknest/worknest-mocha-taupe.webp` },
+    { swatchKey: 'alexandria-linen', imageSrc: `${STORAGE_BASE}/worknest/worknest-alexandria-linen.webp` },
   ],
   'spacesaver': [
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/spacesaver-offwhite-reclined.jpg' },
-    { swatchKey: 'nile-mist', imageSrc: '/images/spacesaver-red-front.webp' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/spacesaver-desert-grey.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/spacesaver-mocha-taupe.webp' },
-    { swatchKey: 'desert-sage', imageSrc: '/images/spacesaver-burgundy-lifestyle.webp' },
+    { swatchKey: 'nile-mist', imageSrc: `${STORAGE_BASE}/spacesaver/spacesaver-nile-mist.webp` },
+    { swatchKey: 'alexandria-linen', imageSrc: `${STORAGE_BASE}/spacesaver/spacesaver-alexandria-linen.webp` },
+    { swatchKey: 'desert-sage', imageSrc: `${STORAGE_BASE}/spacesaver/spacesaver-desert-sage.webp` },
+    { swatchKey: 'papyrus-stripe', imageSrc: `${STORAGE_BASE}/spacesaver/spacesaver-papyrus-stripe.webp` },
+    { swatchKey: 'amber-sand', imageSrc: `${STORAGE_BASE}/spacesaver/spacesaver-amber-sand.webp` },
+    { swatchKey: 'giza-gold', imageSrc: `${STORAGE_BASE}/spacesaver/spacesaver-giza-gold.webp` },
+    { swatchKey: 'sandstorm-ochre', imageSrc: `${STORAGE_BASE}/spacesaver/spacesaver-sandstorm-ochre.webp` },
   ],
   'complete-set': [
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/complete-set-classic.jpg' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/complete-set-modern-fireplace.jpg' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/complete-set-coastal-modern.jpg' },
-    { swatchKey: 'desert-sage', imageSrc: '/images/complete-set-family-modern.jpg' },
-    { swatchKey: 'amber-sand', imageSrc: '/images/complete-set-sunset-fireplace.jpg' },
+    // COMPLETE SET: Alexandria Linen, Coastal Fog, Nile Sapphire, Oasis Green, Giza Gold, Blue Nile
+    { swatchKey: 'alexandria-linen', imageSrc: `${STORAGE_BASE}/complete-set/complete-set-alexandria-linen.webp` },
+    { swatchKey: 'coastal-fog', imageSrc: `${STORAGE_BASE}/complete-set/complete-set-coastal-fog.webp` },
+    { swatchKey: 'nile-sapphire', imageSrc: `${STORAGE_BASE}/complete-set/complete-set-nile-sapphire.webp` },
+    { swatchKey: 'oasis-green', imageSrc: `${STORAGE_BASE}/complete-set/complete-set-oasis-green.webp` },
+    { swatchKey: 'giza-gold', imageSrc: `${STORAGE_BASE}/complete-set/complete-set-giza-gold.webp` },
+    { swatchKey: 'blue-nile-denim', imageSrc: `${STORAGE_BASE}/complete-set/complete-set-blue-nile-denim.webp` },
   ],
 };
 
@@ -87,4 +108,10 @@ export function getProductColorImage(productId: string, swatchKey: string): stri
 export function getProductSwatchKeys(productId: string): string[] {
   const variants = productColorImages[productId];
   return variants?.map(v => v.swatchKey) || [];
+}
+
+// Get first available image for a product (default hero)
+export function getProductDefaultImage(productId: string): string | null {
+  const variants = productColorImages[productId];
+  return variants?.[0]?.imageSrc || null;
 }
