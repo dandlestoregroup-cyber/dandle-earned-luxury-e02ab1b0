@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getLangFromStorage, type LangKey } from "@/i18n/strings";
 
 const partners = [
@@ -55,6 +54,14 @@ const partners = [
 
 const Partners = () => {
   const [lang, setLang] = useState<LangKey>('ar');
+  const [hasRevealed, setHasRevealed] = useState(false);
+  const [showRoles, setShowRoles] = useState(false);
+  const [showBenefits, setShowBenefits] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Check for reduced motion preference
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   useEffect(() => {
     const storedLang = getLangFromStorage();
@@ -66,18 +73,57 @@ const Partners = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Confidence Reveal: One-time scroll trigger
+  useEffect(() => {
+    // If reduced motion or already revealed, show everything immediately
+    if (prefersReducedMotion || hasRevealed) {
+      setShowRoles(true);
+      setShowBenefits(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasRevealed) {
+            setHasRevealed(true);
+            
+            // Step 1: Reveal roles
+            setShowRoles(true);
+            
+            // Step 2: Reveal benefits after 140ms delay
+            setTimeout(() => {
+              setShowBenefits(true);
+            }, 140);
+          }
+        });
+      },
+      { threshold: 0.6 } // Trigger when 60% visible
+    );
+
+    const section = sectionRef.current;
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
+  }, [hasRevealed, prefersReducedMotion]);
+
   const isArabic = lang === 'ar';
 
   return (
-    <section className="py-20 md:py-28 bg-cream" dir={isArabic ? 'rtl' : 'ltr'}>
+    <section 
+      ref={sectionRef}
+      className="py-20 md:py-28 bg-cream" 
+      dir={isArabic ? 'rtl' : 'ltr'}
+    >
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
+        {/* Section Header - Always visible */}
+        <div className="text-center mb-16">
           <span 
             className={`text-xs text-bronze tracking-wide font-light ${isArabic ? 'font-body-ar' : 'font-body'}`}
           >
@@ -94,62 +140,80 @@ const Partners = () => {
               : "Every detail you feel is backed by specialists we trust."
             }
           </p>
-        </motion.div>
+        </div>
 
         {/* Partnership Image */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="max-w-5xl mx-auto mb-16"
-        >
+        <div className="max-w-5xl mx-auto mb-16">
           <div className="relative overflow-hidden shadow-elegant">
-            <motion.img
+            <img
               src="/images/dandle-partnerships-room.png"
               alt="DANDLE partnerships"
               className="w-full h-auto object-cover"
               loading="lazy"
-              whileInView={{ scale: [1.05, 1] }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
-        </motion.div>
+        </div>
 
-        {/* Partner Cards - Grid with enriched descriptions */}
+        {/* Partner Cards - Confidence Reveal */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {partners.map((partner, index) => (
-            <motion.div 
+          {partners.map((partner) => (
+            <div 
               key={partner.nameEn} 
-              className="bg-off-white p-6 rounded-sm shadow-sm hover:shadow-md transition-shadow border border-champagne/10"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 + index * 0.1 }}
+              className="bg-off-white p-6 rounded-sm shadow-sm border border-champagne/10"
             >
+              {/* Partner Name - Always visible */}
               <h3 className={`text-xl text-charcoal font-medium mb-1 ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
                 {isArabic ? partner.nameAr : partner.nameEn}
               </h3>
-              <p className={`text-xs text-dandle-orange tracking-wide mb-3 font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+              
+              {/* Partner Role (Tagline) - Reveals first */}
+              <p 
+                className={`text-xs text-dandle-orange tracking-wide mb-3 font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}
+                style={{ 
+                  opacity: showRoles ? 1 : 0,
+                  transition: 'opacity 80ms ease-out'
+                }}
+              >
                 {isArabic ? partner.taglineAr : partner.taglineEn}
               </p>
-              <p className={`text-charcoal/80 text-sm mb-2 leading-relaxed ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+              
+              {/* Customer Value - Reveals second */}
+              <p 
+                className={`text-charcoal/80 text-sm mb-2 leading-relaxed ${isArabic ? 'font-body-ar' : 'font-body'}`}
+                style={{ 
+                  opacity: showBenefits ? 1 : 0,
+                  transition: 'opacity 80ms ease-out'
+                }}
+              >
                 {isArabic ? partner.valueAr : partner.valueEn}
               </p>
-              <p className={`text-charcoal/50 text-xs ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+              
+              {/* Additional meaning - Reveals with benefits */}
+              <p 
+                className={`text-charcoal/50 text-xs ${isArabic ? 'font-body-ar' : 'font-body'}`}
+                style={{ 
+                  opacity: showBenefits ? 1 : 0,
+                  transition: 'opacity 80ms ease-out'
+                }}
+              >
                 {isArabic ? partner.meaningAr : partner.meaningEn}
               </p>
               
-              {/* Special highlight for OMASH */}
+              {/* Special highlight for OMASH - Reveals with benefits */}
               {partner.highlight && (
-                <div className="mt-3 pt-3 border-t border-champagne/20">
+                <div 
+                  className="mt-3 pt-3 border-t border-champagne/20"
+                  style={{ 
+                    opacity: showBenefits ? 1 : 0,
+                    transition: 'opacity 80ms ease-out'
+                  }}
+                >
                   <p className={`text-dandle-orange text-xs font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}>
                     {isArabic ? partner.highlightAr : partner.highlight}
                   </p>
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
