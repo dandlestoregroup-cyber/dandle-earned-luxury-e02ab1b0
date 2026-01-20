@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Cairo:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -176,6 +175,32 @@
   
   [lang="ar"] .font-headline,
   [dir="rtl"] .font-headline {
+    font-family: 'Cairo', sans-serif;
+  }
+  
+  /* Editorial typography for Hero sections */
+  .font-editorial-headline {
+    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
+    font-weight: 500;
+  }
+  
+  .font-editorial-eyebrow {
+    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
+    font-weight: 400;
+  }
+  
+  .font-editorial-body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+  }
+  
+  /* Arabic overrides for editorial fonts */
+  [dir="rtl"] .font-editorial-headline,
+  [dir="rtl"] .font-editorial-eyebrow {
+    font-family: 'Cairo', sans-serif;
+  }
+  
+  [dir="rtl"] .font-editorial-body {
     font-family: 'Cairo', sans-serif;
   }
 }
