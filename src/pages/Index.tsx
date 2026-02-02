@@ -12,6 +12,7 @@ import TrustBlock from "@/components/TrustBlock";
 import GiftOfComfort from "@/components/GiftOfComfort";
 import AmazonVerification from "@/components/AmazonVerification";
 import WishlistModal from "@/components/WishlistModal";
+import { CartDrawer } from "@/components/cart/CartDrawer";
 import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/utils/structuredData";
 
 const Index = () => {
@@ -40,6 +41,7 @@ const Index = () => {
       <Footer />
       <WhatsAppFloat />
       <WishlistModal />
+      <CartDrawer />
     </div>
   );
 };

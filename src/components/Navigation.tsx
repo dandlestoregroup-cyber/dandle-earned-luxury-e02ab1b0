@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ShoppingCart, Phone } from "lucide-react";
+import { Menu, X, Phone, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useCart } from "@/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
-import CartDrawer from "@/components/CartDrawer";
+import { CartButton } from "@/components/cart/CartButton";
 import { motion, AnimatePresence } from "framer-motion";
+import { useShopifyCartStore } from "@/stores/shopifyCartStore";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { getTotalItems } = useCart();
+  const getTotalItems = useShopifyCartStore((state) => state.getTotalItems);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,9 +22,9 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { labelEn: "Collection", labelAr: "المجموعة", href: "#products" },
+    { labelEn: "Collection", labelAr: "المجموعة", href: "/collection", isRoute: true },
     { labelEn: "Gift Finder", labelAr: "دليل الهدايا", href: "/gift", isRoute: true },
-    { labelEn: "Room Fit", labelAr: "مقاس الركن", href: "/room-fit", isRoute: true },
+    { labelEn: "Compare", labelAr: "قارن", href: "/compare", isRoute: true },
     { labelEn: "Our Story", labelAr: "قصتنا", href: "/our-story", isRoute: true },
     { labelEn: "Contact", labelAr: "تواصل", href: "#contact" },
   ];
@@ -99,7 +99,7 @@ const Navigation = () => {
                 <Phone className="w-4 h-4" />
                 <span className="hidden lg:inline">01222804255</span>
               </a>
-              <CartDrawer />
+              <CartButton />
               <Button 
                 className="btn-luxury text-xs px-6 py-3 rounded-none"
                 onClick={() => navigate('/#products')}
