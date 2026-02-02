@@ -1,7 +1,7 @@
-import HeroMasterpiece from "./hero/HeroMasterpiece";
+import HeroGiftingSeason from "./hero/HeroGiftingSeason";
 
 const Hero = () => {
-  return <HeroMasterpiece />;
+  return <HeroGiftingSeason />;
 };
 
 export default Hero;
