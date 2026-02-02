@@ -68,10 +68,11 @@ export function getLifestyleImagesForCarousel(): Array<{
   return siteImageManifest
     .filter((img) => lifestyleCategories.includes(img.category))
     .map((img) => ({
-      // Always prefer the deterministic storage URL (generated images live here)
-      // and let the UI fall back if the file doesn't exist yet.
-      src: getStorageUrl(img),
-      fallbackSrc: img.generatedUrl || img.referenceUrl,
+      // Only use storage URL if image exists, otherwise use fallback
+      src: img.status === 'exists' && img.generatedUrl 
+        ? img.generatedUrl 
+        : img.referenceUrl,
+      fallbackSrc: img.referenceUrl,
       alt: `${img.product} in ${img.setting}`,
       captionEn: img.captionEn || img.setting,
       captionAr: img.captionAr || img.setting,
@@ -88,18 +89,25 @@ export function getGiftCampaignBackground(): { src: string; fallbackSrc: string 
   // Look for gift-hero in manifest
   const giftHero = siteImageManifest.find((img) => img.id === 'gift-hero');
   if (giftHero) {
+    // Only use storage URL if image actually exists
+    const src = giftHero.status === 'exists' && giftHero.generatedUrl
+      ? giftHero.generatedUrl
+      : giftHero.referenceUrl;
     return {
-      src: getStorageUrl(giftHero),
-      fallbackSrc: giftHero.generatedUrl || giftHero.referenceUrl,
+      src,
+      fallbackSrc: giftHero.referenceUrl,
     };
   }
 
   // Fallback to a good lifestyle image
   const readingNook = siteImageManifest.find((img) => img.id === 'lifestyle-home-reading');
   if (readingNook) {
+    const src = readingNook.status === 'exists' && readingNook.generatedUrl
+      ? readingNook.generatedUrl
+      : readingNook.referenceUrl;
     return {
-      src: getStorageUrl(readingNook),
-      fallbackSrc: readingNook.generatedUrl || readingNook.referenceUrl,
+      src,
+      fallbackSrc: readingNook.referenceUrl,
     };
   }
 
