@@ -94,15 +94,13 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
         </motion.div>
 
         {/* Animated Headline - Bilingual */}
-        <div data-en="The Gift of Comfort" data-ar="هدية الراحة">
-          <AnimatedHeadline 
-            className="text-4xl md:text-6xl lg:text-7xl font-headline font-bold text-white text-center mb-4"
-            style={{ wordBreak: 'normal', overflowWrap: 'normal', hyphens: 'none', textWrap: 'balance' }}
-            delay={0.4}
-          >
-            The Gift of Comfort
-          </AnimatedHeadline>
-        </div>
+        <AnimatedHeadline 
+          textEn="The Gift of Comfort"
+          textAr="هدية الراحة"
+          className="text-4xl md:text-6xl lg:text-7xl font-headline font-bold text-white text-center mb-4"
+          style={{ wordBreak: 'normal', overflowWrap: 'normal', hyphens: 'none', textWrap: 'balance' }}
+          delay={0.4}
+        />
 
         {/* Subtitle - Bilingual */}
         <motion.p
