@@ -36,7 +36,7 @@ export function MotionProvider({ children }: MotionProviderProps) {
 
   return (
     <MotionContext.Provider value={{ reducedMotion }}>
-      <LazyMotion features={domAnimation} strict>
+      <LazyMotion features={domAnimation}>
         <MotionConfig reducedMotion={reducedMotion ? 'always' : 'never'}>
           {children}
         </MotionConfig>
