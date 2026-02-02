@@ -1,261 +1,117 @@
-1. Freeze the catalogue Do not touch product count, names, prices, variants, eligibility, or any catalogue fields. No new business rules. No “smart” pricing. No promos. No shipping logic. No bundles.
 
+# Plan: Fix Product Images & Bilingual RTL Support
+
+## Problem Analysis
 
-2. Upgrade the visual system without touching commerce Do:
+### 1. Product Images Not Replaced
+The uploaded images were added as **gallery images** in `productImageData.ts`, but the **main product card images** come from:
+- `productColorImages.ts` → Points to Supabase Storage URLs (e.g., `https://rbvbrxjnhmgrtxvwusxr.supabase.co/storage/v1/object/public/product-images/...`)
+- The ProductCard component fetches images from these Supabase URLs, NOT from local `public/images/`
+
+**To fix:** Need to either upload the new images to Supabase Storage or update the image mapping to use local paths.
 
+### 2. Arabic Text Reversed / Not Showing
+The `AnimatedHeadline` component splits text character-by-character and animates each letter. This breaks Arabic text because:
+- It doesn't read the `data-ar` attribute
+- Arabic text gets reversed when split by character without proper RTL handling
+- The parent `data-en`/`data-ar` wrapper doesn't work because children are hardcoded
+
+**Affected components:**
+- `HeroOffer.tsx` - AnimatedHeadline shows "The Gift of Comfort" always
+- All elements with `data-en`/`data-ar` that contain nested components
+
+---
+
+## Implementation Plan
+
+### Phase 1: Fix Bilingual AnimatedHeadline (Hero)
+
+**Update `src/components/hero/AnimatedHeadline.tsx`:**
+- Accept bilingual props `textEn` and `textAr`
+- Detect current language from storage
+- For Arabic text, don't split by character (prevents reversal)
+- Apply proper RTL direction
+
+**Update `src/components/hero/HeroOffer.tsx`:**
+- Pass both English and Arabic text to AnimatedHeadline
+- Remove the wrapper div with data attributes
+
+### Phase 2: Fix Product Images
+
+**Option A (Recommended): Update productColorImages.ts to use local paths**
+- Change image sources from Supabase URLs to local `/images/` paths for the newly uploaded images
+- This ensures immediate visibility
+
+**Option B: Upload to Supabase Storage**
+- Use the admin extraction tool to upload images to Supabase Storage
+- More complex but keeps architecture consistent
+
+We'll go with Option A for immediate fix.
+
+### Phase 3: Ensure All Site Text Follows Language Rules
+
+**English mode:** All text in English
+**Arabic mode:** All text in Arabic EXCEPT product names which show as:
+> `ريلاكس ماكس (RelaxMax)`
+
+**Review and update:**
+- HeroOffer.tsx
+- Quote.tsx  
+- TopBanner.tsx
+- ProductCard.tsx (already correct)
+- Navigation.tsx
+- Footer.tsx
+
+---
+
+## Technical Details
+
+### AnimatedHeadline Fix
+```tsx
+// New props interface
+interface AnimatedHeadlineProps {
+  textEn: string;
+  textAr: string;
+  className?: string;
+  delay?: number;
+  style?: React.CSSProperties;
+}
+
+// Detect language and render appropriately
+const lang = getLangFromStorage();
+const isArabic = lang === 'ar';
+const text = isArabic ? textAr : textEn;
+
+// For Arabic: don't split characters (animate as words or whole text)
+// For English: existing character animation
+```
+
+### Product Images Fix
+Update `productColorImages.ts` for products with new uploaded images:
+- relaxmax-mocha-taupe.webp
+- relaxmax-coastal-fog.webp
+- comfortplus-coastal-fog-lifestyle.webp
+- spacesaver-terracotta-reclined.webp
+- worknest-desert-grey-reclined-2.webp
+- spacesaver-mocha-taupe-reclined.webp
+- easyup-lift-assist-lifestyle-2.webp
+- easyup-compact-oasis-green-2.webp
+- cozycompanion-mocha-taupe-2.webp
+- cozycompanion-couple-lifestyle-2.webp
+
+---
 
+## Files to Modify
 
-Add a real image system: multi-angle + zoom + lazy loading + WebP/AVIF.
+1. `src/components/hero/AnimatedHeadline.tsx` - Add bilingual support with RTL handling
+2. `src/components/hero/HeroOffer.tsx` - Pass bilingual props to AnimatedHeadline
+3. `src/data/productColorImages.ts` - Add local image paths or update existing mappings
+4. `src/components/Quote.tsx` - Ensure proper RTL rendering
+5. `src/dandle-ui.ts` - Review RTL text handling
 
-Keep it purely assets + UI. No pricing changes. No variants logic beyond what already exists. Implement:
+## Success Criteria
 
-Create /src/components/product/ProductImageGallery.tsx
-
-Add angles: front, side, threeQuarter, back, detail
-
-Add pinch/zoom (mobile) + magnifier (desktop)
-
-Use responsive srcset + blur placeholder + loading=lazy for thumbnails
-
-
-3. Make the UI feel premium (motion + micro-interactions) Do:
-
-
-
-Replace basic hovers with physics-like transitions (subtle).
-
-Use Framer Motion for card hover, press, page transitions.
-
-Add scroll-reveal for sections (IntersectionObserver). Rules:
-
-Respect prefers-reduced-motion.
-
-No confetti. No gimmicks. Implement:
-
-Create /src/components/ui/MotionProvider.tsx
-
-Wrap App with MotionConfig (reduced motion aware)
-
-Add AnimatePresence around routes
-
-Add /src/components/ui/Reveal.tsx for scroll reveal
-
-
-4. Turn product browsing into “real e-commerce” discovery Do:
-
-
-
-Add search + filters + sorting over the same catalogue.
-
-URL-synced state for shareable filtered views. Implement:
-
-Install fuse.js
-
-Create /src/hooks/useProductDiscovery.ts
-
-Create /src/components/catalog/FilterBar.tsx (price range UI, feature toggles, mechanism toggle, color family)
-
-Create /src/pages/Collection.tsx with:
-
-Search input
-
-Sort dropdown
-
-FilterBar
-
-Product grid Rules:
-
-
-Filters must only read existing data. No computed business rules.
-
-
-5. Add comparison (decision support) Do:
-
-
-
-2–3 product compare page.
-
-Sticky headers, mobile snap scroll. Implement:
-
-Create /src/pages/Compare.tsx
-
-Create /src/components/compare/ComparisonTable.tsx
-
-Add “Compare” toggle on ProductCard that saves selected IDs in localStorage.
-
-
-6. Make PDP (product detail) convert like e-commerce Do:
-
-
-
-Clean, structured PDP layout:
-
-Gallery left
-
-Title + story + feature bullets
-
-Clear mechanism selection (only if it already exists)
-
-Clear CTA
-
-Trust micro-block under CTA (delivery + warranty) Implement:
-
-
-Refactor /src/pages/ProductDetail.tsx:
-
-Above-the-fold grid layout
-
-Tabs: Details / Specs / Care (content only)
-
-Sticky CTA bar on mobile Rules:
-
-
-Do not add any new add-ons, installation tiers, shipping, promos.
-
-
-7. Make cart feel modern (without changing rules) Do:
-
-
-
-Slide-in cart drawer
-
-Better line-item UI, quantity stepper, remove, color shown, mechanism shown
-
-Persist + restore Implement:
-
-Create /src/components/cart/CartDrawer.tsx
-
-Add keyboard focus trap + ESC close
-
-Add empty-state UI + “Continue shopping” Rules:
-
-No upsells. No thresholds. No shipping calculations.
-
-
-8. Performance: get it fast on Egyptian 4G Do:
-
-
-
-Route-level code splitting
-
-Image optimization everywhere
-
-Font loading fixed
-
-Lighthouse 90+ Implement:
-
-Add dynamic imports for heavy pages (ProductDetail, Compare, Gift)
-
-Add /src/components/media/OptimizedImage.tsx (lazy + srcset + sizes + blur)
-
-Preload critical fonts, set font-display: swap
-
-Remove unused libraries
-
-Add vite-plugin-pwa only if you will actually configure it (otherwise skip)
-
-
-9. Accessibility and polish Do:
-
-
-
-Keyboard nav works across nav/menu/cart
-
-Visible focus states
-
-Proper aria-labels
-
-Reduced motion support Implement:
-
-Add focus ring utilities in Tailwind
-
-Add Skip-to-content link
-
-Audit buttons/inputs for aria-labels
-
-
-10. Raise the design ceiling (layout + typography + spacing) Do:
-
-
-
-Increase negative space and section rhythm
-
-Tighten type scale: consistent headings and body sizes
-
-Consistent card radii and shadows Implement:
-
-Create /src/styles/tokens.css for only colors/shadows (don’t change locked values)
-
-Create /src/components/ui/Section.tsx for consistent section padding and max width
-
-Replace scattered spacing with Section component across homepage
-
-
-11. Clean architecture so it scales like a store Do:
-
-
-
-Separate “catalog data” from “UI state” cleanly Implement:
-
-/src/catalog/lovableCatalog.ts stays source of truth
-
-/src/types/product.ts defines Product
-
-/src/stores/cartStore.ts for cart state
-
-/src/stores/uiStore.ts for drawers/modals
-
-/src/pages/* only compose components
-
-
-12. Build checks so quality doesn’t regress Do:
-
-
-
-Basic CI checks: typecheck, build, lint
-
-Forbidden terms scan (only if you already use it) Implement:
-
-npm scripts: typecheck, lint, build
-
-Add a simple grep scan script if needed
-
-
-Order to execute (do in this exact sequence)
-
-1. Performance base (code splitting + OptimizedImage + font loading)
-
-
-2. Motion system (MotionProvider + route transitions + Reveal)
-
-
-3. Product gallery upgrade (multi-angle + zoom)
-
-
-4. PDP rebuild (layout + sticky mobile CTA)
-
-
-5. Discovery (search + filters + sort + URL sync)
-
-
-6. Compare page
-
-
-7. Cart drawer polish
-
-
-8. Accessibility pass
-
-
-9. Design unification pass (Section + tokens usage)
-
-
-
-Hard rules
-
-Do not touch catalogue data, pricing, or business logic.
-
-Any “e-commerce feel” must come from UI, navigation, discovery, PDP clarity, cart UX, speed, and polish.
-
-
-If you paste your current file tree (or just App.tsx + routes + ProductDetail.tsx + ProductCard.tsx), I’ll output the exact file-by-file patch list (what to add/replace) in one go.
+1. Hero headline shows "The Gift of Comfort" in English mode, "هدية الراحة" in Arabic mode (no reversed letters)
+2. All uploaded product images display correctly on product cards
+3. Arabic mode shows all Arabic text except product names in brackets
+4. No reversed Arabic letters anywhere on the site
