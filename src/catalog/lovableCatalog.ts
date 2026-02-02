@@ -250,23 +250,36 @@ export function getLovableProduct(handle: string): LovableProduct | null {
     (img) => img.category === "product-gallery" && img.productHandle === manifestHandle
   );
 
+  // Only use storage URL if image actually exists (status === 'exists')
+  // Otherwise fall back to generatedUrl or referenceUrl
+  const getImageSrc = (img: typeof heroManifest) => {
+    if (!img) return null;
+    if (img.status === 'exists' && img.generatedUrl) {
+      return img.generatedUrl;
+    }
+    // Fallback to referenceUrl for missing images
+    return img.referenceUrl;
+  };
+
   const heroImage = heroManifest
     ? {
         ...base.heroImage,
-        src: getStorageUrl(heroManifest),
+        src: getImageSrc(heroManifest) || base.heroImage.src,
         fallbackSrc: heroManifest.referenceUrl,
         width: heroManifest.dimensions.width,
         height: heroManifest.dimensions.height,
       }
     : base.heroImage;
 
-  const generatedGallery = galleryManifest.map((img) => ({
-    src: getStorageUrl(img),
-    fallbackSrc: img.referenceUrl,
-    width: img.dimensions.width,
-    height: img.dimensions.height,
-    alt: `${base.title} — ${img.setting}`,
-  }));
+  const generatedGallery = galleryManifest
+    .filter((img) => img.status === 'exists') // Only include images that exist
+    .map((img) => ({
+      src: img.generatedUrl || img.referenceUrl,
+      fallbackSrc: img.referenceUrl,
+      width: img.dimensions.width,
+      height: img.dimensions.height,
+      alt: `${base.title} — ${img.setting}`,
+    }));
 
   return {
     ...base,
