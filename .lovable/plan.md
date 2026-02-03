@@ -1,124 +1,184 @@
 
+# Image System Replacement + New Products
 
-# Elevate Partners Section: "Association That Inspires Trust"
+## Image Catalog (Single Source of Truth)
 
-## Current State Analysis
-
-The Partners component exists (`src/components/Partners.tsx`) and displays on the homepage, but:
-
-1. **Missing from view**: The `IstikbalShowroom` component is built but **not imported** into `Index.tsx` - the dedicated showroom experience section isn't showing
-2. **Basic card layout**: Current partners (OMASH, Istikbal, Vivian, Aqua Offers) are displayed in simple cards without visual distinction
-3. **No partner logos**: The OMASH partnership image (`dandle-omash-partnership.webp`) exists but isn't being used
-4. **Missing emotional impact**: The section doesn't communicate "these are world-class partners that elevate Dandle"
-
-## Strategic Vision
-
-Transform the Partners section into a **prestige association showcase** that:
-- Makes partners proud to be featured (they'll want to share it)
-- Builds customer trust through visible quality alliances
-- Communicates "these brands chose Dandle" (reverse positioning)
+| File | Product ID | Image Purpose |
+|------|-----------|---------------|
+| `1_Dandle_RelaxMax.webp` | `relaxmax` | Hero Image |
+| `2_Dandle_RelaxMax_Compact.webp` | `relaxmax-compact` | Hero Image (NEW) |
+| `3_Dandle_Worknest.webp` | `worknest` | Hero Image |
+| `4_Dandle_EasyUp_Compact.webp` | `easyup-compact` | Hero Image |
+| `5_Dandle_EasyUp_Standard.webp` | `easyup` | Hero Image |
+| `6_Dandle_CozyCompanion.webp` | `cozycompanion` | Hero Image |
+| `7_Dandle_Diva.webp` | `diva` | Hero Image |
+| `8_Dandle_The_Comfort_Collection.webp` | `complete-set` | Hero Image |
+| `9_Dandle_RelaxMax_Limited_Edition.webp` | `relaxmax-limited` | Hero Image (NEW) |
 
 ---
 
-## Implementation Plan
+## Phase 1: Copy Images to Project
 
-### Phase 1: Add IstikbalShowroom to Homepage
-
-Import and render the existing `IstikbalShowroom` component in the page flow - this dedicated showroom experience section is already built with premium styling (bronze gradient, appointment booking, all 4 branch locations).
-
-**Placement**: After `TrustBlock`, before `Partners` - creates a flow from "Why trust Dandle" → "Experience it in person" → "Our quality partners"
-
-### Phase 2: Redesign Partners Section
-
-**New Structure: "The Circle of Excellence"**
+Copy all 9 uploaded images to `public/images/` with clean naming:
 
 ```text
-+--------------------------------------------------+
-|           The Partners Behind the Finish          |
-|       Every detail backed by specialists.         |
-+--------------------------------------------------+
-|                                                  |
-|  ┌──────────────────────────────────────────┐    |
-|  │  [OMASH Partnership Hero Image]           │    |
-|  │  Full-width lifestyle image showing       │    |
-|  │  OMASH leather on a Dandle recliner       │    |
-|  └──────────────────────────────────────────┘    |
-|                                                  |
-|  OMASH Damsuk — Premium Materials               |
-|  "Textured leather and fabric excellence..."     |
-|  ○ Formerly Raytex — decades of trusted quality  |
-|                                                  |
-+--------------------------------------------------+
-|                                                  |
-|  ┌─────────┐  ┌─────────┐  ┌─────────┐          |
-|  │ Istikbal │  │ Vivian  │  │  Aqua   │          |
-|  │ Showroom │  │Interior │  │ Offers  │          |
-|  │ Network  │  │ Styling │  │Community│          |
-|  └─────────┘  └─────────┘  └─────────┘          |
-|                                                  |
-|  [3-column cards with L-corner brackets]         |
-|  Each with role, value proposition, meaning      |
-+--------------------------------------------------+
+public/images/
+├── dandle-relaxmax-hero.webp
+├── dandle-relaxmax-compact-hero.webp     (NEW)
+├── dandle-worknest-hero.webp
+├── dandle-easyup-compact-hero.webp
+├── dandle-easyup-standard-hero.webp
+├── dandle-cozycompanion-hero.webp
+├── dandle-diva-hero.webp
+├── dandle-complete-set-hero.webp
+└── dandle-relaxmax-limited-hero.webp     (NEW)
 ```
 
-**Design Elements**:
+---
 
-1. **Hero Partner Feature (OMASH)**: 
-   - Full-width image using `dandle-omash-partnership.webp`
-   - L-corner brackets (brand signature)
-   - Larger typography, premium feel
-   - Highlight: "EasyUp Compact uses OMASH textured leather"
+## Phase 2: Add New Products to Catalog
 
-2. **Partner Cards (Remaining 3)**:
-   - Elevated card design with subtle shadows
-   - L-corner brackets on hover
-   - Icon or subtle logo placeholder area
-   - Confidence Reveal animation (already implemented)
+### A. Update `src/types/product.ts`
 
-3. **Typography Refinements**:
-   - Partner names in headline font (Montserrat/Cairo)
-   - Roles in Dandle Orange
-   - Clean hierarchy: Name → Role → Value → Meaning
+Add two new products with locked copy:
 
-### Phase 3: Add Visual Trust Indicators
+**RelaxMax Compact**
+- ID: `relaxmax-compact`
+- Tagline: "Same Comfort, Smaller Footprint"
+- 3-Word Truth: "Compact. Cozy. Right."
+- Price: TBD (Coming Soon or BeFirstToKnow)
 
-- **"Official Partner" badges** where appropriate
-- **Association duration** where known (e.g., "Since 2022")
-- **Specific product callouts** (e.g., "OMASH leather featured in EasyUp Compact")
+**RelaxMax Limited Edition**
+- ID: `relaxmax-limited`
+- Tagline: "Premium Meets Performance"
+- 3-Word Truth: "Swivel. Sip. Settle."
+- Features: 360° swivel base, dual cup holders, premium leather
+- Price: TBD (Flagship pricing)
 
-### Phase 4: Partner Logos (Optional Enhancement)
+### B. Update `src/components/ProductCard.tsx`
 
-If partner logos are available, add a subtle logo bar:
-```text
-┌──────────────────────────────────────┐
-│  [OMASH]   [Istikbal]   [Vivian]     │
-│  Subtle grayscale logos              │
-└──────────────────────────────────────┘
+Add Arabic translations for new products:
+```typescript
+'relaxmax-compact': {
+  name: 'ريلاكس ماكس كومباكت',
+  englishName: 'RelaxMax Compact',
+  tagline: 'نفس الراحة، مساحة أصغر',
+  truth: 'مدمج. مريح. صحيح.'
+},
+'relaxmax-limited': {
+  name: 'ريلاكس ماكس ليميتد إيديشن',
+  englishName: 'RelaxMax Limited Edition',
+  tagline: 'الفخامة تلتقي بالأداء',
+  truth: 'دوار. رشفة. استرخاء.'
+}
 ```
+
+### C. Update `src/components/ProductGallery.tsx`
+
+Add new products to the featured order:
+```typescript
+const featuredOrder = [
+  "relaxmax",
+  "relaxmax-limited",    // NEW - after RelaxMax
+  "relaxmax-compact",    // NEW
+  "easyup",
+  "easyup-compact",
+  "comfortplus",         // Note: No image in batch - keep existing
+  "diva",
+  "spacesaver",          // Note: No image in batch - keep existing
+  "worknest",
+  "cozycompanion",
+  "complete-set",
+];
+```
+
+---
+
+## Phase 3: Replace All Image Mappings
+
+### A. Update `src/catalog/lovableCatalog.ts`
+
+Replace hero images for all 9 products with new uploaded images:
+
+```typescript
+{
+  productHandle: "relaxmax",
+  heroImage: {
+    src: "/images/dandle-relaxmax-hero.webp",
+    // ...
+  }
+}
+// ... repeat for all products
+```
+
+### B. Update `src/data/productColorImages.ts`
+
+Set new hero images as primary for each product:
+
+```typescript
+'relaxmax': [
+  { swatchKey: 'cognac-leather', imageSrc: '/images/dandle-relaxmax-hero.webp' },
+  // ... existing variants
+],
+'relaxmax-compact': [
+  { swatchKey: 'mocha-fabric', imageSrc: '/images/dandle-relaxmax-compact-hero.webp' },
+],
+'relaxmax-limited': [
+  { swatchKey: 'camel-leather', imageSrc: '/images/dandle-relaxmax-limited-hero.webp' },
+],
+// ... update all products
+```
+
+### C. Update `src/data/productImageData.ts`
+
+Update main image references for all products.
+
+---
+
+## Phase 4: Ensure Container Sizing
+
+### A. Review `ProductCard.tsx` aspect ratio
+
+Current: `aspect-[3/4]` (portrait)
+
+The uploaded images appear to be portrait orientation (approximately 3:4 or 2:3). Will verify and adjust if needed to ensure full image display without cropping.
+
+### B. Review image object-fit
+
+Current: `object-contain object-center`
+
+This ensures full image visibility. Will verify no cropping occurs.
 
 ---
 
 ## Files to Modify
 
-| File | Change |
-|------|--------|
-| `src/pages/Index.tsx` | Import and add `IstikbalShowroom` component |
-| `src/components/Partners.tsx` | Redesign with OMASH hero, elevated cards, L-brackets |
-| `src/components/ui/LCornerFrame.tsx` | Verify component availability for partner cards |
+| File | Changes |
+|------|---------|
+| `public/images/` | Copy 9 new hero images |
+| `src/types/product.ts` | Add 2 new products (RelaxMax Compact, RelaxMax Limited Edition) |
+| `src/components/ProductCard.tsx` | Add Arabic translations for new products |
+| `src/components/ProductGallery.tsx` | Add new products to featured order |
+| `src/catalog/lovableCatalog.ts` | Replace hero images for all products |
+| `src/data/productColorImages.ts` | Update primary color variants with new images |
+| `src/data/productImageData.ts` | Update main image references |
 
-## Bilingual Considerations
+---
 
-- All text already has `nameEn`/`nameAr` pairs in the partners data
-- RTL layout will automatically apply based on language
-- Partner names in Arabic mode: `أوماش دمسوق` (OMASH), `إستيكبال` (Istikbal), etc.
+## Missing Images Note
+
+Two products from the current catalog have NO new images in this batch:
+- **ComfortPlus** - Keep existing `/images/dandle-comfortplus.jpg`
+- **SpaceSaver** - Keep existing `/images/dandle-spacesaver.jpg`
+
+If you have images for these, please upload them in the next batch.
 
 ---
 
 ## Success Criteria
 
-1. IstikbalShowroom section visible on homepage with booking CTA
-2. OMASH featured prominently with partnership image
-3. All partner cards feel premium and editorial (not "salesy")
-4. Partners would be proud to screenshot and share
-5. Customers feel increased trust through visible quality associations
-
+1. All 9 uploaded images display as hero images on product cards
+2. Two new products (RelaxMax Compact, RelaxMax Limited Edition) visible in gallery
+3. Images display at full size without cropping
+4. Bilingual support works for new products
+5. No 404 errors on any product images
