@@ -1,117 +1,124 @@
 
-# Plan: Fix Product Images & Bilingual RTL Support
 
-## Problem Analysis
+# Elevate Partners Section: "Association That Inspires Trust"
 
-### 1. Product Images Not Replaced
-The uploaded images were added as **gallery images** in `productImageData.ts`, but the **main product card images** come from:
-- `productColorImages.ts` → Points to Supabase Storage URLs (e.g., `https://rbvbrxjnhmgrtxvwusxr.supabase.co/storage/v1/object/public/product-images/...`)
-- The ProductCard component fetches images from these Supabase URLs, NOT from local `public/images/`
+## Current State Analysis
 
-**To fix:** Need to either upload the new images to Supabase Storage or update the image mapping to use local paths.
+The Partners component exists (`src/components/Partners.tsx`) and displays on the homepage, but:
 
-### 2. Arabic Text Reversed / Not Showing
-The `AnimatedHeadline` component splits text character-by-character and animates each letter. This breaks Arabic text because:
-- It doesn't read the `data-ar` attribute
-- Arabic text gets reversed when split by character without proper RTL handling
-- The parent `data-en`/`data-ar` wrapper doesn't work because children are hardcoded
+1. **Missing from view**: The `IstikbalShowroom` component is built but **not imported** into `Index.tsx` - the dedicated showroom experience section isn't showing
+2. **Basic card layout**: Current partners (OMASH, Istikbal, Vivian, Aqua Offers) are displayed in simple cards without visual distinction
+3. **No partner logos**: The OMASH partnership image (`dandle-omash-partnership.webp`) exists but isn't being used
+4. **Missing emotional impact**: The section doesn't communicate "these are world-class partners that elevate Dandle"
 
-**Affected components:**
-- `HeroOffer.tsx` - AnimatedHeadline shows "The Gift of Comfort" always
-- All elements with `data-en`/`data-ar` that contain nested components
+## Strategic Vision
+
+Transform the Partners section into a **prestige association showcase** that:
+- Makes partners proud to be featured (they'll want to share it)
+- Builds customer trust through visible quality alliances
+- Communicates "these brands chose Dandle" (reverse positioning)
 
 ---
 
 ## Implementation Plan
 
-### Phase 1: Fix Bilingual AnimatedHeadline (Hero)
+### Phase 1: Add IstikbalShowroom to Homepage
 
-**Update `src/components/hero/AnimatedHeadline.tsx`:**
-- Accept bilingual props `textEn` and `textAr`
-- Detect current language from storage
-- For Arabic text, don't split by character (prevents reversal)
-- Apply proper RTL direction
+Import and render the existing `IstikbalShowroom` component in the page flow - this dedicated showroom experience section is already built with premium styling (bronze gradient, appointment booking, all 4 branch locations).
 
-**Update `src/components/hero/HeroOffer.tsx`:**
-- Pass both English and Arabic text to AnimatedHeadline
-- Remove the wrapper div with data attributes
+**Placement**: After `TrustBlock`, before `Partners` - creates a flow from "Why trust Dandle" → "Experience it in person" → "Our quality partners"
 
-### Phase 2: Fix Product Images
+### Phase 2: Redesign Partners Section
 
-**Option A (Recommended): Update productColorImages.ts to use local paths**
-- Change image sources from Supabase URLs to local `/images/` paths for the newly uploaded images
-- This ensures immediate visibility
+**New Structure: "The Circle of Excellence"**
 
-**Option B: Upload to Supabase Storage**
-- Use the admin extraction tool to upload images to Supabase Storage
-- More complex but keeps architecture consistent
-
-We'll go with Option A for immediate fix.
-
-### Phase 3: Ensure All Site Text Follows Language Rules
-
-**English mode:** All text in English
-**Arabic mode:** All text in Arabic EXCEPT product names which show as:
-> `ريلاكس ماكس (RelaxMax)`
-
-**Review and update:**
-- HeroOffer.tsx
-- Quote.tsx  
-- TopBanner.tsx
-- ProductCard.tsx (already correct)
-- Navigation.tsx
-- Footer.tsx
-
----
-
-## Technical Details
-
-### AnimatedHeadline Fix
-```tsx
-// New props interface
-interface AnimatedHeadlineProps {
-  textEn: string;
-  textAr: string;
-  className?: string;
-  delay?: number;
-  style?: React.CSSProperties;
-}
-
-// Detect language and render appropriately
-const lang = getLangFromStorage();
-const isArabic = lang === 'ar';
-const text = isArabic ? textAr : textEn;
-
-// For Arabic: don't split characters (animate as words or whole text)
-// For English: existing character animation
+```text
++--------------------------------------------------+
+|           The Partners Behind the Finish          |
+|       Every detail backed by specialists.         |
++--------------------------------------------------+
+|                                                  |
+|  ┌──────────────────────────────────────────┐    |
+|  │  [OMASH Partnership Hero Image]           │    |
+|  │  Full-width lifestyle image showing       │    |
+|  │  OMASH leather on a Dandle recliner       │    |
+|  └──────────────────────────────────────────┘    |
+|                                                  |
+|  OMASH Damsuk — Premium Materials               |
+|  "Textured leather and fabric excellence..."     |
+|  ○ Formerly Raytex — decades of trusted quality  |
+|                                                  |
++--------------------------------------------------+
+|                                                  |
+|  ┌─────────┐  ┌─────────┐  ┌─────────┐          |
+|  │ Istikbal │  │ Vivian  │  │  Aqua   │          |
+|  │ Showroom │  │Interior │  │ Offers  │          |
+|  │ Network  │  │ Styling │  │Community│          |
+|  └─────────┘  └─────────┘  └─────────┘          |
+|                                                  |
+|  [3-column cards with L-corner brackets]         |
+|  Each with role, value proposition, meaning      |
++--------------------------------------------------+
 ```
 
-### Product Images Fix
-Update `productColorImages.ts` for products with new uploaded images:
-- relaxmax-mocha-taupe.webp
-- relaxmax-coastal-fog.webp
-- comfortplus-coastal-fog-lifestyle.webp
-- spacesaver-terracotta-reclined.webp
-- worknest-desert-grey-reclined-2.webp
-- spacesaver-mocha-taupe-reclined.webp
-- easyup-lift-assist-lifestyle-2.webp
-- easyup-compact-oasis-green-2.webp
-- cozycompanion-mocha-taupe-2.webp
-- cozycompanion-couple-lifestyle-2.webp
+**Design Elements**:
+
+1. **Hero Partner Feature (OMASH)**: 
+   - Full-width image using `dandle-omash-partnership.webp`
+   - L-corner brackets (brand signature)
+   - Larger typography, premium feel
+   - Highlight: "EasyUp Compact uses OMASH textured leather"
+
+2. **Partner Cards (Remaining 3)**:
+   - Elevated card design with subtle shadows
+   - L-corner brackets on hover
+   - Icon or subtle logo placeholder area
+   - Confidence Reveal animation (already implemented)
+
+3. **Typography Refinements**:
+   - Partner names in headline font (Montserrat/Cairo)
+   - Roles in Dandle Orange
+   - Clean hierarchy: Name → Role → Value → Meaning
+
+### Phase 3: Add Visual Trust Indicators
+
+- **"Official Partner" badges** where appropriate
+- **Association duration** where known (e.g., "Since 2022")
+- **Specific product callouts** (e.g., "OMASH leather featured in EasyUp Compact")
+
+### Phase 4: Partner Logos (Optional Enhancement)
+
+If partner logos are available, add a subtle logo bar:
+```text
+┌──────────────────────────────────────┐
+│  [OMASH]   [Istikbal]   [Vivian]     │
+│  Subtle grayscale logos              │
+└──────────────────────────────────────┘
+```
 
 ---
 
 ## Files to Modify
 
-1. `src/components/hero/AnimatedHeadline.tsx` - Add bilingual support with RTL handling
-2. `src/components/hero/HeroOffer.tsx` - Pass bilingual props to AnimatedHeadline
-3. `src/data/productColorImages.ts` - Add local image paths or update existing mappings
-4. `src/components/Quote.tsx` - Ensure proper RTL rendering
-5. `src/dandle-ui.ts` - Review RTL text handling
+| File | Change |
+|------|--------|
+| `src/pages/Index.tsx` | Import and add `IstikbalShowroom` component |
+| `src/components/Partners.tsx` | Redesign with OMASH hero, elevated cards, L-brackets |
+| `src/components/ui/LCornerFrame.tsx` | Verify component availability for partner cards |
+
+## Bilingual Considerations
+
+- All text already has `nameEn`/`nameAr` pairs in the partners data
+- RTL layout will automatically apply based on language
+- Partner names in Arabic mode: `أوماش دمسوق` (OMASH), `إستيكبال` (Istikbal), etc.
+
+---
 
 ## Success Criteria
 
-1. Hero headline shows "The Gift of Comfort" in English mode, "هدية الراحة" in Arabic mode (no reversed letters)
-2. All uploaded product images display correctly on product cards
-3. Arabic mode shows all Arabic text except product names in brackets
-4. No reversed Arabic letters anywhere on the site
+1. IstikbalShowroom section visible on homepage with booking CTA
+2. OMASH featured prominently with partnership image
+3. All partner cards feel premium and editorial (not "salesy")
+4. Partners would be proud to screenshot and share
+5. Customers feel increased trust through visible quality associations
+
