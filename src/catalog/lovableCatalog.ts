@@ -21,18 +21,67 @@ export interface LovableProduct {
   aspectRatio: number;  // width/height for perfect containers
 }
 
-// 27 HD Product Images - Lovable as Visual Master
+// Product Images - Lovable as Visual Master
 export const lovableCatalog: LovableProduct[] = [
+  {
+    productHandle: "relaxmax",
+    title: "RelaxMax Recliner",
+    subtitle: "The Default Seat",
+    aspectRatio: 1,
+    heroImage: {
+      src: "/images/dandle-relaxmax-hero.webp",
+      width: 1024,
+      height: 1024,
+      alt: "Dandle RelaxMax: The flagship recliner. Iconic cinematic comfort and perfectly balanced proportions."
+    },
+    gallery: [
+      { src: "/images/relaxmax-lifestyle-day.png", width: 2752, height: 1536, alt: "RelaxMax Recliner - Day Lifestyle" },
+      { src: "/images/relaxmax-lifestyle-night.png", width: 2752, height: 1536, alt: "RelaxMax Recliner - Night Lifestyle" },
+      { src: "/images/relaxmax-brown-lifestyle.jpg", width: 2752, height: 1536, alt: "RelaxMax Recliner - Brown Lifestyle" }
+    ]
+  },
+  {
+    productHandle: "relaxmax-limited",
+    title: "RelaxMax Limited Edition",
+    subtitle: "Premium Meets Performance",
+    aspectRatio: 1,
+    heroImage: {
+      src: "/images/dandle-relaxmax-limited-hero.webp",
+      width: 1024,
+      height: 1024,
+      alt: "Dandle RelaxMax Limited Edition: 360° swivel, dual cup holders, premium full-grain leather."
+    },
+    gallery: []
+  },
+  {
+    productHandle: "spacesaver",
+    title: "SpaceSaver Recliner",
+    subtitle: "Same Comfort, Smaller Footprint",
+    aspectRatio: 1,
+    heroImage: {
+      src: "/images/dandle-spacesaver-hero.webp",
+      width: 1024,
+      height: 1024,
+      alt: "Dandle SpaceSaver: Compact 75cm width with all RelaxMax features."
+    },
+    gallery: [
+      { src: "/images/spacesaver-offwhite-reclined.jpg", width: 2752, height: 1536, alt: "SpaceSaver - Off-White Reclined" },
+      { src: "/images/spacesaver-offwhite-side.jpg", width: 2752, height: 1536, alt: "SpaceSaver - Side View" },
+      { src: "/images/spacesaver-desert-grey.webp", width: 2752, height: 1536, alt: "SpaceSaver - Desert Grey" },
+      { src: "/images/spacesaver-desert-grey-reclined.webp", width: 2752, height: 1536, alt: "SpaceSaver - Desert Grey Reclined" },
+      { src: "/images/spacesaver-mocha-taupe.webp", width: 2752, height: 1536, alt: "SpaceSaver - Mocha Taupe" }
+    ]
+  },
   {
     productHandle: "diva",
     title: "Diva Recliner",
     subtitle: "Where Style Meets Comfort",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-diva.jpg",
+      src: "/images/dandle-diva-hero.webp",
       width: 1024,
       height: 1024,
-      alt: "Dandle Diva Signature Persona Lounge"
+      alt: "Dandle Diva: Bold personality in vivid color and fine-grade fabrics."
     },
     gallery: [
       { src: "/images/diva-red-front.jpg", width: 2752, height: 1536, alt: "Diva Recliner - Front View" },
@@ -43,47 +92,15 @@ export const lovableCatalog: LovableProduct[] = [
     ]
   },
   {
-    productHandle: "relaxmax",
-    title: "RelaxMax Recliner",
-    subtitle: "Your Daily Sanctuary",
-    aspectRatio: 1,
-    heroImage: {
-      src: "/images/relaxmax-hero.png",
-      width: 1024,
-      height: 1024,
-      alt: "Dandle RelaxMax: The flagship 90cm standard recliner. Iconic cinematic comfort and perfectly balanced proportions."
-    },
-    gallery: [
-      {
-        src: "/images/relaxmax-lifestyle-day.png",
-        width: 2752,
-        height: 1536,
-        alt: "RelaxMax Recliner - Day Lifestyle"
-      },
-      {
-        src: "/images/relaxmax-lifestyle-night.png",
-        width: 2752,
-        height: 1536,
-        alt: "RelaxMax Recliner - Night Lifestyle"
-      },
-      {
-        src: "/images/relaxmax-brown-lifestyle.jpg",
-        width: 2752,
-        height: 1536,
-        alt: "RelaxMax Recliner - Brown Lifestyle"
-      }
-    ]
-  },
-  {
     productHandle: "cozycompanion",
     title: "CozyCompanion Loveseat",
     subtitle: "Comfort for Two",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/cozycompanion-hero.png",
+      src: "/images/dandle-cozycompanion-hero.webp",
       width: 1024,
       height: 1024,
-      alt: "Dandle CozyCompanion: A premium two-seated couch recliner. Boutique comfort designed for intimate, upscale living."
+      alt: "Dandle CozyCompanion: A premium two-seated recliner loveseat."
     },
     gallery: [
       { src: "/images/cozycompanion-yellow-front.jpg", width: 2752, height: 1536, alt: "CozyCompanion - Yellow Front View" },
@@ -95,13 +112,13 @@ export const lovableCatalog: LovableProduct[] = [
   {
     productHandle: "worknest",
     title: "WorkNest Recliner",
-    subtitle: "Flow-first performance",
+    subtitle: "Feel Better. Work Better.",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/worknest-hero.png",
+      src: "/images/dandle-worknest-hero.webp",
       width: 1024,
       height: 1024,
-      alt: "Dandle WorkNest Productive Sanctuary"
+      alt: "Dandle WorkNest: The work chair that makes hours feel lighter."
     },
     gallery: [
       { src: "/images/worknest-oasis-green.webp", width: 2752, height: 1536, alt: "WorkNest - Oasis Green" },
@@ -110,43 +127,18 @@ export const lovableCatalog: LovableProduct[] = [
     ]
   },
   {
-    productHandle: "spacesaver",
-    title: "SpaceSaver Recliner",
-    subtitle: "Big Comfort, Small Footprint",
-    aspectRatio: 1,
-    heroImage: {
-      src: "/images/spacesaver-hero.png",
-      width: 1024,
-      height: 1024,
-      alt: "Dandle SpaceSaver Intelligent Footprint"
-    },
-    gallery: [
-      { src: "/images/spacesaver-offwhite-reclined.jpg", width: 2752, height: 1536, alt: "SpaceSaver - Off-White Reclined" },
-      { src: "/images/spacesaver-offwhite-side.jpg", width: 2752, height: 1536, alt: "SpaceSaver - Side View" },
-      { src: "/images/spacesaver-desert-grey.webp", width: 2752, height: 1536, alt: "SpaceSaver - Desert Grey" },
-      { src: "/images/spacesaver-desert-grey-reclined.webp", width: 2752, height: 1536, alt: "SpaceSaver - Desert Grey Reclined" },
-      { src: "/images/spacesaver-mocha-taupe.webp", width: 2752, height: 1536, alt: "SpaceSaver - Mocha Taupe" },
-      { src: "/images/spacesaver-burgundy-lifestyle.webp", width: 2752, height: 1536, alt: "SpaceSaver - Burgundy Lifestyle" }
-    ]
-  },
-  {
     productHandle: "comfortplus",
     title: "ComfortPlus Recliner",
-    subtitle: "Indulgent deep relaxation",
+    subtitle: "Settle Deep. Think Clear.",
     aspectRatio: 1,
     heroImage: {
       src: "/images/dandle-comfortplus.jpg",
       width: 1024,
       height: 1024,
-      alt: "Dandle ComfortPlus Rolling Massage Retreat"
+      alt: "Dandle ComfortPlus: Built-in massage experience that resets the day."
     },
     gallery: [
-      {
-        src: "/images/relaxmax-hero-offwhite.jpg",
-        width: 2752,
-        height: 1536,
-        alt: "ComfortPlus - Off-White Variant"
-      }
+      { src: "/images/relaxmax-hero-offwhite.jpg", width: 2752, height: 1536, alt: "ComfortPlus - Off-White Variant" }
     ]
   },
   {
@@ -155,10 +147,10 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Sit Easy, Stand Easier",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/easyup-standard-hero.png",
+      src: "/images/dandle-easyup-standard-hero.webp",
       width: 1024,
       height: 1024,
-      alt: "Dandle EasyUp Standard 90cm Power Lift"
+      alt: "Dandle EasyUp Standard: Power lift for everyday independence."
     },
     gallery: [
       { src: "/images/easyup-beige-front.jpg", width: 2752, height: 1536, alt: "EasyUp - Beige Front" },
@@ -176,10 +168,10 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Gentle Lift, Compact Design",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-easyup-compact.jpg",
+      src: "/images/dandle-easyup-compact-hero.webp",
       width: 1024,
       height: 1024,
-      alt: "Dandle EasyUp Compact Slim Power Lift"
+      alt: "Dandle EasyUp Compact: Slim power lift in OMASH Damsuk textured leather."
     },
     gallery: [
       { src: "/images/easyup-compact-charcoal-front.png", width: 2752, height: 1536, alt: "EasyUp Compact - Charcoal Front" },
@@ -194,36 +186,16 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Comfort for the Whole Family",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/complete-set-hero.png",
+      src: "/images/dandle-complete-set-hero.webp",
       width: 1024,
       height: 1024,
-      alt: "Dandle Heritage Set Cinematic Suite"
+      alt: "Dandle Complete Set: 3-piece living room set for the whole family."
     },
     gallery: [
-      {
-        src: "/images/complete-set-coastal-modern.jpg",
-        width: 2752,
-        height: 1536,
-        alt: "Complete Set - Coastal Modern"
-      },
-      {
-        src: "/images/complete-set-family-modern.jpg",
-        width: 2752,
-        height: 1536,
-        alt: "Complete Set - Family Modern"
-      },
-      {
-        src: "/images/complete-set-modern-fireplace.jpg",
-        width: 2752,
-        height: 1536,
-        alt: "Complete Set - Modern Fireplace"
-      },
-      {
-        src: "/images/complete-set-sunset-fireplace.jpg",
-        width: 2752,
-        height: 1536,
-        alt: "Complete Set - Sunset Fireplace"
-      }
+      { src: "/images/complete-set-coastal-modern.jpg", width: 2752, height: 1536, alt: "Complete Set - Coastal Modern" },
+      { src: "/images/complete-set-family-modern.jpg", width: 2752, height: 1536, alt: "Complete Set - Family Modern" },
+      { src: "/images/complete-set-modern-fireplace.jpg", width: 2752, height: 1536, alt: "Complete Set - Modern Fireplace" },
+      { src: "/images/complete-set-sunset-fireplace.jpg", width: 2752, height: 1536, alt: "Complete Set - Sunset Fireplace" }
     ]
   }
 ];

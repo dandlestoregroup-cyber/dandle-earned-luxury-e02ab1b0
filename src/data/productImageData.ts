@@ -1,4 +1,4 @@
-/* Prompt 2B + 2C: Product image data with gallery placeholders */
+/* Product image data with new uploaded hero images */
 
 import { generationManifest } from './imageGenerationManifest';
 
@@ -11,7 +11,7 @@ for (const entry of generationManifest) {
 
 export const productImageData: Record<string, { mainImage: string; galleryImages: string[] }> = {
   'relaxmax': {
-    mainImage: '/images/relaxmax-hero.png',
+    mainImage: '/images/dandle-relaxmax-hero.webp',
     galleryImages: [
       '/images/relaxmax-hero-offwhite.jpg',
       '/images/relaxmax-brown-lifestyle.jpg',
@@ -22,15 +22,34 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
       ...(generatedByProduct['relaxmax'] || []),
     ],
   },
+  'relaxmax-limited': {
+    mainImage: '/images/dandle-relaxmax-limited-hero.webp',
+    galleryImages: [
+      ...(generatedByProduct['relaxmax-limited'] || []),
+    ],
+  },
+  'spacesaver': {
+    mainImage: '/images/dandle-spacesaver-hero.webp',
+    galleryImages: [
+      '/images/spacesaver-offwhite-reclined.jpg',
+      '/images/spacesaver-offwhite-side.jpg',
+      '/images/spacesaver-desert-grey.webp',
+      '/images/spacesaver-desert-grey-reclined.webp',
+      '/images/spacesaver-mocha-taupe.webp',
+      '/images/spacesaver-terracotta-reclined.webp',
+      '/images/spacesaver-mocha-taupe-reclined.webp',
+      ...(generatedByProduct['spacesaver'] || []),
+    ],
+  },
   'comfortplus': {
-    mainImage: '/images/comfortplus-tan-front.webp',
+    mainImage: '/images/dandle-comfortplus.jpg',
     galleryImages: [
       '/images/comfortplus-coastal-fog-lifestyle.webp',
       ...(generatedByProduct['comfortplus'] || []),
     ],
   },
   'diva': {
-    mainImage: '/images/dandle-diva.jpg',
+    mainImage: '/images/dandle-diva-hero.webp',
     galleryImages: [
       '/images/diva-red-front.jpg',
       '/images/diva-terracotta-reclined.webp',
@@ -41,7 +60,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     ],
   },
   'cozycompanion': {
-    mainImage: '/images/cozycompanion-hero.png',
+    mainImage: '/images/dandle-cozycompanion-hero.webp',
     galleryImages: [
       '/images/cozycompanion-beige-front.jpg',
       '/images/cozycompanion-yellow-front.jpg',
@@ -54,8 +73,19 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
       ...(generatedByProduct['cozycompanion'] || []),
     ],
   },
+  'worknest': {
+    mainImage: '/images/dandle-worknest-hero.webp',
+    galleryImages: [
+      '/images/worknest-blue-front.webp',
+      '/images/worknest-oasis-green.webp',
+      '/images/worknest-desert-grey-reclined.webp',
+      '/images/worknest-oasis-green-lifestyle.webp',
+      '/images/worknest-desert-grey-reclined-2.webp',
+      ...(generatedByProduct['worknest'] || []),
+    ],
+  },
   'easyup': {
-    mainImage: '/images/easyup-standard-hero.png',
+    mainImage: '/images/dandle-easyup-standard-hero.webp',
     galleryImages: [
       '/images/easyup-beige-front.jpg',
       '/images/easyup-beige-lifted.jpg',
@@ -70,7 +100,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     ],
   },
   'easyup-compact': {
-    mainImage: '/images/dandle-easyup-compact.jpg',
+    mainImage: '/images/dandle-easyup-compact-hero.webp',
     galleryImages: [
       '/images/easyup-compact-charcoal-front.jpg',
       '/images/easyup-compact-charcoal-reclined.png',
@@ -81,34 +111,8 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
       ...(generatedByProduct['easyup-compact'] || []),
     ],
   },
-  'worknest': {
-    mainImage: '/images/worknest-hero.png',
-    galleryImages: [
-      '/images/worknest-blue-front.webp',
-      '/images/worknest-oasis-green.webp',
-      '/images/worknest-desert-grey-reclined.webp',
-      '/images/worknest-oasis-green-lifestyle.webp',
-      '/images/worknest-desert-grey-reclined-2.webp',
-      ...(generatedByProduct['worknest'] || []),
-    ],
-  },
-  'spacesaver': {
-    mainImage: '/images/spacesaver-hero.png',
-    galleryImages: [
-      '/images/spacesaver-offwhite-reclined.jpg',
-      '/images/spacesaver-offwhite-side.jpg',
-      '/images/spacesaver-red-front.webp',
-      '/images/spacesaver-desert-grey.webp',
-      '/images/spacesaver-desert-grey-reclined.webp',
-      '/images/spacesaver-mocha-taupe.webp',
-      '/images/spacesaver-burgundy-lifestyle.webp',
-      '/images/spacesaver-terracotta-reclined.webp',
-      '/images/spacesaver-mocha-taupe-reclined.webp',
-      ...(generatedByProduct['spacesaver'] || []),
-    ],
-  },
   'complete-set': {
-    mainImage: '/images/complete-set-hero.png',
+    mainImage: '/images/dandle-complete-set-hero.webp',
     galleryImages: [
       '/images/complete-set-classic.jpg',
       '/images/complete-set-coastal-modern.jpg',
