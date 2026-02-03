@@ -129,37 +129,38 @@ const Partners = () => {
 
         {/* OMASH Hero Partner Feature */}
         <div className="max-w-5xl mx-auto mb-16">
-          <LCornerFrame className="relative overflow-hidden">
-            <div className="relative">
-              <img
-                src={heroPartner.image}
-                alt={isArabic ? "شراكة DANDLE و OMASH" : "DANDLE x OMASH Partnership"}
-                className="w-full h-auto object-cover"
-                loading="lazy"
-              />
-              {/* Gradient overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
-              
-              {/* Hero Partner Info */}
-              <div className={`absolute bottom-0 ${isArabic ? 'right-0' : 'left-0'} p-6 md:p-10 max-w-lg`}>
-                <span className={`text-dandle-orange text-xs tracking-wide font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                  {isArabic ? heroPartner.taglineAr : heroPartner.taglineEn}
-                </span>
-                <h3 className={`text-2xl md:text-3xl text-warm-white mt-2 ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
-                  {isArabic ? heroPartner.nameAr : heroPartner.nameEn}
-                </h3>
-                <p className={`text-warm-white/80 mt-3 text-sm md:text-base leading-relaxed ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                  {isArabic ? heroPartner.valueAr : heroPartner.valueEn}
+          <LCornerFrame className="overflow-hidden bg-off-white">
+            {/* Image - no overlay on mobile */}
+            <img
+              src={heroPartner.image}
+              alt={isArabic ? "شراكة Dandle و OMASH Damsuk" : "Dandle × OMASH Damsuk Partnership"}
+              className="w-full h-auto object-cover"
+              loading="lazy"
+            />
+            
+            {/* Text content below image */}
+            <div className={`p-6 md:p-10 ${isArabic ? 'text-right' : 'text-left'}`}>
+              <span className={`text-dandle-orange text-xs tracking-wide font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                {isArabic ? heroPartner.taglineAr : heroPartner.taglineEn}
+              </span>
+              <h3 className={`text-2xl md:text-3xl text-charcoal mt-2 ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
+                {isArabic ? (
+                  <>أوماش دمسوق (<span dir="ltr">OMASH Damsuk</span>)</>
+                ) : (
+                  "OMASH Damsuk"
+                )}
+              </h3>
+              <p className={`text-charcoal/80 mt-3 text-sm md:text-base leading-relaxed ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                {isArabic ? heroPartner.valueAr : heroPartner.valueEn}
+              </p>
+              <p className={`text-charcoal/50 mt-2 text-xs ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                {isArabic ? heroPartner.meaningAr : heroPartner.meaningEn}
+              </p>
+              {/* Product highlight */}
+              <div className="mt-4 pt-4 border-t border-champagne/30">
+                <p className={`text-dandle-orange text-sm font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                  ✦ {isArabic ? heroPartner.highlightAr : heroPartner.highlight}
                 </p>
-                <p className={`text-warm-white/60 mt-2 text-xs ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                  {isArabic ? heroPartner.meaningAr : heroPartner.meaningEn}
-                </p>
-                {/* Product highlight */}
-                <div className="mt-4 pt-4 border-t border-warm-white/20">
-                  <p className={`text-dandle-orange text-sm font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                    ✦ {isArabic ? heroPartner.highlightAr : heroPartner.highlight}
-                  </p>
-                </div>
               </div>
             </div>
           </LCornerFrame>
