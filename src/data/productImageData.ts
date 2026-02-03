@@ -85,7 +85,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     ],
   },
   'easyup': {
-    mainImage: '/images/dandle-easyup-standard-hero.webp',
+    mainImage: '/images/dandle-easyup-standard-hero.jpg',
     galleryImages: [
       '/images/easyup-beige-front.jpg',
       '/images/easyup-beige-lifted.jpg',

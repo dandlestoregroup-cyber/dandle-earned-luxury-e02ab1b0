@@ -309,8 +309,8 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
         }}
       />
 
-      {/* Image Container - Multi-layer depth */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-b from-cream to-warm-beige/30">
+      {/* Image Container - Larger, cleaner */}
+      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-cream via-off-white to-warm-beige/20">
         {/* Wishlist Button - Top Left */}
         {!product.comingSoon && !product.beFirstToKnow && (
           <div className="absolute top-4 left-4 z-30">
@@ -658,71 +658,76 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
         </motion.div>
       </div>
       
-      {/* Bottom Info - Always visible */}
-      <div className={cn("p-5 bg-cream", isArabic ? "text-right" : "text-left")} dir={isArabic ? 'rtl' : 'ltr'}>
-        {/* Tagline visible always */}
-        <p className={cn(
-          "text-[10px] tracking-wide text-bronze/70 mb-1",
-          isArabic ? "font-body-ar" : "font-body"
-        )}>
-          {displayTagline}
-        </p>
-        
+      {/* Bottom Info - Clean card footer */}
+      <div className={cn("p-6 bg-off-white border-t border-champagne/10", isArabic ? "text-right" : "text-left")} dir={isArabic ? 'rtl' : 'ltr'}>
+        {/* Product Name - Primary focus */}
         <h4 className={cn(
-          "text-lg text-charcoal font-medium mb-1",
+          "text-xl text-charcoal font-semibold tracking-tight",
           isArabic ? "font-body-ar" : "font-headline"
         )}>
           {displayName}
         </h4>
         
-        {/* 3-Word Truth - Always visible */}
+        {/* Tagline */}
         <p className={cn(
-          "text-xs text-dandle-orange font-medium mb-2",
+          "text-sm text-charcoal/60 mt-1",
           isArabic ? "font-body-ar" : "font-body"
         )}>
-          {displayTruth}
+          {displayTagline}
         </p>
         
-        {/* Color Swatches - ALWAYS VISIBLE */}
-        {swatchKeys.length > 0 && !product.comingSoon && !product.beFirstToKnow && (
-          <div className="flex gap-2 mb-3 flex-wrap">
-            {swatchKeys.slice(0, 6).map((swatchKey, index) => (
-              <button
-                key={swatchKey}
-                onClick={(e) => handleSwatchClick(e, index)}
-                className={cn(
-                  "relative w-6 h-6 rounded-full border-2 transition-all duration-200",
-                  currentSwatchIndex === index 
-                    ? "border-champagne scale-110 ring-2 ring-champagne/30" 
-                    : "border-charcoal/20 hover:border-champagne/60"
-                )}
-                style={{ 
-                  backgroundColor: getSwatchHex(swatchKey),
-                  boxShadow: currentSwatchIndex === index 
-                    ? "0 0 8px rgba(212, 175, 55, 0.4)" 
-                    : "0 1px 3px rgba(0,0,0,0.1)",
-                }}
-                title={getSwatchName(swatchKey)}
-                aria-label={`Select ${getSwatchName(swatchKey)}`}
-              />
-            ))}
-          </div>
-        )}
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-champagne/30 to-transparent my-4" />
         
-        {(product.comingSoon || product.beFirstToKnow) ? (
-          <p className={cn(
-            "text-sm text-dandle-orange",
-            isArabic ? "font-body-ar" : "font-body"
-          )}>
-            {showBeFirstBadge 
-              ? (isArabic ? "كن أول من يعرف" : "Be First to Know")
-              : (isArabic ? "قريباً" : "Coming Soon")}
-          </p>
-        ) : (
-          <p className="font-body text-sm text-charcoal/80">
-            {getPriceDisplay()}
-          </p>
-        )}
+        {/* Color Swatches & Price Row */}
+        <div className="flex items-center justify-between gap-4">
+          {/* Color Swatches */}
+          {swatchKeys.length > 0 && !product.comingSoon && !product.beFirstToKnow ? (
+            <div className="flex gap-2 flex-wrap">
+              {swatchKeys.slice(0, 5).map((swatchKey, index) => (
+                <button
+                  key={swatchKey}
+                  onClick={(e) => handleSwatchClick(e, index)}
+                  className={cn(
+                    "relative w-7 h-7 rounded-full transition-all duration-200",
+                    currentSwatchIndex === index 
+                      ? "ring-2 ring-dandle-orange ring-offset-2 ring-offset-off-white scale-110" 
+                      : "ring-1 ring-charcoal/15 hover:ring-dandle-orange/50"
+                  )}
+                  style={{ 
+                    backgroundColor: getSwatchHex(swatchKey),
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+                  }}
+                  title={getSwatchName(swatchKey)}
+                  aria-label={`Select ${getSwatchName(swatchKey)}`}
+                />
+              ))}
+              {swatchKeys.length > 5 && (
+                <span className="w-7 h-7 rounded-full bg-charcoal/5 flex items-center justify-center text-xs text-charcoal/50 font-medium">
+                  +{swatchKeys.length - 5}
+                </span>
+              )}
+            </div>
+          ) : (
+            <div />
+          )}
+          
+          {/* Price or Status */}
+          {(product.comingSoon || product.beFirstToKnow) ? (
+            <span className={cn(
+              "text-sm font-medium text-dandle-orange",
+              isArabic ? "font-body-ar" : "font-body"
+            )}>
+              {showBeFirstBadge 
+                ? (isArabic ? "كن أول من يعرف" : "Be First to Know")
+                : (isArabic ? "قريباً" : "Coming Soon")}
+            </span>
+          ) : (
+            <span className="font-headline text-lg text-charcoal font-semibold whitespace-nowrap">
+              {getPriceDisplay()}
+            </span>
+          )}
+        </div>
       </div>
     </motion.div>
   );
