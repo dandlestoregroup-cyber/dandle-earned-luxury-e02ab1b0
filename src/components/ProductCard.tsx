@@ -18,6 +18,12 @@ const productTranslations: Record<string, { name: string; englishName: string; t
     tagline: "المقعد الافتراضي", 
     truth: "مألوف. سهل. صحيح."
   },
+  "relaxmax-limited": { 
+    name: "ريلاكس ماكس ليميتد إيديشن", 
+    englishName: "RelaxMax Limited Edition",
+    tagline: "الفخامة تلتقي بالأداء", 
+    truth: "دوار. رشفة. استرخاء."
+  },
   comfortplus: { 
     name: "كومفورت بلس", 
     englishName: "ComfortPlus",
@@ -57,8 +63,8 @@ const productTranslations: Record<string, { name: string; englishName: string; t
   spacesaver: { 
     name: "سبيس سيفر", 
     englishName: "SpaceSaver",
-    tagline: "راحة ذكية في مساحة صغيرة", 
-    truth: "ذكي. مساحة. راحة."
+    tagline: "نفس الراحة، مساحة أصغر", 
+    truth: "مدمج. مريح. صحيح."
   },
   "complete-set": { 
     name: "طقم العائلة", 

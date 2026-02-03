@@ -16,7 +16,7 @@ export interface Product {
 }
 
 export const products: Product[] = [
-  {
+{
     id: "relaxmax",
     name: "Dandle RelaxMax",
     tagline: "The Default Seat",
@@ -32,7 +32,25 @@ export const products: Product[] = [
       "Premium Leather Upholstery",
     ],
     targetAudience: "High-performing professionals",
-    imageUrl: "/images/dandle-relaxmax-flagship.webp",
+    imageUrl: "/images/dandle-relaxmax-hero.webp",
+  },
+  {
+    id: "relaxmax-limited",
+    name: "Dandle RelaxMax Limited Edition",
+    tagline: "Premium Meets Performance",
+    truth: "Swivel. Sip. Settle.",
+    story: "RelaxMax Limited Edition is everything you love about the original, elevated. A 360° swivel base for effortless movement. Dual cup holders for your morning coffee or evening drink. Premium leather that ages beautifully. This is RelaxMax, perfected.",
+    priceManual: 26900,
+    pricePower: 34900,
+    colors: ["Cognac Leather", "Espresso Brown", "Camel"],
+    features: [
+      "360° Swivel Base",
+      "Dual Cup Holders",
+      "170° Zero-Gravity Recline",
+      "Premium Full-Grain Leather",
+    ],
+    targetAudience: "Discerning professionals who want the best",
+    imageUrl: "/images/dandle-relaxmax-limited-hero.webp",
   },
   {
     id: "comfortplus",
@@ -141,24 +159,23 @@ export const products: Product[] = [
     imageUrl: "/images/dandle-worknest.jpg",
     beFirstToKnow: true,
   },
-  {
+{
     id: "spacesaver",
     name: "Dandle SpaceSaver",
-    tagline: "Smart Space Comfort",
-    truth: "Smart. Space. Comfort.",
-    story: "SpaceSaver is earned presence in small rooms. Premium doesn't demand space—it makes the most of it.",
-    priceManual: 24900,
-    pricePower: 29900,
-    colors: ["Stone Grey", "Navy Blue"],
+    tagline: "Same Comfort, Smaller Footprint",
+    truth: "Compact. Cozy. Right.",
+    story: "SpaceSaver is the RelaxMax you know and love, refined for smaller spaces. Every comfort feature, every premium finish—engineered to fit where you need it most.",
+    priceManual: 19900,
+    pricePower: 24900,
+    colors: ["Mocha Taupe", "Coastal Fog", "Desert Grey"],
     features: [
-      "Compact Design",
+      "Compact 75cm Width",
       "Wall-Hugger Technology",
-      "Space-Efficient Recline",
-      "Modern Aesthetics",
+      "Zero-Gravity Recline",
+      "Full RelaxMax Features",
     ],
-    targetAudience: "Urban dwellers with small spaces",
-    imageUrl: "/images/dandle-spacesaver.jpg",
-    beFirstToKnow: true,
+    targetAudience: "Urban dwellers with smaller spaces",
+    imageUrl: "/images/dandle-spacesaver-hero.webp",
   },
   {
     id: "complete-set",
