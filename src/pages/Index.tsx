@@ -9,6 +9,7 @@ import Partners from "@/components/Partners";
 import CollectionIntro from "@/components/CollectionIntro";
 import ProductGallery from "@/components/ProductGallery";
 import TrustBlock from "@/components/TrustBlock";
+import IstikbalShowroom from "@/components/IstikbalShowroom";
 import GiftOfComfort from "@/components/GiftOfComfort";
 import AmazonVerification from "@/components/AmazonVerification";
 import WishlistModal from "@/components/WishlistModal";
@@ -34,6 +35,7 @@ const Index = () => {
         <ProductGallery />
         <GiftOfComfort />
         <TrustBlock />
+        <IstikbalShowroom />
         <AmazonVerification variant="home" />
         <Partners />
         <Contact />
