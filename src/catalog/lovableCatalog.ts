@@ -147,7 +147,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Sit Easy, Stand Easier",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-easyup-standard-hero.webp",
+      src: "/images/dandle-easyup-standard-hero.jpg",
       width: 1024,
       height: 1024,
       alt: "Dandle EasyUp Standard: Power lift for everyday independence."

@@ -50,7 +50,7 @@ export const productColorImages: Record<string, ColorVariant[]> = {
     { swatchKey: 'tan', imageSrc: '/images/comfortplus-tan-front.webp' },
   ],
   'easyup': [
-    { swatchKey: 'coastal-fog', imageSrc: '/images/dandle-easyup-standard-hero.webp' },
+    { swatchKey: 'oasis-green', imageSrc: '/images/dandle-easyup-standard-hero.jpg' },
     { swatchKey: 'mocha-taupe', imageSrc: '/images/easyup-standard-mocha-taupe.webp' },
     { swatchKey: 'oasis-green', imageSrc: '/images/easyup-standard-oasis-green.webp' },
     { swatchKey: 'grey', imageSrc: '/images/easyup-standard-grey-front.webp' },
