@@ -425,6 +425,62 @@
     }
   }
   
+  /* Inner L-Brackets for hover states (smaller, tighter) */
+  .dandle-frame-inner {
+    position: relative;
+  }
+  
+  .dandle-frame-inner::before,
+  .dandle-frame-inner::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-color: hsl(var(--dandle-orange));
+    border-style: solid;
+    border-width: 0;
+    pointer-events: none;
+  }
+  
+  .dandle-frame-inner::before {
+    top: 0;
+    left: 0;
+    border-top-width: 2px;
+    border-left-width: 2px;
+  }
+  
+  .dandle-frame-inner::after {
+    top: 0;
+    right: 0;
+    border-top-width: 2px;
+    border-right-width: 2px;
+  }
+  
+  .dandle-frame-inner .corner-bl-inner,
+  .dandle-frame-inner .corner-br-inner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-color: hsl(var(--dandle-orange));
+    border-style: solid;
+    border-width: 0;
+    pointer-events: none;
+  }
+  
+  .dandle-frame-inner .corner-bl-inner {
+    bottom: 0;
+    left: 0;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+  }
+  
+  .dandle-frame-inner .corner-br-inner {
+    bottom: 0;
+    right: 0;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+  }
+  
   /* Glass morphism */
   .glass {
     background: hsl(var(--off-white) / 0.8);
