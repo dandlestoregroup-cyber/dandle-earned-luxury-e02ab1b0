@@ -80,12 +80,35 @@ export function OptimizedImage({
 
   // Generate srcset for responsive images
   const generateSrcSet = (baseSrc: string): string | undefined => {
-    // Only generate srcset for images that support it (not external URLs without query params)
-    if (baseSrc.startsWith('/images/') || baseSrc.startsWith('/public/')) {
-      // For local images, we could add width variants if they exist
-      // For now, return undefined to use native image
-      return undefined;
+    // Generate srcset for local images with standard breakpoints
+    if (baseSrc.startsWith('/images/')) {
+      const ext = baseSrc.split('.').pop() || 'jpg';
+      const baseName = baseSrc.replace(/\.[^.]+$/, '');
+      
+      // Check for WebP version first, fallback to original extension
+      const isWebP = ext === 'webp';
+      const srcSetExt = isWebP ? 'webp' : ext;
+      
+      // Generate responsive widths for typical viewport sizes
+      const widths = [400, 640, 768, 1024, 1280];
+      
+      // For now, use the same image for all sizes (images are already optimized)
+      // In production, this could point to resized variants
+      return widths.map(w => `${baseSrc} ${w}w`).join(', ');
     }
+    
+    // For Supabase storage images, use Supabase image transforms
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    if (baseSrc.includes(supabaseUrl) && baseSrc.includes('/storage/')) {
+      const widths = [400, 640, 768, 1024, 1280];
+      return widths.map(w => {
+        const url = new URL(baseSrc);
+        url.searchParams.set('width', w.toString());
+        url.searchParams.set('quality', '80');
+        return `${url.toString()} ${w}w`;
+      }).join(', ');
+    }
+    
     return undefined;
   };
 
