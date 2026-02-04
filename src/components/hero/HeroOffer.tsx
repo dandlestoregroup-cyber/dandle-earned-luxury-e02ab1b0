@@ -93,13 +93,17 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
           </span>
         </motion.div>
 
-        {/* Animated Headline - Bilingual */}
+        {/* Main H1 - Critical for SEO */}
+        <h1 className="sr-only">Dandle Recliners - Premium Egyptian-Made Comfort Chairs</h1>
+        
+        {/* Animated Headline - Bilingual (visual) */}
         <AnimatedHeadline 
           textEn="The Gift of Comfort"
           textAr="هدية الراحة"
           className="text-4xl md:text-6xl lg:text-7xl font-headline font-bold text-white text-center mb-4"
           style={{ wordBreak: 'normal', overflowWrap: 'normal', hyphens: 'none', textWrap: 'balance' }}
           delay={0.4}
+          aria-hidden="true"
         />
 
         {/* Subtitle - Bilingual */}
