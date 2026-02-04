@@ -1,184 +1,188 @@
 
-# Image System Replacement + New Products
 
-## Image Catalog (Single Source of Truth)
+# OMASH Hero Card Redesign
 
-| File | Product ID | Image Purpose |
-|------|-----------|---------------|
-| `1_Dandle_RelaxMax.webp` | `relaxmax` | Hero Image |
-| `2_Dandle_RelaxMax_Compact.webp` | `relaxmax-compact` | Hero Image (NEW) |
-| `3_Dandle_Worknest.webp` | `worknest` | Hero Image |
-| `4_Dandle_EasyUp_Compact.webp` | `easyup-compact` | Hero Image |
-| `5_Dandle_EasyUp_Standard.webp` | `easyup` | Hero Image |
-| `6_Dandle_CozyCompanion.webp` | `cozycompanion` | Hero Image |
-| `7_Dandle_Diva.webp` | `diva` | Hero Image |
-| `8_Dandle_The_Comfort_Collection.webp` | `complete-set` | Hero Image |
-| `9_Dandle_RelaxMax_Limited_Edition.webp` | `relaxmax-limited` | Hero Image (NEW) |
+## Overview
+Replace the current OMASH hero partner card with a stunning, modern design featuring:
+- Rounded container with premium shadow
+- Clean image section with floating "Partner" badge
+- Refined typography hierarchy with sparkle accent
+- Product highlight badge with animated pulse
 
----
+## Design Specifications
 
-## Phase 1: Copy Images to Project
-
-Copy all 9 uploaded images to `public/images/` with clean naming:
-
+### New Component Structure
 ```text
-public/images/
-├── dandle-relaxmax-hero.webp
-├── dandle-relaxmax-compact-hero.webp     (NEW)
-├── dandle-worknest-hero.webp
-├── dandle-easyup-compact-hero.webp
-├── dandle-easyup-standard-hero.webp
-├── dandle-cozycompanion-hero.webp
-├── dandle-diva-hero.webp
-├── dandle-complete-set-hero.webp
-└── dandle-relaxmax-limited-hero.webp     (NEW)
+┌─────────────────────────────────────────┐
+│  ┌─────────────────────────────────┐    │
+│  │                                 │    │
+│  │         OMASH IMAGE            │    │
+│  │   /images/dandle-omash-        │    │
+│  │     partnership.webp           │    │
+│  │                    [Partner]   │    │
+│  └─────────────────────────────────┘    │
+│                                         │
+│  ✦ Premium Materials (tagline)          │
+│                                         │
+│  OMASH Damsuk                           │
+│                                         │
+│  Textured leather and fabric excellence │
+│                                         │
+│  Formerly known as Raytex...            │
+│                                         │
+│  ┌─────────────────────────────────┐    │
+│  │ ● EasyUp Compact uses OMASH... │    │
+│  └─────────────────────────────────┘    │
+└─────────────────────────────────────────┘
+```
+
+### Styling Adaptations
+
+The user's design uses Tailwind classes that need to be adapted to Dandle's brand tokens:
+
+| User Design | Dandle Adaptation |
+|-------------|-------------------|
+| `bg-slate-100` | `bg-cream` (section bg) |
+| `bg-white` | `bg-off-white` |
+| `text-slate-900` | `text-charcoal` |
+| `text-slate-500` | `text-charcoal/60` |
+| `text-amber-500` | `text-dandle-orange` |
+| `text-teal-700` | `text-dandle-orange` |
+| `bg-teal-500` | `bg-dandle-orange` |
+| `rounded-[2.5rem]` | Keep (modern feel) |
+| `shadow-2xl` | Keep (premium look) |
+
+### Typography
+
+- Brand name: "OMASH Damsuk" always in English (serif/headline font)
+- Arabic mode: Show Arabic name with LTR-wrapped English
+- Use `font-headline` for brand name, `font-body` for descriptions
+
+---
+
+## Implementation Details
+
+### File: `src/components/Partners.tsx`
+
+**Changes:**
+
+1. **Add Sparkles import from lucide-react**
+
+2. **Replace the OMASH Hero Partner Feature section** (lines 130-167)
+
+The new structure:
+```tsx
+{/* OMASH Hero Partner Feature - Stunning Card */}
+<div className="max-w-md mx-auto mb-16">
+  <div 
+    className="bg-off-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-champagne/20"
+    dir={isArabic ? "rtl" : "ltr"}
+  >
+    {/* Image with Partner Badge */}
+    <div className="relative h-64 md:h-80 w-full">
+      <img 
+        src={heroPartner.image}
+        alt="OMASH Damsuk Partnership"
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
+      <div className="absolute top-4 right-4 bg-off-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-sm">
+        <span className="text-[10px] font-black uppercase tracking-widest text-charcoal">
+          {isArabic ? "شريك" : "Partner"}
+        </span>
+      </div>
+    </div>
+
+    {/* Text Content */}
+    <div className={`p-8 ${isArabic ? 'text-right' : 'text-left'}`}>
+      {/* Tagline with Sparkle */}
+      <div className={`flex items-center gap-2 mb-3 opacity-60 ${isArabic ? 'flex-row-reverse' : ''}`}>
+        <Sparkles size={14} className="text-dandle-orange" />
+        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-charcoal/50">
+          {isArabic ? heroPartner.taglineAr : heroPartner.taglineEn}
+        </span>
+      </div>
+
+      {/* Brand Name - Always prominent */}
+      <h3 className={`text-3xl md:text-4xl text-charcoal mb-3 leading-tight ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
+        OMASH Damsuk
+      </h3>
+
+      {/* Value Statement */}
+      <p className={`text-sm font-semibold text-dandle-orange mb-4 uppercase tracking-wide ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+        {isArabic ? "تراث مصري أصيل" : "Authentic Egyptian Heritage"}
+      </p>
+
+      {/* Description */}
+      <p className={`text-charcoal/60 text-sm leading-relaxed mb-6 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+        {isArabic ? heroPartner.meaningAr : heroPartner.meaningEn}
+      </p>
+
+      {/* Product Highlight Badge */}
+      <div className="flex items-center gap-3 bg-cream/50 border border-champagne/20 px-4 py-3 rounded-xl">
+        <div className="w-2 h-2 rounded-full bg-dandle-orange animate-pulse flex-shrink-0" />
+        <span className={`text-xs font-semibold text-charcoal ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+          {isArabic ? heroPartner.highlightAr : heroPartner.highlight}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+3. **Update heroPartner data** to include the new value subtitle:
+```tsx
+const heroPartner = {
+  // ... existing fields
+  subtitleEn: "Authentic Egyptian Heritage",
+  subtitleAr: "تراث مصري أصيل",
+};
 ```
 
 ---
 
-## Phase 2: Add New Products to Catalog
+## Visual Enhancements
 
-### A. Update `src/types/product.ts`
+### Key Differences from Current Design
 
-Add two new products with locked copy:
+| Current | New |
+|---------|-----|
+| Full-width container with LCornerFrame | Centered card (max-w-md) with rounded corners |
+| L-corner brackets | Premium shadow + border |
+| Flat styling | 3D depth with shadows |
+| Orange text accents | Sparkle icon + uppercase tracking |
+| Simple highlight | Animated pulse badge |
 
-**RelaxMax Compact**
-- ID: `relaxmax-compact`
-- Tagline: "Same Comfort, Smaller Footprint"
-- 3-Word Truth: "Compact. Cozy. Right."
-- Price: TBD (Coming Soon or BeFirstToKnow)
+### Mobile Considerations
 
-**RelaxMax Limited Edition**
-- ID: `relaxmax-limited`
-- Tagline: "Premium Meets Performance"
-- 3-Word Truth: "Swivel. Sip. Settle."
-- Features: 360° swivel base, dual cup holders, premium leather
-- Price: TBD (Flagship pricing)
-
-### B. Update `src/components/ProductCard.tsx`
-
-Add Arabic translations for new products:
-```typescript
-'relaxmax-compact': {
-  name: 'ريلاكس ماكس كومباكت',
-  englishName: 'RelaxMax Compact',
-  tagline: 'نفس الراحة، مساحة أصغر',
-  truth: 'مدمج. مريح. صحيح.'
-},
-'relaxmax-limited': {
-  name: 'ريلاكس ماكس ليميتد إيديشن',
-  englishName: 'RelaxMax Limited Edition',
-  tagline: 'الفخامة تلتقي بالأداء',
-  truth: 'دوار. رشفة. استرخاء.'
-}
-```
-
-### C. Update `src/components/ProductGallery.tsx`
-
-Add new products to the featured order:
-```typescript
-const featuredOrder = [
-  "relaxmax",
-  "relaxmax-limited",    // NEW - after RelaxMax
-  "relaxmax-compact",    // NEW
-  "easyup",
-  "easyup-compact",
-  "comfortplus",         // Note: No image in batch - keep existing
-  "diva",
-  "spacesaver",          // Note: No image in batch - keep existing
-  "worknest",
-  "cozycompanion",
-  "complete-set",
-];
-```
+- Card width: `max-w-md` (448px) centers beautifully
+- Image height: `h-64` mobile, `h-80` desktop
+- Padding: `p-8` for comfortable reading
+- RTL support: `flex-row-reverse` for sparkle alignment
 
 ---
 
-## Phase 3: Replace All Image Mappings
+## Technical Notes
 
-### A. Update `src/catalog/lovableCatalog.ts`
+### Dependencies
+- `Sparkles` icon from `lucide-react` (already installed)
 
-Replace hero images for all 9 products with new uploaded images:
+### Files Modified
+- `src/components/Partners.tsx` - Replace OMASH hero card section
 
-```typescript
-{
-  productHandle: "relaxmax",
-  heroImage: {
-    src: "/images/dandle-relaxmax-hero.webp",
-    // ...
-  }
-}
-// ... repeat for all products
-```
-
-### B. Update `src/data/productColorImages.ts`
-
-Set new hero images as primary for each product:
-
-```typescript
-'relaxmax': [
-  { swatchKey: 'cognac-leather', imageSrc: '/images/dandle-relaxmax-hero.webp' },
-  // ... existing variants
-],
-'relaxmax-compact': [
-  { swatchKey: 'mocha-fabric', imageSrc: '/images/dandle-relaxmax-compact-hero.webp' },
-],
-'relaxmax-limited': [
-  { swatchKey: 'camel-leather', imageSrc: '/images/dandle-relaxmax-limited-hero.webp' },
-],
-// ... update all products
-```
-
-### C. Update `src/data/productImageData.ts`
-
-Update main image references for all products.
-
----
-
-## Phase 4: Ensure Container Sizing
-
-### A. Review `ProductCard.tsx` aspect ratio
-
-Current: `aspect-[3/4]` (portrait)
-
-The uploaded images appear to be portrait orientation (approximately 3:4 or 2:3). Will verify and adjust if needed to ensure full image display without cropping.
-
-### B. Review image object-fit
-
-Current: `object-contain object-center`
-
-This ensures full image visibility. Will verify no cropping occurs.
-
----
-
-## Files to Modify
-
-| File | Changes |
-|------|---------|
-| `public/images/` | Copy 9 new hero images |
-| `src/types/product.ts` | Add 2 new products (RelaxMax Compact, RelaxMax Limited Edition) |
-| `src/components/ProductCard.tsx` | Add Arabic translations for new products |
-| `src/components/ProductGallery.tsx` | Add new products to featured order |
-| `src/catalog/lovableCatalog.ts` | Replace hero images for all products |
-| `src/data/productColorImages.ts` | Update primary color variants with new images |
-| `src/data/productImageData.ts` | Update main image references |
-
----
-
-## Missing Images Note
-
-Two products from the current catalog have NO new images in this batch:
-- **ComfortPlus** - Keep existing `/images/dandle-comfortplus.jpg`
-- **SpaceSaver** - Keep existing `/images/dandle-spacesaver.jpg`
-
-If you have images for these, please upload them in the next batch.
+### No CSS Changes Required
+- All styling uses existing Tailwind utilities
+- Brand tokens (`text-charcoal`, `bg-off-white`, `text-dandle-orange`) already defined
 
 ---
 
 ## Success Criteria
 
-1. All 9 uploaded images display as hero images on product cards
-2. Two new products (RelaxMax Compact, RelaxMax Limited Edition) visible in gallery
-3. Images display at full size without cropping
-4. Bilingual support works for new products
-5. No 404 errors on any product images
+1. OMASH card displays with stunning rounded container design
+2. Partner badge floats over image with glass effect
+3. Sparkle accent appears next to tagline
+4. Brand name "OMASH Damsuk" displays correctly (always English)
+5. Animated pulse indicator on product highlight
+6. Full RTL support for Arabic mode
+7. Uses existing `/images/dandle-omash-partnership.webp` image
+
