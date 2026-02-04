@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { getLangFromStorage, type LangKey } from "@/i18n/strings";
-import LCornerFrame from "@/components/ui/LCornerFrame";
+import { Sparkles } from "lucide-react";
 
 // Hero partner (featured prominently)
 const heroPartner = {
@@ -127,43 +127,61 @@ const Partners = () => {
           </p>
         </div>
 
-        {/* OMASH Hero Partner Feature */}
-        <div className="max-w-5xl mx-auto mb-16">
-          <LCornerFrame className="overflow-hidden bg-off-white">
-            {/* Image - no overlay on mobile */}
-            <img
-              src={heroPartner.image}
-              alt={isArabic ? "شراكة Dandle و OMASH Damsuk" : "Dandle × OMASH Damsuk Partnership"}
-              className="w-full h-auto object-cover"
-              loading="lazy"
-            />
-            
-            {/* Text content below image */}
-            <div className={`p-6 md:p-10 ${isArabic ? 'text-right' : 'text-left'}`}>
-              <span className={`text-dandle-orange text-xs tracking-wide font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                {isArabic ? heroPartner.taglineAr : heroPartner.taglineEn}
-              </span>
-              <h3 className={`text-2xl md:text-3xl text-charcoal mt-2 ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
-                {isArabic ? (
-                  <>أوماش دمسوق (<span dir="ltr">OMASH Damsuk</span>)</>
-                ) : (
-                  "OMASH Damsuk"
-                )}
-              </h3>
-              <p className={`text-charcoal/80 mt-3 text-sm md:text-base leading-relaxed ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                {isArabic ? heroPartner.valueAr : heroPartner.valueEn}
-              </p>
-              <p className={`text-charcoal/50 mt-2 text-xs ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                {isArabic ? heroPartner.meaningAr : heroPartner.meaningEn}
-              </p>
-              {/* Product highlight */}
-              <div className="mt-4 pt-4 border-t border-champagne/30">
-                <p className={`text-dandle-orange text-sm font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                  ✦ {isArabic ? heroPartner.highlightAr : heroPartner.highlight}
-                </p>
+        {/* OMASH Hero Partner Feature - Stunning Card */}
+        <div className="max-w-md mx-auto mb-16">
+          <div 
+            className="bg-off-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-champagne/20"
+            dir={isArabic ? "rtl" : "ltr"}
+          >
+            {/* Image with Partner Badge */}
+            <div className="relative h-64 md:h-80 w-full">
+              <img 
+                src={heroPartner.image}
+                alt="OMASH Damsuk Partnership"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute top-4 right-4 bg-off-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-sm">
+                <span className="text-[10px] font-black uppercase tracking-widest text-charcoal">
+                  {isArabic ? "شريك" : "Partner"}
+                </span>
               </div>
             </div>
-          </LCornerFrame>
+
+            {/* Text Content */}
+            <div className={`p-8 ${isArabic ? 'text-right' : 'text-left'}`}>
+              {/* Tagline with Sparkle */}
+              <div className={`flex items-center gap-2 mb-3 opacity-60 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                <Sparkles size={14} className="text-dandle-orange" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-charcoal/50">
+                  {isArabic ? heroPartner.taglineAr : heroPartner.taglineEn}
+                </span>
+              </div>
+
+              {/* Brand Name - Always prominent */}
+              <h3 className={`text-3xl md:text-4xl text-charcoal mb-3 leading-tight ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
+                OMASH Damsuk
+              </h3>
+
+              {/* Value Statement */}
+              <p className={`text-sm font-semibold text-dandle-orange mb-4 uppercase tracking-wide ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                {isArabic ? "تراث مصري أصيل" : "Authentic Egyptian Heritage"}
+              </p>
+
+              {/* Description */}
+              <p className={`text-charcoal/60 text-sm leading-relaxed mb-6 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                {isArabic ? heroPartner.meaningAr : heroPartner.meaningEn}
+              </p>
+
+              {/* Product Highlight Badge */}
+              <div className="flex items-center gap-3 bg-cream/50 border border-champagne/20 px-4 py-3 rounded-xl">
+                <div className="w-2 h-2 rounded-full bg-dandle-orange animate-pulse flex-shrink-0" />
+                <span className={`text-xs font-semibold text-charcoal ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                  {isArabic ? heroPartner.highlightAr : heroPartner.highlight}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Partner Cards Grid */}
