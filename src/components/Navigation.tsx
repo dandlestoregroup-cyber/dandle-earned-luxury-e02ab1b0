@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { CartButton } from "@/components/cart/CartButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { useShopifyCartStore } from "@/stores/shopifyCartStore";
+import { useLang } from "@/hooks/useBilingualText";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const getTotalItems = useShopifyCartStore((state) => state.getTotalItems);
   const navigate = useNavigate();
+  const { isArabic } = useLang();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -115,7 +117,10 @@ const Navigation = () => {
           <button
             className="md:hidden text-warm-white/80 hover:text-warm-white transition-colors p-2"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "إغلاق القائمة" : "فتح القائمة"}
+            aria-label={isOpen 
+              ? (isArabic ? "إغلاق القائمة" : "Close menu") 
+              : (isArabic ? "فتح القائمة" : "Open menu")
+            }
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
