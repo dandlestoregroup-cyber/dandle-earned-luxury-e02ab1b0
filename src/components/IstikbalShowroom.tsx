@@ -1,8 +1,6 @@
-import { motion } from "framer-motion";
-import { MapPin, Calendar, Star, Phone } from "lucide-react";
+import { MapPin, Calendar, Sparkles, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
-import { getLangFromStorage, type LangKey } from "@/i18n/strings";
+import { useLang } from "@/hooks/useBilingualText";
 
 // All 4 Istikbal showroom locations in Egypt
 const branches = [
@@ -36,20 +34,23 @@ const branches = [
   },
 ];
 
+// Istikbal partner data
+const istikbalPartner = {
+  nameEn: "Istikbal",
+  nameAr: "إستيكبال",
+  taglineEn: "Showroom Network",
+  taglineAr: "شبكة المعارض",
+  valueEn: "Try before you decide. See the build quality up close, in person.",
+  valueAr: "جرّب قبل ما تقرر. شوف الجودة بنفسك في المعرض.",
+  meaningEn: "4 branches across Cairo & Alexandria.",
+  meaningAr: "4 فروع في القاهرة والإسكندرية.",
+  highlightEn: "Experience RelaxMax in-person at City Stars",
+  highlightAr: "جرب ريلاكس ماكس شخصياً في سيتي ستارز",
+  image: "/images/dandle-partnerships-room.png",
+};
+
 const IstikbalShowroom = () => {
-  const [lang, setLang] = useState<LangKey>('ar');
-
-  useEffect(() => {
-    const storedLang = getLangFromStorage();
-    setLang(storedLang);
-    const interval = setInterval(() => {
-      const currentLang = getLangFromStorage();
-      setLang(prev => prev !== currentLang ? currentLang : prev);
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
-
-  const isArabic = lang === 'ar';
+  const { isArabic } = useLang();
 
   const handleBookAppointment = () => {
     const message = isArabic
@@ -59,139 +60,128 @@ const IstikbalShowroom = () => {
   };
 
   return (
-    <section 
-      className="istikbal-section py-12 md:py-16 bg-gradient-to-br from-bronze/90 via-bronze to-charcoal/80 overflow-hidden relative"
+    <section
+      className="py-20 md:py-28 bg-cream"
       dir={isArabic ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: isArabic ? 30 : -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
+        {/* Section Header */}
+        <div className="text-center mb-12 md:mb-16">
+          <span className={`text-xs text-bronze tracking-wide font-light uppercase ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+            {isArabic ? "جرب بنفسك" : "Experience In-Person"}
+          </span>
+          <h2 className={`text-3xl md:text-4xl text-charcoal mt-4 font-light ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
+            {isArabic ? "تعال واشعر بالفرق" : "Come Feel the Difference"}
+          </h2>
+          <p className={`text-charcoal/60 mt-3 max-w-xl mx-auto ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+            {isArabic
+              ? "جرب Dandle في صالات عرض إستيكبال. اجلس، استرخِ، واكتشف أي موديل يناديك."
+              : "Experience Dandle at Istikbal showrooms. Sit, relax, and discover which model calls to you."
+            }
+          </p>
+        </div>
+
+        {/* Istikbal Hero Card - OMASH Clone */}
+        <div className="max-w-md mx-auto mb-12">
+          <div
+            className="bg-off-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-champagne/20"
+            dir={isArabic ? "rtl" : "ltr"}
           >
-            <div className="flex items-center gap-2">
-              <Star className="w-5 h-5 text-dandle-orange fill-dandle-orange" />
-              <span className={`text-warm-white text-sm tracking-wide ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+            {/* Image with Partner Badge */}
+            <div className="relative h-64 md:h-80 w-full">
+              <img
+                src={istikbalPartner.image}
+                alt="Istikbal Showroom Partnership"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute top-4 right-4 bg-off-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-sm">
+                <span className="text-[10px] font-black uppercase tracking-widest text-charcoal">
+                  {isArabic ? "شريك" : "Partner"}
+                </span>
+              </div>
+            </div>
+
+            {/* Text Content */}
+            <div className={`p-8 ${isArabic ? 'text-right' : 'text-left'}`}>
+              {/* Tagline with Sparkle */}
+              <div className={`flex items-center gap-2 mb-3 opacity-60 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                <Sparkles size={14} className="text-dandle-orange" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-charcoal/50">
+                  {isArabic ? istikbalPartner.taglineAr : istikbalPartner.taglineEn}
+                </span>
+              </div>
+
+              {/* Brand Name */}
+              <h3 className={`text-3xl md:text-4xl text-charcoal mb-3 leading-tight ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
+                {isArabic ? istikbalPartner.nameAr : istikbalPartner.nameEn}
+              </h3>
+
+              {/* Value Statement */}
+              <p className={`text-sm font-semibold text-dandle-orange mb-4 uppercase tracking-wide ${isArabic ? 'font-body-ar' : 'font-body'}`}>
                 {isArabic ? "شريك رسمي" : "Official Partner"}
-              </span>
-            </div>
-            
-            <h2 className={`text-3xl md:text-4xl text-warm-white leading-tight ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
-              {isArabic ? "تعال واشعر بالفرق." : "Come feel the difference."}
-            </h2>
-            
-            <p className={`text-base md:text-lg text-warm-white/90 leading-relaxed ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-              {isArabic 
-                ? "جرب Dandle في صالات عرض إستيكبال. اجلس، استرخِ، واكتشف أي موديل يناديك."
-                : "Experience Dandle at Istikbal showrooms. Sit, relax, and discover which model calls to you."
-              }
-            </p>
+              </p>
 
-            <div className="space-y-4 pt-2">
+              {/* Description */}
+              <p className={`text-charcoal/60 text-sm leading-relaxed mb-6 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                {isArabic ? istikbalPartner.meaningAr : istikbalPartner.meaningEn}
+              </p>
+
+              {/* Product Highlight Badge */}
+              <div className="flex items-center gap-3 bg-cream/50 border border-champagne/20 px-4 py-3 rounded-xl mb-6">
+                <div className="w-2 h-2 rounded-full bg-dandle-orange animate-pulse flex-shrink-0" />
+                <span className={`text-xs font-semibold text-charcoal ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                  {isArabic ? istikbalPartner.highlightAr : istikbalPartner.highlightEn}
+                </span>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  onClick={handleBookAppointment}
+                  size="lg"
+                  className="bg-dandle-orange hover:bg-dandle-orange/90 text-white font-medium text-sm px-5 py-4 rounded-full flex-1"
+                >
+                  <Calendar className="w-4 h-4 mr-2" />
+                  {isArabic ? "احجز موعد" : "Book Appointment"}
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-charcoal/20 text-charcoal hover:bg-charcoal/5 font-medium px-5 py-4 rounded-full flex-1"
+                  onClick={() => window.open("tel:+201222804255")}
+                >
+                  <Phone className="w-4 h-4 mr-2" />
+                  {isArabic ? "اتصل" : "Call"}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Branch Locations Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {branches.map((branch) => (
+            <div
+              key={branch.nameEn}
+              className="bg-off-white p-5 rounded-xl border border-champagne/10 hover:shadow-elegant transition-shadow duration-300"
+            >
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-dandle-orange/30 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-5 h-5 text-warm-white" />
+                <div className="w-8 h-8 rounded-full bg-dandle-orange/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-4 h-4 text-dandle-orange" />
                 </div>
                 <div>
-                  <h4 className={`text-base text-warm-white font-medium ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
-                    {isArabic ? "قسم DANDLE مخصص" : "Dedicated DANDLE Section"}
+                  <h4 className={`text-sm font-medium text-charcoal mb-1 ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
+                    {isArabic ? branch.nameAr : branch.nameEn}
                   </h4>
-                  <p className={`text-warm-white/70 text-sm ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                    {isArabic ? "المجموعة الكاملة معروضة داخل صالات عرض إستيكبال" : "Full collection on display inside Istikbal showrooms"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-dandle-orange/30 flex items-center justify-center flex-shrink-0">
-                  <Calendar className="w-5 h-5 text-warm-white" />
-                </div>
-                <div>
-                  <h4 className={`text-base text-warm-white font-medium ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
-                    {isArabic ? "استشارة شخصية" : "Personal Consultation"}
-                  </h4>
-                  <p className={`text-warm-white/70 text-sm ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                    {isArabic ? "احجز موعداً خاصاً مع متخصصي الراحة لدينا" : "Book a private appointment with our comfort specialists"}
+                  <p className={`text-charcoal/60 text-xs leading-relaxed ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+                    {isArabic ? branch.addressAr : branch.addressEn}
                   </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 pt-4">
-              <Button
-                onClick={handleBookAppointment}
-                size="lg"
-                className="bg-dandle-orange hover:bg-dandle-orange/90 text-white font-medium text-base px-6 py-5 rounded-full"
-              >
-                <Calendar className="w-4 h-4 mr-2" />
-                {isArabic ? "احجز موعد" : "Book an Appointment"}
-              </Button>
-              
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-warm-white/50 text-warm-white hover:bg-warm-white/20 font-medium px-6 py-5 rounded-full"
-                onClick={() => window.open("tel:+201222804255")}
-              >
-                <Phone className="w-4 h-4 mr-2" />
-                {isArabic ? "اتصل بالمعرض" : "Call Showroom"}
-              </Button>
-            </div>
-          </motion.div>
-
-          {/* Branches List - All 4 Citystars */}
-          <motion.div
-            initial={{ opacity: 0, x: isArabic ? -30 : 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="bg-gradient-to-br from-warm-white/10 to-dandle-orange/10 rounded-lg p-6 md:p-8 backdrop-blur-sm">
-              {/* Decorative circles */}
-              <div className="absolute top-0 right-0 w-20 h-20 bg-dandle-orange/15 rounded-full -translate-y-1/2 translate-x-1/4" />
-              <div className="absolute bottom-0 left-0 w-14 h-14 bg-warm-white/10 rounded-full translate-y-1/3 -translate-x-1/4" />
-              
-              <div className="relative z-10">
-                <div className="text-center mb-6">
-                  <span className={`text-5xl md:text-6xl text-warm-white ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
-                    Istikbal
-                  </span>
-                  <p className={`text-warm-white/80 text-base mt-2 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                    {isArabic ? "حيث تلتقي الجودة بالراحة" : "Where Quality Meets Comfort"}
-                  </p>
-                </div>
-                
-                {/* Branch List */}
-                <div className="space-y-4 mt-6">
-                  <h4 className={`text-warm-white font-medium text-sm tracking-wide mb-3 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                    {isArabic ? "فروع إستيكبال" : "Istikbal Showrooms"}
-                  </h4>
-                  {branches.map((branch, index) => (
-                    <motion.div
-                      key={branch.nameEn}
-                      className="bg-warm-white/10 rounded-sm p-4 border border-warm-white/10"
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                    >
-                      <h5 className={`text-warm-white font-medium text-base mb-1 ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
-                        {isArabic ? branch.nameAr : branch.nameEn}
-                      </h5>
-                      <p className={`text-warm-white/70 text-sm leading-relaxed ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-                        {isArabic ? branch.addressAr : branch.addressEn}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          ))}
         </div>
       </div>
     </section>

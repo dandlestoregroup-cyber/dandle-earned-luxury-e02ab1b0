@@ -160,7 +160,7 @@ const Partners = () => {
 
               {/* Brand Name - Always prominent */}
               <h3 className={`text-3xl md:text-4xl text-charcoal mb-3 leading-tight ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
-                OMASH Damsuk
+                {isArabic ? heroPartner.nameAr : heroPartner.nameEn}
               </h3>
 
               {/* Value Statement */}
