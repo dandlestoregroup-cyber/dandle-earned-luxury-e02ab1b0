@@ -2,6 +2,7 @@ import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useWishlistStore, WishlistItem } from "@/stores/wishlistStore";
+import { useLang } from "@/hooks/useBilingualText";
 
 interface WishlistButtonProps {
   product: {
@@ -16,6 +17,7 @@ interface WishlistButtonProps {
 }
 
 const WishlistButton = ({ product, className, size = "md" }: WishlistButtonProps) => {
+  const { isArabic } = useLang();
   const { isInWishlist, openModal } = useWishlistStore();
   const isSaved = isInWishlist(product.id);
   
@@ -49,6 +51,10 @@ const WishlistButton = ({ product, className, size = "md" }: WishlistButtonProps
     openModal(wishlistItem);
   };
 
+  const ariaLabel = isSaved 
+    ? (isArabic ? "تمت الإضافة للمفضلة" : "Saved to wishlist")
+    : (isArabic ? "إضافة للمفضلة" : "Add to wishlist");
+
   return (
     <motion.button
       type="button"
@@ -63,7 +69,7 @@ const WishlistButton = ({ product, className, size = "md" }: WishlistButtonProps
       )}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      aria-label={isSaved ? "Saved to wishlist" : "Add to wishlist"}
+      aria-label={ariaLabel}
     >
       <Heart
         className={cn(

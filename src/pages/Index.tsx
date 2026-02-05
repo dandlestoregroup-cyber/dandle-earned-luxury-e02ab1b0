@@ -16,11 +16,25 @@ import WishlistModal from "@/components/WishlistModal";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/utils/structuredData";
 import MobileStickyBar from "@/components/MobileStickyBar";
+import { useLang } from "@/hooks/useBilingualText";
 
 const Index = () => {
+  const { isArabic } = useLang();
+  
+  const pageTitle = isArabic 
+    ? "Dandle ريكلاينرز مصر - كراسي راحة فاخرة | توصيل مجاني"
+    : "Dandle Recliners Egypt - Premium Comfort Chairs | Free Delivery";
+    
+  const pageDescription = isArabic
+    ? "Dandle ريكلاينرز - كراسي استرخاء فاخرة صناعة مصرية. تصميم راقي، راحة استثنائية، ضمان سنتين. توصيل مجاني في القاهرة والإسكندرية."
+    : "Dandle Recliners - Premium Egyptian-made comfort chairs. Elegant design, exceptional comfort, 2-year warranty. Free delivery in Cairo and Alexandria.";
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
+        <html lang={isArabic ? "ar" : "en"} dir={isArabic ? "rtl" : "ltr"} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
         <script type="application/ld+json">
           {JSON.stringify(generateOrganizationSchema())}
         </script>

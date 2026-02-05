@@ -339,14 +339,14 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
             <button
               onClick={handlePrevImage}
               className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-off-white/90 hover:bg-off-white shadow-md flex items-center justify-center transition-all duration-200 hover:scale-110"
-              aria-label="Previous color"
+              aria-label={isArabic ? "اللون السابق" : "Previous color"}
             >
               <ChevronLeft className="w-5 h-5 text-deep-brown" />
             </button>
             <button
               onClick={handleNextImage}
               className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-off-white/90 hover:bg-off-white shadow-md flex items-center justify-center transition-all duration-200 hover:scale-110"
-              aria-label="Next color"
+              aria-label={isArabic ? "اللون التالي" : "Next color"}
             >
               <ChevronRight className="w-5 h-5 text-deep-brown" />
             </button>
@@ -716,7 +716,7 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
                     boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
                   }}
                   title={getSwatchName(swatchKey)}
-                  aria-label={`Select ${getSwatchName(swatchKey)}`}
+                  aria-label={isArabic ? `اختر ${getSwatchName(swatchKey)}` : `Select ${getSwatchName(swatchKey)}`}
                 />
               ))}
               {swatchKeys.length > 5 && (
