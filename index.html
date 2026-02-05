@@ -3,17 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dandle Recliners - Earn Your Comfort</title>
-    <meta name="description" content="Experience earned luxury with Dandle's collection of premium recliners. Customizable designs, AR visualization, and white-glove delivery." />
+    <title>Dandle Recliners Egypt - Premium Comfort Chairs | Free Delivery</title>
+    <meta name="description" content="Shop premium recliners in Egypt. Handcrafted comfort chairs with 2-year warranty, free delivery & installation. Best Lazy Boy alternative in Cairo." />
     <meta name="author" content="Dandle Store Group" />
+    <meta name="keywords" content="recliners Egypt, lazy boy Cairo, كراسي ريكلاينر مصر, comfort chairs, premium furniture Cairo, Dandle recliners" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    
+    <!-- DNS Prefetch for faster connections -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <!-- Critical fonts with display=swap for faster loading -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Cairo:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400&display=swap" rel="stylesheet">
     
-    <!-- Preload hero video for instant play -->
+    <!-- Preload hero video for INSTANT play - highest priority -->
     <link rel="preload" href="/videos/festive-hero.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="/dandle-og-image.jpg" as="image" fetchpriority="high">
     
     <!-- Instant warm gradient - appears before React hydrates -->
     <style>
@@ -21,6 +31,11 @@
         margin: 0;
         padding: 0;
         min-height: 100vh;
+        background: linear-gradient(135deg, hsl(36 52% 90%) 0%, hsl(30 100% 98%) 100%);
+      }
+      
+      /* Critical video styles - prevent black screen */
+      video {
         background: linear-gradient(135deg, hsl(36 52% 90%) 0%, hsl(30 100% 98%) 100%);
       }
       
@@ -35,23 +50,66 @@
       }
     </style>
 
-    <meta property="og:title" content="DANDLE Recliners - Earned Luxury" />
-    <meta property="og:description" content="Premium Egyptian recliners. Handcrafted in Cairo. 5-year warranty. Free delivery & installation across Egypt." />
+    <meta property="og:title" content="Dandle Recliners Egypt - Premium Comfort Chairs" />
+    <meta property="og:description" content="Shop premium recliners in Egypt. Handcrafted comfort chairs with 2-year warranty, free delivery & installation. Best Lazy Boy alternative in Cairo." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dandle-earned-luxury.lovable.app/" />
     <meta property="og:image" content="https://dandle-earned-luxury.lovable.app/dandle-og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="640" />
     <meta property="og:locale" content="en_EG" />
+    <meta property="og:locale:alternate" content="ar_EG" />
     <meta property="og:site_name" content="DANDLE Egypt" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@DandleEgypt" />
-    <meta name="twitter:title" content="DANDLE Recliners - Earned Luxury" />
-    <meta name="twitter:description" content="Premium Egyptian recliners. Handcrafted in Cairo. 5-year warranty." />
+    <meta name="twitter:title" content="Dandle Recliners Egypt - Premium Comfort Chairs" />
+    <meta name="twitter:description" content="Shop premium recliners in Egypt. Handcrafted comfort with 2-year warranty." />
     <meta name="twitter:image" content="https://dandle-earned-luxury.lovable.app/dandle-og-image.jpg" />
     
     <link rel="canonical" href="https://dandle-earned-luxury.lovable.app/" />
+    
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Dandle Store Group",
+      "url": "https://dandle-earned-luxury.lovable.app",
+      "logo": "https://dandle-earned-luxury.lovable.app/dandle-og-image.jpg",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+20-122-280-4255",
+        "contactType": "sales",
+        "availableLanguage": ["English", "Arabic"]
+      },
+      "sameAs": [
+        "https://facebook.com/dandlestoregroup",
+        "https://instagram.com/dandlestoregroup"
+      ]
+    }
+    </script>
+    
+    <!-- Structured Data - LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FurnitureStore",
+      "name": "Dandle Recliners Egypt",
+      "image": "https://dandle-earned-luxury.lovable.app/dandle-og-image.jpg",
+      "priceRange": "EGP 25,000 - EGP 80,000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "City Stars Mall",
+        "addressLocality": "Nasr City",
+        "addressRegion": "Cairo",
+        "addressCountry": "EG"
+      },
+      "telephone": "+20-122-280-4255",
+      "openingHours": ["Mo-Su 10:00-15:00", "Mo-Su 19:00-21:00"],
+      "paymentAccepted": "Cash, Credit Card, ValU Installments"
+    }
+    </script>
   </head>
 
   <body>
