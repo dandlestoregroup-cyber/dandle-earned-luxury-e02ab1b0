@@ -171,6 +171,14 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
       minimumFractionDigits: 0,
     }).format(price);
   };
+ 
+   const formatMonthlyInstallment = (price: number) => {
+     const monthly = Math.ceil(price / 12);
+     return new Intl.NumberFormat("en-EG", {
+       minimumFractionDigits: 0,
+       maximumFractionDigits: 0,
+     }).format(monthly);
+   };
 
   const getPriceDisplay = () => {
     if (product.comingSoon || product.beFirstToKnow) return null;
@@ -591,6 +599,15 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
               <p className="font-body text-lg text-warm-white font-medium">
                 {getPriceDisplay()}
               </p>
+           )}
+           {/* ValU Installment Display */}
+           {product.price && !product.comingSoon && !product.beFirstToKnow && (
+             <p className="text-sm text-dandle-orange font-medium mt-1">
+               {isArabic 
+                 ? `يبدأ من ${formatMonthlyInstallment(product.price)} ج.م/شهرياً`
+                 : `From ${formatMonthlyInstallment(product.price)} EGP/mo`
+               }
+             </p>
             )}
           </motion.div>
 
