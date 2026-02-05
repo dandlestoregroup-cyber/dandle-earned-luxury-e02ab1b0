@@ -21,6 +21,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { PaymentTrustBadges } from "@/components/commerce/PaymentTrustBadges";
+import { ValuInstallmentCalculator } from "@/components/commerce/ValuInstallmentCalculator";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -219,6 +221,14 @@ const ProductDetail = () => {
                       {formatPrice(product.commerce.compareAtPrice, product.commerce.currencyCode)}
                     </div>
                   )}
+                 {/* ValU Installment Calculator */}
+                 {product.commerce?.price && (
+                   <ValuInstallmentCalculator 
+                     price={parseFloat(product.commerce.price)} 
+                     compact 
+                     className="mt-2"
+                   />
+                 )}
                   {!isAvailable && (
                     <div className="text-sm text-destructive font-medium">Currently unavailable</div>
                   )}
@@ -261,6 +271,9 @@ const ProductDetail = () => {
                 {inCompare ? "Remove from Compare" : "Add to Compare"}
               </Button>
             </div>
+
+           {/* Payment Trust Badges */}
+           <PaymentTrustBadges className="border-t border-border" />
 
             {/* Trust Badges */}
             <div className="grid grid-cols-3 gap-4 py-4 border-t border-border">

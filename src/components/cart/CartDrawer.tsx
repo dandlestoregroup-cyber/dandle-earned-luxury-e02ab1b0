@@ -27,6 +27,7 @@ import { useUIStore } from "@/stores/uiStore";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { PaymentTrustBadges } from "@/components/commerce/PaymentTrustBadges";
 
 const VALID_PROMO_CODE = "FESTIVE10";
 const PROMO_DISCOUNT = 0.10;
@@ -300,6 +301,9 @@ export const CartDrawer = () => {
                 </div>
                 
                 <div className="space-y-2">
+                 {/* Payment Trust Badges */}
+                 <PaymentTrustBadges compact className="mb-2 opacity-80" />
+                 
                   <Button 
                     onClick={handleCheckout}
                     className="w-full" 
