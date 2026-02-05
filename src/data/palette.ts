@@ -28,6 +28,19 @@ export const PALETTE_14: PaletteEntry[] = [
   { key: 'sandstorm-ochre', nameEn: 'Sandstorm Ochre', nameAr: 'مغرة العاصفة الرملية', hex: '#CC7722', material: 'Cotton Blend' },
   { key: 'papyrus-stripe', nameEn: 'Papyrus Stripe', nameAr: 'شريط البردي', hex: '#E8DCC4', material: 'Linen Blend' },
   { key: 'clay-pottery', nameEn: 'Clay Pottery', nameAr: 'فخار الطين', hex: '#8B4513', material: 'Textured Woven' },
+  
+  // Premium Leathers (RelaxMax Limited & Others)
+  { key: 'cognac-leather', nameEn: 'Cognac Leather', nameAr: 'جلد الكونياك', hex: '#8B4513', material: 'Full-Grain Leather' },
+  { key: 'camel-leather', nameEn: 'Camel Leather', nameAr: 'جلد الجمل', hex: '#C19A6B', material: 'Full-Grain Leather' },
+  { key: 'espresso-brown', nameEn: 'Espresso Brown', nameAr: 'بني إسبريسو', hex: '#4A3728', material: 'Full-Grain Leather' },
+  
+  // Neutral Classics
+  { key: 'charcoal', nameEn: 'Charcoal', nameAr: 'الفحمي', hex: '#36454F', material: 'Textured Leather' },
+  { key: 'terracotta', nameEn: 'Terracotta', nameAr: 'تيراكوتا', hex: '#CB6D51', material: 'Cotton Velvet' },
+  { key: 'offwhite', nameEn: 'Off White', nameAr: 'أوف وايت', hex: '#F5F5DC', material: 'Linen Blend' },
+  
+  // Complete Set Special
+  { key: 'family-modern', nameEn: 'Family Modern', nameAr: 'عائلي عصري', hex: '#8A8D8F', material: 'Performance Fabric' },
 ];
 
 // Lookup by key
