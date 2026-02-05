@@ -15,6 +15,7 @@ import AmazonVerification from "@/components/AmazonVerification";
 import WishlistModal from "@/components/WishlistModal";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/utils/structuredData";
+import MobileStickyBar from "@/components/MobileStickyBar";
 
 const Index = () => {
   return (
@@ -44,6 +45,7 @@ const Index = () => {
       <WhatsAppFloat />
       <WishlistModal />
       <CartDrawer />
+      <MobileStickyBar />
     </div>
   );
 };

@@ -86,7 +86,6 @@ const HeroVideo = ({ src, onEnded, onSkip }: HeroVideoProps) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Video Element - GPU Accelerated, Zero-Lag */}
       <video
         id="heroVideo"
         ref={videoRef}
@@ -97,6 +96,7 @@ const HeroVideo = ({ src, onEnded, onSkip }: HeroVideoProps) => {
         playsInline
         onEnded={onEnded}
         preload="auto"
+        poster="/dandle-og-image.jpg"
         onLoadedData={() => setIsLoaded(true)}
         style={{ 
           imageRendering: 'auto',
