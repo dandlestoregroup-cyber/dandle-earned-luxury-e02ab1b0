@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import HeroParticles from "./HeroParticles";
 import HeroSnow from "./HeroSnow";
 import AnimatedHeadline from "./AnimatedHeadline";
+import { useLang } from "@/hooks/useBilingualText";
 
 interface HeroOfferProps {
   onReplayVideo?: () => void;
@@ -14,6 +15,7 @@ interface HeroOfferProps {
 const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
   const [offerImage, setOfferImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { isArabic } = useLang();
 
   // Check for AI-generated offer image
   useEffect(() => {
@@ -84,12 +86,8 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <span 
-            className="text-sm md:text-base text-white/90 font-body tracking-wide"
-            data-en="The Art of Rest"
-            data-ar="فن الراحة"
-          >
-            The Art of Rest
+          <span className={`text-sm md:text-base text-white/90 tracking-wide ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+            {isArabic ? "فن الراحة" : "The Art of Rest"}
           </span>
         </motion.div>
 
@@ -108,40 +106,34 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
 
         {/* Subtitle - Bilingual */}
         <motion.p
-          className="text-lg md:text-xl lg:text-2xl text-white/90 font-body text-center mb-2 max-w-3xl"
+          className={`text-lg md:text-xl lg:text-2xl text-white/90 text-center mb-2 max-w-3xl ${isArabic ? 'font-body-ar' : 'font-body'}`}
           style={{ textShadow: '0 2px 15px rgba(0,0,0,0.8)', wordBreak: 'normal', overflowWrap: 'normal', hyphens: 'none' }}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.0, duration: 0.6 }}
-          data-en="For refined taste"
-          data-ar="لأصحاب الذوق الرفيع"
         >
-          For refined taste
+          {isArabic ? "لأصحاب الذوق الرفيع" : "For refined taste"}
         </motion.p>
 
         {/* Origin Line - Bilingual */}
         <motion.p
-          className="text-base md:text-lg text-white/80 font-body text-center mb-3 max-w-3xl"
+          className={`text-base md:text-lg text-white/80 text-center mb-3 max-w-3xl ${isArabic ? 'font-body-ar' : 'font-body'}`}
           style={{ textShadow: '0 2px 15px rgba(0,0,0,0.8)' }}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.15, duration: 0.6 }}
-          data-en="Crafted in Egypt. Made for Real Homes."
-          data-ar="صناعة مصرية. لبيوت حقيقية."
         >
-          Crafted in Egypt. Made for Real Homes.
+          {isArabic ? "صناعة مصرية. لبيوت حقيقية." : "Crafted in Egypt. Made for Real Homes."}
         </motion.p>
 
         {/* Proof Line - Bilingual */}
         <motion.p
-          className="text-white/80 text-center font-body text-base md:text-lg mb-8"
+          className={`text-white/80 text-center text-base md:text-lg mb-8 ${isArabic ? 'font-body-ar' : 'font-body'}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3, duration: 0.5 }}
-          data-en="14-Day Delivery • 2-Year Warranty"
-          data-ar="تسليم خلال 14 يوم • ضمان سنتين"
         >
-          14-Day Delivery • 2-Year Warranty
+          {isArabic ? "تسليم خلال ١٤ يوم • ضمان سنتين" : "14-Day Delivery • 2-Year Warranty"}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -155,11 +147,9 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
             onClick={() => {
               document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="w-full sm:w-auto group bg-dandle-orange hover:bg-dandle-orange/90 text-white px-8 py-5 text-lg font-body shadow-lg transition-all duration-300"
-            data-en="Find Your Perfect Recliner"
-            data-ar="اعثر على كرسيك المثالي"
+            className={`w-full sm:w-auto group bg-dandle-orange hover:bg-dandle-orange/90 text-white px-8 py-5 text-lg shadow-lg transition-all duration-300 ${isArabic ? 'font-body-ar' : 'font-body'}`}
           >
-            Find Your Perfect Recliner
+            {isArabic ? "اعثر على كرسيك المثالي" : "Find Your Perfect Recliner"}
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
           
@@ -168,11 +158,9 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
               document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' });
             }}
             variant="outline"
-            className="w-full sm:w-auto group bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-8 py-5 text-lg font-body transition-all duration-300"
-            data-en="Explore Collection"
-            data-ar="استكشف المجموعة"
+            className={`w-full sm:w-auto group bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-8 py-5 text-lg transition-all duration-300 ${isArabic ? 'font-body-ar' : 'font-body'}`}
           >
-            Explore Collection
+            {isArabic ? "استكشف المجموعة" : "Explore Collection"}
           </Button>
         </motion.div>
 
@@ -193,12 +181,10 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
           />
         </div>
         <span 
-          className="text-xs text-white/70 font-body" 
+          className={`text-xs text-white/70 ${isArabic ? 'font-body-ar' : 'font-body'}`}
           style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}
-          data-en="Scroll to Explore"
-          data-ar="اسحب للاستكشاف"
         >
-          Scroll to Explore
+          {isArabic ? "اسحب للاستكشاف" : "Scroll to Explore"}
         </span>
       </motion.div>
     </motion.div>

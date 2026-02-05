@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Volume2, VolumeX } from "lucide-react";
 import HeroParticles from "./HeroParticles";
+import { useLang } from "@/hooks/useBilingualText";
 
 const SOUND_PREF_KEY = 'dandle_hero_sound_pref';
 
@@ -9,7 +10,7 @@ const SOUND_PREF_KEY = 'dandle_hero_sound_pref';
 const OVERLAY_SCENES = [
   { en: "The Art of Rest", ar: "فن الراحة" },
   { en: "Crafted in Egypt. Made for real homes.", ar: "صناعة مصرية… لبيوت حقيقية." },
-  { en: "14-Day Delivery • 2-Year Warranty", ar: "توصيل خلال ١٤ يوم • ضمان سنتين" },
+  { en: "14-Day Delivery • 2-Year Warranty", ar: "تسليم خلال ١٤ يوم • ضمان سنتين" },
 ];
 
 interface HeroVideoProps {
@@ -27,6 +28,7 @@ const HeroVideo = ({ src, onEnded, onSkip }: HeroVideoProps) => {
     const saved = localStorage.getItem(SOUND_PREF_KEY);
     return saved !== 'unmuted'; // Default to muted
   });
+  const { isArabic } = useLang();
 
   // Scene rotation (4s per scene)
   useEffect(() => {
@@ -133,12 +135,11 @@ const HeroVideo = ({ src, onEnded, onSkip }: HeroVideoProps) => {
               className="text-center"
             >
               <p 
-                className="text-2xl md:text-4xl lg:text-5xl font-headline text-white font-semibold"
+                className={`text-2xl md:text-4xl lg:text-5xl font-headline text-white font-semibold ${isArabic ? 'font-body-ar' : ''}`}
                 style={{ textShadow: '0 2px 20px rgba(0,0,0,0.6)' }}
-                data-en={OVERLAY_SCENES[currentScene].en}
-                data-ar={OVERLAY_SCENES[currentScene].ar}
+                dir={isArabic ? 'rtl' : 'ltr'}
               >
-                {OVERLAY_SCENES[currentScene].en}
+                {isArabic ? OVERLAY_SCENES[currentScene].ar : OVERLAY_SCENES[currentScene].en}
               </p>
             </motion.div>
           </AnimatePresence>
@@ -155,7 +156,9 @@ const HeroVideo = ({ src, onEnded, onSkip }: HeroVideoProps) => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <span className="text-sm text-white font-body">Skip</span>
+        <span className={`text-sm text-white ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+          {isArabic ? "تخطي" : "Skip"}
+        </span>
         <ChevronRight className="w-4 h-4 text-white" />
       </motion.button>
 
@@ -174,12 +177,11 @@ const HeroVideo = ({ src, onEnded, onSkip }: HeroVideoProps) => {
         ) : (
           <Volume2 className="w-4 h-4 text-white" />
         )}
-        <span 
-          className="text-sm text-white font-body"
-          data-en={isMuted ? "Sound On" : "Sound Off"}
-          data-ar={isMuted ? "تشغيل الصوت" : "إيقاف الصوت"}
-        >
-          {isMuted ? "Sound On" : "Sound Off"}
+        <span className={`text-sm text-white ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+          {isArabic 
+            ? (isMuted ? "تشغيل الصوت" : "إيقاف الصوت")
+            : (isMuted ? "Sound On" : "Sound Off")
+          }
         </span>
       </motion.button>
 

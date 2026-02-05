@@ -18,8 +18,19 @@ const HeroGiftingSeason = ({
 }: HeroGiftingSeasonProps) => {
   const [phase, setPhase] = useState<'video' | 'offer'>('video');
   const [hasSeenVideo, setHasSeenVideo] = useState(false);
-  const [videoSrc, setVideoSrc] = useState(VIDEO_SRC);
+  const [isVideoReady, setIsVideoReady] = useState(false);
   const { trackVideoComplete, resetTimer } = useHeroAnalytics();
+
+  // Preload video immediately on mount for instant playback
+  useEffect(() => {
+    const video = document.createElement('video');
+    video.preload = 'auto';
+    video.src = VIDEO_SRC;
+    video.oncanplaythrough = () => setIsVideoReady(true);
+    // Also set ready after a short timeout as fallback
+    const timeout = setTimeout(() => setIsVideoReady(true), 500);
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Check localStorage for analytics tracking only - video always plays first
   useEffect(() => {
@@ -52,7 +63,10 @@ const HeroGiftingSeason = ({
 
   return (
     <motion.section
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[hsl(0_0%_10%)]"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
+      style={{ 
+        background: 'linear-gradient(135deg, hsl(36 52% 90%) 0%, hsl(30 100% 98%) 100%)'
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -61,7 +75,7 @@ const HeroGiftingSeason = ({
         {phase === 'video' ? (
           <HeroVideo
             key="video"
-            src={videoSrc}
+            src={VIDEO_SRC}
             onEnded={handleVideoEnd}
             onSkip={handleSkipVideo}
           />
