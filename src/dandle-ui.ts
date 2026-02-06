@@ -3,8 +3,8 @@ export function initDandleUi() {
   "use strict";
 
   const FLAGS = {
-    ENABLE_LANG_TOGGLE: true,
-    ENABLE_HERO_MUTE: true,
+    ENABLE_LANG_TOGGLE: false,
+    ENABLE_HERO_MUTE: false,
   };
 
   const STORAGE_KEY = "dandle_lang";
