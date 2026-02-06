@@ -38,7 +38,7 @@ const ProductGallery = () => {
     .filter((product): product is Product => Boolean(product));
 
   return (
-    <section className="bg-cream py-8 md:py-16 px-4 md:px-8">
+    <section id="products" className="bg-background py-12 md:py-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {featuredProducts.map((product, index) => (

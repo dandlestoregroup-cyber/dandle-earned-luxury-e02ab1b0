@@ -98,11 +98,12 @@ export default {
         '3/4': '3 / 4',
       },
       fontFamily: {
-        headline: ['Montserrat', 'sans-serif'],
+        headline: ["'Cormorant Garamond'", 'Garamond', 'Georgia', 'serif'],
         'headline-ar': ['Cairo', 'sans-serif'],
-        body: ['Montserrat', 'sans-serif'],
+        body: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         'body-ar': ['Cairo', 'sans-serif'],
-        sans: ['Montserrat', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ["'Cormorant Garamond'", 'Garamond', 'Georgia', 'serif'],
       },
       letterSpacing: {
         'headline': '-0.03em',

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/hooks/useBilingualText";
 
@@ -14,43 +14,51 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-obsidian" dir={isArabic ? 'rtl' : 'ltr'}>
-      <div className="container mx-auto px-4">
+    <section id="contact" className="relative py-28 md:py-36 bg-foreground overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
+      {/* Subtle radial glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(28_80%_52%/0.06)_0%,transparent_70%)]" />
+
+      <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className={`text-xs text-champagne/80 tracking-wide font-light ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+            {/* Decorative line */}
+            <div className="w-12 h-px bg-primary/30 mx-auto mb-8" />
+
+            <span className={`text-xs text-primary/70 tracking-[0.2em] font-body font-light ${isArabic ? 'font-body-ar' : ''}`}>
               {isArabic ? "تواصل معنا" : "Get in Touch"}
             </span>
             
-            <h2 className={`text-4xl md:text-5xl text-warm-white mt-4 mb-8 font-light ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
+            <h2 className={`font-serif text-4xl md:text-5xl lg:text-6xl text-primary-foreground mt-6 mb-10 font-normal leading-tight ${isArabic ? 'font-body-ar' : ''}`}>
               {isArabic ? "زُر معارضنا" : "Visit Our Showrooms"}
             </h2>
           </motion.div>
           
-          {/* Phone Number - Large */}
+          {/* Phone Number */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-12"
+            className="mb-14"
           >
             <a 
               href="tel:01222804255" 
-              className="inline-flex items-center gap-4 text-warm-white hover:text-champagne transition-colors group"
+              className="inline-flex items-center gap-4 text-primary-foreground hover:text-primary transition-colors duration-500 group"
             >
-              <Phone className="w-5 h-5 text-champagne" />
-              <span className="font-headline text-3xl md:text-4xl font-light tracking-wide" dir="ltr">
+              <div className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center group-hover:border-primary/60 transition-colors duration-500">
+                <Phone className="w-4 h-4 text-primary" />
+              </div>
+              <span className="font-serif text-3xl md:text-4xl font-light tracking-wide" dir="ltr">
                 01222804255
               </span>
             </a>
-            <p className={`text-champagne/90 text-sm mt-4 font-light ${isArabic ? 'font-body-ar' : 'font-body'}`}>
-              {isArabic ? "يومياً: ١٠ص-٣م و ٧م-٩م" : "Daily: 10AM-3PM & 7PM-9PM"}
+            <p className={`text-primary-foreground/60 text-sm mt-5 font-body font-light ${isArabic ? 'font-body-ar' : ''}`}>
+              {isArabic ? "يومياً: ١٠ص-٣م و ٧م-٩م" : "Daily: 10am – 3pm & 7pm – 9pm"}
             </p>
           </motion.div>
           
@@ -63,7 +71,7 @@ const Contact = () => {
           >
             <Button
               onClick={handleWhatsAppContact}
-              className="btn-refined rounded-none"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-5 rounded-none text-sm tracking-wide font-body transition-all duration-500"
             >
               {isArabic ? "تواصل عبر واتساب" : "Connect via WhatsApp"}
             </Button>

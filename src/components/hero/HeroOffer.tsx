@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { toast } from "sonner";
 import HeroParticles from "./HeroParticles";
 import HeroSnow from "./HeroSnow";
 import AnimatedHeadline from "./AnimatedHeadline";
@@ -17,29 +16,22 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const { isArabic } = useLang();
 
-  // Check for AI-generated offer image
   useEffect(() => {
     const checkOfferImage = async () => {
       const baseUrl = import.meta.env.VITE_SUPABASE_URL;
       const imageUrl = `${baseUrl}/storage/v1/object/public/product-images/hero/festive-offer.webp`;
-      
       try {
         const res = await fetch(imageUrl, { method: "HEAD" });
-        if (res.ok) {
-          setOfferImage(imageUrl);
-        }
-      } catch {
-        // Use fallback
-      }
+        if (res.ok) setOfferImage(imageUrl);
+      } catch { /* fallback */ }
       setIsLoading(false);
     };
-
     checkOfferImage();
   }, []);
 
-  // Fallback image from assets
   const fallbackImage = "/images/relaxmax-hero-offwhite.jpg";
   const displayImage = offerImage || fallbackImage;
+  const fontClass = isArabic ? 'font-body-ar' : 'font-body';
 
   return (
     <motion.div
@@ -50,9 +42,9 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
       transition={{ duration: 0.8 }}
     >
       {/* Background Image with Ken Burns */}
-      <div className="absolute inset-0 overflow-hidden bg-[hsl(0_0%_10%)]">
+      <div className="absolute inset-0 overflow-hidden bg-foreground">
         {isLoading ? (
-          <div className="w-full h-full bg-gradient-to-br from-[hsl(0_0%_10%)] via-[hsl(216_58%_36%/0.3)] to-[hsl(0_0%_10%)]" />
+          <div className="w-full h-full bg-gradient-to-br from-foreground to-foreground" />
         ) : (
           <motion.img
             src={displayImage}
@@ -60,54 +52,52 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
             className="w-full h-full object-cover"
             initial={{ scale: 1.1 }}
             animate={{ scale: 1.02 }}
-            transition={{ duration: 12, ease: "easeOut" }}
+            transition={{ duration: 14, ease: "easeOut" }}
           />
         )}
       </div>
 
-      {/* Soft radial vignette */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_30%,rgba(0,0,0,0.35)_100%)]" />
+      {/* Cinematic vignette */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_20%,rgba(0,0,0,0.5)_100%)]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35 pointer-events-none" />
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/40 pointer-events-none" />
-
-      {/* Atmospheric Effects - lower z-index */}
+      {/* Atmospheric Effects */}
       <div className="z-0">
         <HeroParticles density={18} tone="ivory" />
         <HeroSnow density={12} />
       </div>
 
-      {/* Content - higher z-index */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-20 px-4">
-        {/* Pre-headline Badge */}
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-20 px-6">
+        {/* Eyebrow */}
         <motion.div
-          className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-4 border border-white/20"
+          className="mb-6"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
         >
-          <span className={`text-sm md:text-base text-white/90 tracking-wide ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+          <span className={`text-xs md:text-sm tracking-[0.25em] text-white/60 font-light ${fontClass}`}>
             {isArabic ? "فن الراحة" : "The Art of Rest"}
           </span>
         </motion.div>
 
-        {/* Main H1 - Critical for SEO */}
+        {/* SEO H1 */}
         <h1 className="sr-only">Dandle Recliners - Premium Egyptian-Made Comfort Chairs</h1>
         
-        {/* Animated Headline - Bilingual (visual) */}
+        {/* Animated Headline */}
         <AnimatedHeadline 
           textEn="The Gift of Comfort"
           textAr="هدية الراحة"
-          className="text-4xl md:text-6xl lg:text-7xl font-headline font-bold text-white text-center mb-4"
+          className="font-serif text-4xl md:text-6xl lg:text-7xl font-normal text-white text-center mb-5"
           style={{ wordBreak: 'normal', overflowWrap: 'normal', hyphens: 'none', textWrap: 'balance' }}
-          delay={0.4}
+          delay={0.5}
           aria-hidden="true"
         />
 
-        {/* Subtitle - Bilingual */}
+        {/* Subtitle */}
         <motion.p
-          className={`text-lg md:text-xl lg:text-2xl text-white/90 text-center mb-2 max-w-3xl ${isArabic ? 'font-body-ar' : 'font-body'}`}
-          style={{ textShadow: '0 2px 15px rgba(0,0,0,0.8)', wordBreak: 'normal', overflowWrap: 'normal', hyphens: 'none' }}
+          className={`text-base md:text-lg lg:text-xl text-white/80 text-center mb-2 max-w-2xl font-light ${fontClass}`}
+          style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.0, duration: 0.6 }}
@@ -115,77 +105,66 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
           {isArabic ? "لأصحاب الذوق الرفيع" : "For refined taste"}
         </motion.p>
 
-        {/* Origin Line - Bilingual */}
+        {/* Origin Line */}
         <motion.p
-          className={`text-base md:text-lg text-white/80 text-center mb-3 max-w-3xl ${isArabic ? 'font-body-ar' : 'font-body'}`}
+          className={`text-sm md:text-base text-white/60 text-center mb-3 ${fontClass}`}
           style={{ textShadow: '0 2px 15px rgba(0,0,0,0.8)' }}
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 15, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.15, duration: 0.6 }}
         >
           {isArabic ? "صناعة مصرية. لبيوت حقيقية." : "Crafted in Egypt. Made for Real Homes."}
         </motion.p>
 
-        {/* Proof Line - Bilingual */}
+        {/* Proof Line */}
         <motion.p
-          className={`text-white/80 text-center text-base md:text-lg mb-8 ${isArabic ? 'font-body-ar' : 'font-body'}`}
+          className={`text-white/50 text-center text-xs md:text-sm tracking-wide mb-10 ${fontClass}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3, duration: 0.5 }}
         >
-          {isArabic ? "تسليم خلال ١٤ يوم • ضمان سنتين" : "14-Day Delivery • 2-Year Warranty"}
+          {isArabic ? "تسليم خلال ١٤ يوم  •  ضمان سنتين" : "14-Day Delivery  •  2-Year Warranty"}
         </motion.p>
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mb-8"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md"
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.6 }}
         >
           <Button
-            onClick={() => {
-              document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className={`w-full sm:w-auto group bg-dandle-orange hover:bg-dandle-orange/90 text-white px-8 py-5 text-lg shadow-lg transition-all duration-300 ${isArabic ? 'font-body-ar' : 'font-body'}`}
+            onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+            className={`w-full sm:w-auto group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-5 text-base rounded-none tracking-wide transition-all duration-500 ${fontClass}`}
           >
             {isArabic ? "اعثر على كرسيك المثالي" : "Find Your Perfect Recliner"}
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Button>
           
           <Button
-            onClick={() => {
-              document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
             variant="outline"
-            className={`w-full sm:w-auto group bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-8 py-5 text-lg transition-all duration-300 ${isArabic ? 'font-body-ar' : 'font-body'}`}
+            className={`w-full sm:w-auto bg-white/5 backdrop-blur-md border border-white/15 hover:bg-white/10 hover:border-white/30 text-white px-8 py-5 text-base rounded-none tracking-wide transition-all duration-500 ${fontClass}`}
           >
             {isArabic ? "استكشف المجموعة" : "Explore Collection"}
           </Button>
         </motion.div>
-
       </div>
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
-        animate={{ y: [0, 8, 0], opacity: [0.6, 1, 0.6] }}
-        transition={{ repeat: Infinity, duration: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3"
+        animate={{ y: [0, 6, 0], opacity: [0.4, 0.8, 0.4] }}
+        transition={{ repeat: Infinity, duration: 2.5 }}
         initial={{ opacity: 0 }}
       >
-        <div className="w-6 h-10 rounded-full border-2 border-white/60 flex items-start justify-center p-2 bg-black/20 backdrop-blur-sm">
+        <div className="w-5 h-9 rounded-full border border-white/30 flex items-start justify-center p-1.5">
           <motion.div
-            className="w-1.5 h-1.5 bg-white rounded-full shadow-lg"
-            animate={{ y: [0, 12, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
+            className="w-1 h-1 bg-white/80 rounded-full"
+            animate={{ y: [0, 14, 0] }}
+            transition={{ repeat: Infinity, duration: 1.8 }}
           />
         </div>
-        <span 
-          className={`text-xs text-white/70 ${isArabic ? 'font-body-ar' : 'font-body'}`}
-          style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}
-        >
-          {isArabic ? "اسحب للاستكشاف" : "Scroll to Explore"}
-        </span>
       </motion.div>
     </motion.div>
   );

@@ -19,36 +19,39 @@ const TrustBlock = () => {
   const isArabic = lang === 'ar';
 
   const trustPoints = [
-    {
-      icon: MapPin,
-      titleEn: "Handcrafted in Cairo",
-      titleAr: "مصنوع يدويًا في القاهرة",
-    },
-    {
-      icon: Shield,
-      titleEn: "2-Year Warranty",
-      titleAr: "ضمان سنتين",
-    },
-    {
-      icon: Truck,
-      titleEn: "14-Day Delivery",
-      titleAr: "توصيل خلال ١٤ يوم",
-    },
-    {
-      icon: Palette,
-      titleEn: "Egyptian-Inspired Colors",
-      titleAr: "ألوان مستوحاة من مصر",
-    },
+    { icon: MapPin, titleEn: "Handcrafted in Cairo", titleAr: "مصنوع يدويًا في القاهرة" },
+    { icon: Shield, titleEn: "2-Year Warranty", titleAr: "ضمان سنتين" },
+    { icon: Truck, titleEn: "14-Day Delivery", titleAr: "توصيل خلال ١٤ يوم" },
+    { icon: Palette, titleEn: "Egyptian-Inspired Colors", titleAr: "ألوان مستوحاة من مصر" },
   ];
 
   return (
     <section 
-      className="bg-warm-white py-20 md:py-28 px-4"
+      className="bg-background py-24 md:py-32 px-4"
       dir={isArabic ? 'rtl' : 'ltr'}
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto">
+        {/* Decorative line */}
+        <motion.div
+          className="w-12 h-px bg-primary/40 mx-auto mb-8"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        />
+
+        <motion.p 
+          className="text-center font-body text-xs tracking-[0.2em] text-muted-foreground mb-6"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {isArabic ? "الوعود" : "Our Promise"}
+        </motion.p>
+
         <motion.h2
-          className={`text-3xl md:text-4xl text-charcoal text-center mb-4 font-light ${isArabic ? 'font-body-ar' : 'font-headline'}`}
+          className={`font-serif text-3xl md:text-4xl text-foreground text-center mb-16 md:mb-20 font-normal ${isArabic ? 'font-body-ar' : ''}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -56,41 +59,24 @@ const TrustBlock = () => {
         >
           {isArabic ? "لماذا يختار الناس داندل" : "Why People Choose Dandle"}
         </motion.h2>
-        
-        <motion.div 
-          className="w-16 h-px bg-champagne mx-auto mb-16"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        />
 
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-6 md:gap-8">
           {trustPoints.map((point, index) => (
             <motion.div
               key={index}
-              className="flex flex-col items-center text-center px-6 md:px-8"
+              className="flex flex-col items-center text-center group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <point.icon className="w-6 h-6 text-bronze mb-4 stroke-[1.5]" />
-              <p className={`text-sm text-charcoal/80 font-light tracking-wide ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+              <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center mb-5 group-hover:border-primary/40 transition-colors duration-500">
+                <point.icon className="w-5 h-5 text-primary stroke-[1.5]" />
+              </div>
+              <p className={`text-sm text-foreground/80 font-body font-light tracking-wide ${isArabic ? 'font-body-ar' : ''}`}>
                 {isArabic ? point.titleAr : point.titleEn}
               </p>
             </motion.div>
-          ))}
-        </div>
-        
-        {/* Dividers between items on desktop */}
-        <div className="hidden md:flex justify-center items-center gap-0 mt-[-60px] pointer-events-none">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="flex items-center" style={{ width: `${100/4}%` }}>
-              <div className="flex-1" />
-              <div className="w-px h-8 bg-bronze/20" />
-              <div className="flex-1" />
-            </div>
           ))}
         </div>
       </div>
