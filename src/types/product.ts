@@ -176,6 +176,7 @@ export const products: Product[] = [
     ],
     targetAudience: "Urban dwellers with smaller spaces",
     imageUrl: "/images/dandle-spacesaver-hero.webp",
+    beFirstToKnow: true,
   },
   {
     id: "complete-set",

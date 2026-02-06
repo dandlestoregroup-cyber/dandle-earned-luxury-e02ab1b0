@@ -41,6 +41,12 @@ export const PALETTE_14: PaletteEntry[] = [
   
   // Complete Set Special
   { key: 'family-modern', nameEn: 'Family Modern', nameAr: 'عائلي عصري', hex: '#8A8D8F', material: 'Performance Fabric' },
+
+  // Additional variants mapped in productColorImages
+  { key: 'tan', nameEn: 'Tan', nameAr: 'تان', hex: '#D2B48C', material: 'Faux Leather' },
+  { key: 'grey', nameEn: 'Grey', nameAr: 'رمادي', hex: '#808080', material: 'Fabric' },
+  { key: 'beige', nameEn: 'Beige', nameAr: 'بيج', hex: '#C8B99A', material: 'Fabric' },
+  { key: 'red', nameEn: 'Red', nameAr: 'أحمر', hex: '#B22222', material: 'Cotton Velvet' },
 ];
 
 // Lookup by key
