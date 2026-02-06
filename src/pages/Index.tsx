@@ -16,6 +16,7 @@ import WishlistModal from "@/components/WishlistModal";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/utils/structuredData";
 import MobileStickyBar from "@/components/MobileStickyBar";
+import ThunderButton from "@/components/ThunderButton";
 import { useLang } from "@/hooks/useBilingualText";
 
 const Index = () => {
@@ -60,6 +61,7 @@ const Index = () => {
       <WishlistModal />
       <CartDrawer />
       <MobileStickyBar />
+      <ThunderButton />
     </div>
   );
 };

@@ -120,7 +120,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="w-10 h-10 rounded-full border border-current/30 flex items-center justify-center opacity-80 hover:text-dandle-orange hover:opacity-100 hover:border-dandle-orange/50 transition-all duration-300"
-            aria-label="Facebook"
+            aria-label={isArabic ? "فيسبوك" : "Facebook"}
           >
             <Facebook size={18} />
           </a>
@@ -129,7 +129,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="w-10 h-10 rounded-full border border-current/30 flex items-center justify-center opacity-80 hover:text-dandle-orange hover:opacity-100 hover:border-dandle-orange/50 transition-all duration-300"
-            aria-label="Instagram"
+            aria-label={isArabic ? "إنستاجرام" : "Instagram"}
           >
             <Instagram size={18} />
           </a>

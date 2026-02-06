@@ -7,9 +7,11 @@ import { Label } from "@/components/ui/label";
 import { useWishlistStore } from "@/stores/wishlistStore";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useLang } from "@/hooks/useBilingualText";
 
 const WishlistModal = () => {
   const { isModalOpen, closeModal, pendingProduct, addToWishlist, clearPending } = useWishlistStore();
+  const { isArabic } = useLang();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -20,7 +22,7 @@ const WishlistModal = () => {
     e.preventDefault();
     
     if (!name.trim() || !phone.trim()) {
-      toast.error("Please fill in your name and phone number");
+      toast.error(isArabic ? "يرجى ملء الاسم ورقم الهاتف" : "Please fill in your name and phone number");
       return;
     }
     
@@ -61,7 +63,7 @@ const WishlistModal = () => {
       
     } catch (error) {
       console.error('Error saving to wishlist:', error);
-      toast.error("Something went wrong. Please try again.");
+      toast.error(isArabic ? "حدث خطأ. يرجى المحاولة مرة أخرى." : "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -84,6 +86,7 @@ const WishlistModal = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          dir={isArabic ? "rtl" : "ltr"}
         >
           {/* Backdrop */}
           <motion.div
@@ -106,7 +109,7 @@ const WishlistModal = () => {
             <button
               onClick={handleClose}
               className="absolute top-4 right-4 p-2 text-charcoal/60 hover:text-charcoal transition-colors"
-              aria-label="Close"
+              aria-label={isArabic ? "إغلاق" : "Close"}
             >
               <X className="w-5 h-5" />
             </button>
@@ -120,8 +123,12 @@ const WishlistModal = () => {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Check className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="font-headline text-2xl text-charcoal mb-2">Saved</h3>
-                <p className="font-body text-charcoal/70">We'll reach out soon.</p>
+                <h3 className="font-headline text-2xl text-charcoal mb-2">
+                  {isArabic ? "تم الحفظ" : "Saved"}
+                </h3>
+                <p className="font-body text-charcoal/70">
+                  {isArabic ? "سنتواصل معك قريباً" : "We'll reach out soon."}
+                </p>
               </motion.div>
             ) : (
               <>
@@ -131,7 +138,7 @@ const WishlistModal = () => {
                     <Heart className="w-7 h-7 text-dandle-orange" />
                   </div>
                   <h3 className="font-headline text-2xl text-charcoal mb-2">
-                    Save to Wishlist
+                    {isArabic ? "أضف للمفضلة" : "Save to Wishlist"}
                   </h3>
                   {pendingProduct && (
                     <p className="font-body text-charcoal/70 text-sm">
@@ -144,14 +151,14 @@ const WishlistModal = () => {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <Label htmlFor="name" className="font-body text-charcoal text-sm">
-                      Name <span className="text-dandle-orange">*</span>
+                      {isArabic ? "الاسم" : "Name"} <span className="text-dandle-orange">*</span>
                     </Label>
                     <Input
                       id="name"
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Your name"
+                      placeholder={isArabic ? "اسمك" : "Your name"}
                       required
                       className="mt-1 border-champagne/30 focus:border-dandle-orange"
                     />
@@ -159,7 +166,7 @@ const WishlistModal = () => {
                   
                   <div>
                     <Label htmlFor="phone" className="font-body text-charcoal text-sm">
-                      Phone <span className="text-dandle-orange">*</span>
+                      {isArabic ? "الهاتف" : "Phone"} <span className="text-dandle-orange">*</span>
                     </Label>
                     <Input
                       id="phone"
@@ -175,7 +182,7 @@ const WishlistModal = () => {
                   
                   <div>
                     <Label htmlFor="email" className="font-body text-charcoal text-sm">
-                      Email <span className="text-charcoal/40">(optional)</span>
+                      {isArabic ? "البريد الإلكتروني" : "Email"} <span className="text-charcoal/40">({isArabic ? "اختياري" : "optional"})</span>
                     </Label>
                     <Input
                       id="email"
@@ -193,7 +200,10 @@ const WishlistModal = () => {
                     disabled={isSubmitting}
                     className="w-full bg-dandle-orange hover:bg-dandle-orange/90 text-white font-body font-medium py-6 rounded-sm mt-6"
                   >
-                    {isSubmitting ? "Saving..." : "Save to Wishlist"}
+                    {isSubmitting 
+                      ? (isArabic ? "جاري الحفظ..." : "Saving...")
+                      : (isArabic ? "أضف للمفضلة" : "Save to Wishlist")
+                    }
                   </Button>
                 </form>
               </>
