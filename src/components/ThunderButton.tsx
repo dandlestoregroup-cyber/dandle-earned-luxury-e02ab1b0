@@ -12,7 +12,7 @@ export const ThunderButton = () => {
     <>
       <motion.button
         onClick={() => setIsChatOpen(true)}
-        className="fixed bottom-6 left-6 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-primary via-accent to-primary shadow-lg flex items-center justify-center group"
+        className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom,0px))] md:bottom-6 left-4 md:left-6 z-40 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-primary via-accent to-primary shadow-elegant flex items-center justify-center group"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, scale: 0 }}
