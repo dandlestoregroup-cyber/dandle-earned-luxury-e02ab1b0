@@ -1,72 +1,85 @@
 
-# Fix: SpaceSaver "Be First to Know" + Swatch-Image Alignment
 
-## Problem Summary
+# Consolidate: Add PWA + Utility Hooks (Non-Destructive)
 
-1. **SpaceSaver missing `beFirstToKnow: true`** in `src/types/product.ts` -- violates locked business spec
-2. **Swatch clicks show wrong images** because `productSwatches.ts` lists palette keys that have NO matching entry in `productColorImages.ts`, causing fallback to the default hero image regardless of which swatch the user clicks
+## What This Does
+Adds PWA installability, offline awareness, WhatsApp helper centralization, and a share hook -- without touching the existing app structure, routing, product data, or components.
 
-## Root Cause Analysis
-
-The two data files are out of sync:
-
-| File | Purpose | Problem |
-|------|---------|---------|
-| `productSwatches.ts` | Lists 5-7 palette keys per product for UI swatch dots | Includes colors with no photo |
-| `productColorImages.ts` | Maps swatch keys to actual image files | Missing entries for many palette keys |
-
-When a user clicks swatch index 4 (e.g. `nile-mist` for RelaxMax), `getProductColorImage('relaxmax', 'nile-mist')` returns `null` because no image is mapped, and the card falls back to the default hero -- giving the appearance of a "random" chair image.
-
-## Fix Strategy
-
-**Principle: Only show swatches that have real product images.** Remove unmapped palette keys from `productSwatches.ts` so that every visible swatch dot corresponds to an actual photo in `productColorImages.ts`.
+## What We Will NOT Do (and Why)
+Your spec proposes replacing `App.tsx`, `src/types/product.ts`, creating a new `src/data/products.ts`, and rebuilding the product grid/card/sheet components from scratch. The existing app is a full multi-page e-commerce site with 20+ routes, cart system, bilingual support, navigation, hero video, partners, trust blocks, etc. Replacing `App.tsx` would destroy all of that. The existing product type and data in `src/types/product.ts` is the locked single source of truth (catalog freeze). We will not duplicate or replace it.
 
 ## Changes
 
-### 1. `src/types/product.ts` -- Add `beFirstToKnow` to SpaceSaver
+### 1. Install `vite-plugin-pwa`
+Single new dependency. Everything else in your install list is already present.
 
-Add `beFirstToKnow: true` to the SpaceSaver product definition (around line 162). This restores the locked business rule that SpaceSaver uses WhatsApp lead capture.
+### 2. Update `vite.config.ts` -- Append PWA Plugin
+Keep existing config (react, lovable-tagger, aliases, server). Add VitePWA plugin with:
+- Manifest: name "Dandle Recliners Egypt", short_name "Dandle", description "Earned comfort. Quiet luxury. Refined taste.", theme_color `#E67E22`, background_color `#FAF7F2`, display standalone, orientation portrait, lang ar, dir rtl
+- Icons: pwa-192x192.png, pwa-512x512.png
+- Workbox: cache images (30 days, max 200), Google Fonts (365 days)
 
-### 2. `src/data/productSwatches.ts` -- Align swatches to available images
+### 3. Update `index.html` -- Add PWA Meta Tags
+Add to `<head>`:
+- `<meta name="theme-color" content="#E67E22">`
+- `<link rel="apple-touch-icon" href="/pwa-192x192.png">`
+- `<meta name="apple-mobile-web-app-capable" content="yes">`
+- `<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">`
 
-Trim each product's swatch list to ONLY keys that exist in `productColorImages.ts`:
+### 4. Delete `public/sw.js`
+Currently only caches a non-existent model file. The PWA plugin generates a proper service worker.
 
-```text
-relaxmax:        cognac-leather, alexandria-linen, mocha-taupe, coastal-fog  (remove nile-mist, oasis-green)
-relaxmax-limited: camel-leather  (keep as-is, only 1 image)
-spacesaver:      mocha-taupe, desert-grey, coastal-fog, terracotta, offwhite  (keep as-is, all have images)
-comfortplus:     coastal-fog, tan  (trim to 2 -- only these have images; add 'tan' to palette if missing)
-diva:            terracotta, desert-sage, giza-gold, oasis-green, red  (remove nile-sapphire, alexandria-linen)
-cozycompanion:   mocha-taupe, sandstorm-ochre, coastal-fog  (remove papyrus-stripe, oasis-green, amber-sand)
-easyup:          oasis-green, mocha-taupe, grey, beige  (remove desert-grey, alexandria-linen, papyrus-stripe, nile-sapphire; add grey/beige to palette if missing)
-easyup-compact:  charcoal, grey, oasis-green  (trim to match images; remove desert-grey, mocha-taupe)
-worknest:        oasis-green, desert-grey, blue-nile-denim  (remove mocha-taupe, coastal-fog, alexandria-linen)
-complete-set:    family-modern, alexandria-linen, coastal-fog  (remove oasis-green, giza-gold, blue-nile-denim)
-```
+### 5. Update `src/main.tsx` -- Register PWA Service Worker
+Add `import { registerSW } from 'virtual:pwa-register'` and call `registerSW({ immediate: true })`. Keep all existing imports (i18n, dandle-ui, heroVideoInstantPlay).
 
-### 3. `src/data/palette.ts` -- Add missing palette entries
+### 6. Create `src/hooks/useOnlineStatus.ts`
+Returns `boolean` for online/offline state using `navigator.onLine` + event listeners.
 
-Add entries for any swatch keys used in `productColorImages.ts` that are missing from the palette:
-- `tan` (if missing)
-- `grey` (if missing)
-- `beige` (if missing)
-- `red` (if missing)
-- `desert-sage` (if missing)
+### 7. Create `src/components/OfflineNotice.tsx`
+Fixed top banner showing Arabic offline message with WifiOff icon. Uses `useOnlineStatus` hook. Only renders when offline.
 
-Each needs a hex value and bilingual name (English + Arabic).
+### 8. Create `src/hooks/useShare.ts`
+Uses Web Share API with clipboard fallback. Accepts product name and current URL.
 
-### 4. `src/data/productColorImages.ts` -- Fix duplicate key in easyup
+### 9. Create `src/lib/whatsapp.ts`
+Centralizes WhatsApp URL building with the existing number (201222804255 from WhatsAppFloat.tsx). Uses `buildWhatsAppUrl(message)` helper.
 
-The `easyup` entry has `oasis-green` listed TWICE (lines 53 and 55). Remove the duplicate so `Array.find()` always returns the correct image.
+### 10. Create `src/lib/format.ts`
+`formatEGP(price: number)` helper returning formatted string with locale separators.
 
-## No Other Files Change
+### 11. Create `src/data/constants.ts`
+Locked truth constants: `deliveryDays: 14`, `warrantyYears: 2`, footer text in EN/AR, WhatsApp number.
 
-The `ProductCard.tsx` logic is correct -- it properly calls `getProductColorImage(product.id, currentSwatchKey)`. The bug is purely a data alignment issue between the two mapping files.
+### 12. Add OfflineNotice to `src/pages/Index.tsx`
+Import and render `<OfflineNotice />` at the top of the Index page layout.
 
-## Verification
+### 13. Create PWA Icon Placeholders
+Add `public/pwa-192x192.png` and `public/pwa-512x512.png` (orange-branded placeholder icons).
 
-After these changes:
-- Every swatch dot on every product card maps to a real photo
-- Clicking any swatch instantly shows the correct chair in the correct color
-- SpaceSaver shows "Be First to Know" badge and WhatsApp redirect on click
-- No "random chair" fallbacks occur
+## Files Summary
+
+| Action | File |
+|--------|------|
+| Install | `vite-plugin-pwa` |
+| Edit | `vite.config.ts` (append PWA plugin) |
+| Edit | `index.html` (add 4 meta tags) |
+| Edit | `src/main.tsx` (add SW registration, keep everything else) |
+| Edit | `src/pages/Index.tsx` (add OfflineNotice) |
+| Delete | `public/sw.js` |
+| Create | `src/hooks/useOnlineStatus.ts` |
+| Create | `src/hooks/useShare.ts` |
+| Create | `src/components/OfflineNotice.tsx` |
+| Create | `src/lib/whatsapp.ts` |
+| Create | `src/lib/format.ts` |
+| Create | `src/data/constants.ts` |
+| Create | `public/pwa-192x192.png` |
+| Create | `public/pwa-512x512.png` |
+
+## What Does NOT Change
+- `src/App.tsx` -- all routes, providers, cart context untouched
+- `src/types/product.ts` -- locked catalog, no schema changes
+- `tailwind.config.ts` -- already correct (Montserrat + Cairo, brand colors)
+- `src/components/ProductCard.tsx` -- existing card with swatches untouched
+- `src/components/WhatsAppFloat.tsx` -- keeps working, can optionally be refactored later to use the new `whatsapp.ts` helper
+- `src/components/MobileStickyBar.tsx` -- keeps working as-is
+
