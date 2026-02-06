@@ -1,102 +1,226 @@
-This is a massive execution plan. To ensure Lovable implements this without hallucinating or breaking existing code, we must feed it in Strategic Batches.
-Here are the 3 Execution Blocks. Copy and paste them into Lovable one by one. Wait for one to finish before sending the next.
-🚀 EXECUTION BLOCK 1: VISUAL CORE & MOBILE (Mandates 1-4)
-Focus: Language purity, the Istikbal Clone, Video Speed, and Mobile Sticky Bar.
-Copy and paste this into Lovable:
-ACT AS LEAD FRONTEND ENGINEER. EXECUTE PHASE 1 OF THE STRICT COMPLIANCE PLAN.
 
-1. CREATE UTILITIES & CONSTANTS:
-- Create `src/constants/trust.ts`: Export `TRUST_CLAIMS` object { deliveryDays: 14, warrantyYears: 2, frameWarrantyYears: 5 }.
-- Create `src/hooks/useBilingualText.ts`: A hook that checks `getLangFromStorage()` and returns the correct string (en/ar) passed to it.
+# Blocks 3, 4 & 5: Agent Thunder, SEO & Final Polish
 
-2. FIX LINGUISTIC PURITY (MANDATE 1):
-- Refactor `src/components/hero/HeroOffer.tsx` and `src/components/Partners.tsx`.
-- Use the `useBilingualText` hook.
-- Ensure `data-en` and `data-ar` attributes are strictly respected.
-- Specifically fix line 163 in `Partners.tsx`: The brand "OMASH Damsuk" must render in Arabic when in Arabic mode.
+## Overview
+This plan covers three execution blocks that complete the Dandle website implementation:
+- **Block 3:** Thunder AI Agent deployment with WhatsApp-style UI
+- **Block 4:** SEO hierarchy and analytics implementation  
+- **Block 5:** Final audit, linguistic purity sweep, and site content dump
 
-3. CLONE ISTIKBAL CARD (MANDATE 2):
-- Rewrite `src/components/IstikbalShowroom.tsx` completely.
-- It must visually MATCH the "OMASH" card from `Partners.tsx`.
-- Styling: `bg-off-white`, `rounded-[2.5rem]`, `shadow-2xl`, `border border-champagne/20`.
-- Layout: Single column. Image on top (h-64 md:h-80). Text block below.
-- Typography: Match the OMASH 3xl/4xl headlines.
+---
 
-4. VIDEO OPTIMIZATION (MANDATE 3):
-- Update `src/components/hero/HeroVideo.tsx`.
-- Add `poster="/images/festive-hero-poster.webp"` (use a placeholder if needed).
-- Remove the `opacity: 0.001` fade-in delay. The video must be visible immediately.
-- Add `preload="auto"` and `fetchpriority="high"`.
+## Block 3: Agent Thunder UI (Web Chat Interface)
 
-5. MOBILE STICKY BAR (MANDATE 4):
-- Create `src/components/MobileStickyBar.tsx`.
-- Position: `fixed bottom-0 left-0 right-0 z-50`.
-- Style: `bg-off-white border-t border-champagne/20 p-4`.
-- Content: A primary Button "Find Your Perfect Recliner" (or "اكتشف مقعدك المثالي") linking to the collection.
-- Hide this component on desktop (`md:hidden`).
-- Add it to `src/pages/Index.tsx`.
+### Current State
+- Thunder Scout v14.5 already exists as an edge function (`supabase/functions/whatsapp-webhook/index.ts`)
+- The Thunder system prompt and catalog are fully implemented for WhatsApp
+- There is no web-based chat UI for Thunder (only WhatsApp float button exists)
 
-EXECUTE NOW.
+### Implementation Tasks
 
-💰 EXECUTION BLOCK 2: COMMERCIAL LOGIC (Mandates 5-6)
-Focus: Hardcoding the ValU math and Payment Trust.
-Copy and paste this into Lovable:
-ACT AS COMMERCE LEAD. EXECUTE PHASE 2: FINANCIAL LOGIC.
+#### 3.1 Create Thunder Edge Function for Web
+**File:** `supabase/functions/thunder-chat/index.ts`
 
-1. IMPLEMENT VALU MATH (MANDATE 5):
-- Update `src/components/ProductCard.tsx`.
-- Logic: Calculate `Math.ceil(product.price / 12)`.
-- Display: Immediately below the price, add a line: 
-  - English: "Starts from [amount] EGP/mo"
-  - Arabic: "يبدأ من [amount] ج.م/شهرياً"
-- Styling: `text-sm text-dandle-orange font-medium`.
-- Ensure this logic handles `null` prices gracefully.
+A new edge function that:
+- Uses the existing Thunder Scout v14.5 system prompt
+- Connects to Lovable AI gateway (no OpenAI key required)
+- Handles streaming responses for real-time chat experience
+- Enforces the Thunder Output Guard (4-line max, 1 question max, banned words filter)
+- Does NOT require authentication (public chat)
 
-2. CREATE TRUST BADGES (MANDATE 6):
-- Create `src/components/PaymentTrustBadges.tsx`.
-- It should render a row of 3 images: ValU, Paymob, and Visa.
-- Style: `flex items-center justify-center gap-6 opacity-80`.
-- If logos aren't available yet, use text placeholders [ValU] [Paymob] [Visa] styled beautifully until assets are uploaded.
+#### 3.2 Create Thunder Chat Drawer Component
+**File:** `src/components/ThunderChat.tsx`
 
-3. INTEGRATE TRUST:
-- Add `<PaymentTrustBadges />` to `src/pages/ProductDetail.tsx` immediately below the "Add to Cart" button.
-- Add `<PaymentTrustBadges />` to `src/components/cart/CartDrawer.tsx` immediately above the Checkout button.
+WhatsApp-styled chat drawer featuring:
+- Slide-up drawer from bottom-left (Vaul drawer component)
+- Thunder branding with Sparkles icon
+- Message bubbles styled like WhatsApp (user = right, agent = left)
+- Typing indicator during streaming
+- Bilingual support (Arabic/English based on detected language)
+- Quick action chips: "What models do you have?", "Prices", "Showroom"
 
-EXECUTE NOW.
+#### 3.3 Create Thunder Float Button
+**File:** `src/components/ThunderButton.tsx`
 
-⚡ EXECUTION BLOCK 3: AGENT THUNDER & SEO (Mandates 7-8)
-Focus: The AI Brain and Google Domination.
-Copy and paste this into Lovable:
-ACT AS AI ARCHITECT & SEO SPECIALIST. EXECUTE PHASE 3 & 4.
+Positioned bottom-left to avoid conflict with WhatsApp button:
+- `fixed bottom-6 left-6 z-50`
+- Gradient background (matches Nour styling)
+- Sparkles or Zap icon
+- Pulsing animation to draw attention
+- Bilingual aria-label
 
-1. DEPLOY AGENT THUNDER (MANDATE 7):
-- Create `supabase/functions/thunder-chat/index.ts`.
-- **System Prompt Injection:** You must use this EXACT prompt:
-  """
-  You are THUNDER SCOUT v14.5, Dandle's Senior Consultant.
-  - TONE: Concise, Warm, Authoritative. No sales fluff.
-  - KNOWLEDGE: Delivery 14 days. Warranty 2 years. Showroom: Citystars (RelaxMax only).
-  - AMAZON DEFENSE: "Only items sold by Dandle are genuine. Amazon replicas lack our orthopedic foam."
-  - PROTOCOL: If they want to buy, offer to generate a secure invoice link.
-  """
-- Create `src/components/ThunderChat.tsx`: A WhatsApp-styled drawer component.
-- Create `src/components/ThunderButton.tsx`: A floating button positioned bottom-left (to avoid conflicting with WhatsApp button).
+#### 3.4 Integration
+**File:** `src/pages/Index.tsx`
 
-2. SEO HIERARCHY (MANDATE 8):
-- Refactor `src/pages/Index.tsx`.
-- Ensure there is EXACTLY ONE `<h1 className="sr-only">` containing "Dandle Recliners Egypt - Premium Comfort".
-- Convert all Section Titles (Partners, Collection, etc.) to `<h2>`.
-- Convert Product Titles in the grid to `<h3>`.
+Add Thunder button and chat drawer to the homepage alongside existing components.
 
-3. ANALYTICS HOOK (MANDATE 9):
-- Create `src/hooks/useAnalytics.ts`.
-- Export functions: `trackViewContent`, `trackAddToCart`, `trackInitiateCheckout`.
-- Implement basic `window.dataLayer.push` logic for these events.
-- Hook this into the `Add to Cart` button in `ProductDetail.tsx`.
+---
 
-EXECUTE NOW.
+## Block 4: SEO Hierarchy & Analytics
 
-🏁 FINAL STEP: The Content Audit
-Once Lovable finishes these 3 blocks, ask it for the final audit:
-> "Generate the Text Extraction file (Mandate 10) so I can review the tone."
-> 
+### Current State
+- Homepage has an `<h1 className="sr-only">` in HeroOffer.tsx
+- Multiple pages have their own H1 tags (good)
+- No dedicated analytics hook for e-commerce events
+- Section headers use `<h2>` correctly in some places
+
+### Implementation Tasks
+
+#### 4.1 SEO Audit & Fix
+Verify and enforce the single-H1 rule across all pages:
+
+| Page | H1 Status | Action |
+|------|-----------|--------|
+| Index.tsx (Homepage) | sr-only H1 in HeroOffer | Keep as-is |
+| ProductDetail.tsx | Product title is H1 | Keep as-is |
+| Collection.tsx | Needs verification | Audit |
+| OurStory.tsx | Has H1 | Keep as-is |
+
+#### 4.2 Convert Section Titles to H2
+Verify these components use `<h2>` for section headings:
+- CollectionIntro.tsx - Uses H2
+- ProductGallery.tsx - No heading (add H2 if needed)
+- Partners.tsx - Uses H2
+- IstikbalShowroom.tsx - Uses H2
+- SocialProof.tsx - Uses H2
+- Contact.tsx - Verify H2 usage
+
+#### 4.3 Product Titles to H3
+**File:** `src/components/ProductCard.tsx`
+
+Ensure product names in the gallery grid use `<h3>` instead of `<h4>` or spans for proper SEO hierarchy.
+
+#### 4.4 Create Analytics Hook
+**File:** `src/hooks/useAnalytics.ts`
+
+Export e-commerce tracking functions that push to `window.dataLayer`:
+- `trackViewContent(productId, productName, price)`
+- `trackAddToCart(productId, productName, price, quantity)`
+- `trackInitiateCheckout(items, total)`
+- `trackPurchase(orderId, items, total)`
+
+#### 4.5 Integrate Analytics
+**Files to update:**
+- `src/pages/ProductDetail.tsx` - Add `trackViewContent` on mount
+- `src/pages/ProductDetail.tsx` - Add `trackAddToCart` on button click
+- `src/components/cart/CartDrawer.tsx` - Add `trackInitiateCheckout` on checkout click
+
+---
+
+## Block 5: Final Polish & Content Audit
+
+### 5.1 Linguistic Purity Final Sweep
+
+Full audit of remaining components for any language violations:
+
+| Component | Check |
+|-----------|-------|
+| Footer.tsx | Ensure all aria-labels bilingual |
+| WishlistModal.tsx | Verify button text bilingual |
+| CartDrawer.tsx | Verify all strings bilingual |
+| MobileStickyBar.tsx | Already bilingual |
+| ProductModal.tsx | Verify modal content bilingual |
+
+### 5.2 Remove Duplicate Istikbal Addresses
+**Status:** Already addressed in IstikbalShowroom.tsx (centralized)
+**Action:** Verify Contact.tsx does not duplicate branch addresses
+
+### 5.3 Update Site Content Dump
+**File:** `public/SITE_CONTENT_DUMP.md`
+
+Refresh the content dump with any new text added since last generation, including:
+- Thunder chat greeting messages
+- Any new bilingual strings
+- Updated component text
+
+### 5.4 Hero Video Instant Load Enhancement
+**Current:** `src/patches/heroVideoInstantPlay.ts` and `src/components/hero/HeroGiftingSeason.tsx`
+
+Additional optimizations:
+- Add inline critical CSS gradient fallback (already added)
+- Ensure `fetchpriority="high"` on video element
+- Verify poster image loads immediately
+- Consider adding a static first-frame image as CSS background
+
+### 5.5 Performance & Discoverability Checklist
+
+| Item | Status | Action |
+|------|--------|--------|
+| Meta description | Present | Verify bilingual |
+| Open Graph tags | Present | Already in index.html |
+| JSON-LD Organization | Present | Already in Index.tsx |
+| JSON-LD LocalBusiness | Present | Already in Index.tsx |
+| JSON-LD Product | Present | In ProductDetail.tsx |
+| robots.txt | Exists | Verify sitemap link |
+| sitemap.xml | Exists | Verify all routes |
+| Canonical URLs | Present | On product pages |
+| Alt text on images | Verify | Audit key images |
+
+---
+
+## Technical Architecture
+
+```text
+Web Chat Flow:
+┌─────────────────┐      ┌───────────────────────┐      ┌─────────────────────┐
+│  ThunderButton  │──────│    ThunderChat.tsx    │──────│  thunder-chat/      │
+│  (bottom-left)  │      │  (Vaul drawer + SSE)  │      │  index.ts           │
+└─────────────────┘      └───────────────────────┘      │  (Edge Function)    │
+                                                         │  - Thunder Prompt   │
+                                                         │  - Lovable AI       │
+                                                         │  - Output Guard     │
+                                                         └─────────────────────┘
+
+Analytics Flow:
+┌────────────────┐      ┌──────────────────┐      ┌──────────────────┐
+│  ProductDetail │──────│  useAnalytics()  │──────│  window.dataLayer│
+│  CartDrawer    │      │  - viewContent   │      │  (GTM/GA4/Meta)  │
+│  Checkout      │      │  - addToCart     │      └──────────────────┘
+└────────────────┘      │  - checkout      │
+                        └──────────────────┘
+```
+
+---
+
+## Files to Create
+
+1. `supabase/functions/thunder-chat/index.ts` - Thunder web chat edge function
+2. `src/components/ThunderChat.tsx` - Chat drawer UI
+3. `src/components/ThunderButton.tsx` - Floating trigger button
+4. `src/hooks/useAnalytics.ts` - E-commerce analytics hook
+
+## Files to Modify
+
+1. `src/pages/Index.tsx` - Add Thunder components
+2. `src/components/ProductCard.tsx` - Change product title to H3
+3. `src/pages/ProductDetail.tsx` - Add analytics tracking
+4. `src/components/cart/CartDrawer.tsx` - Add checkout tracking
+5. `supabase/config.toml` - Add thunder-chat function config
+6. `public/SITE_CONTENT_DUMP.md` - Refresh content dump
+
+---
+
+## Success Criteria
+
+1. **Thunder Chat:** Users can click the bottom-left button and chat with Thunder Scout in real-time
+2. **SEO:** Each page has exactly one H1, sections use H2, product cards use H3
+3. **Analytics:** View content, add to cart, and checkout events fire to dataLayer
+4. **Linguistic Purity:** Zero cross-language violations in either mode
+5. **Performance:** Hero video starts within 100ms of page load (no black screen)
+6. **Content Audit:** SITE_CONTENT_DUMP.md reflects all current site text
+
+---
+
+## Execution Order
+
+1. Create Thunder edge function and update config.toml
+2. Create ThunderChat drawer component
+3. Create ThunderButton floating component
+4. Add Thunder components to Index.tsx
+5. Create useAnalytics hook
+6. Integrate analytics into ProductDetail and CartDrawer
+7. SEO hierarchy fixes (H2/H3 verification)
+8. Linguistic purity sweep
+9. Refresh SITE_CONTENT_DUMP.md
+10. Final testing
+
