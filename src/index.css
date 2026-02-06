@@ -113,6 +113,9 @@
     scroll-behavior: smooth;
     background: hsl(40 50% 97%);
     min-height: 100vh;
+    min-height: 100dvh;
+    /* PWA safe-area padding for notch/home-indicator devices */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
   }
 
   body {

@@ -24,11 +24,11 @@ const WhatsAppFloat = () => {
     <Button
       variant="accent"
       size="icon"
-      className="fixed bottom-24 md:bottom-6 right-6 z-50 h-16 w-16 rounded-full shadow-luxury hover:shadow-gold animate-pulse hover:animate-none bg-[#25D366] hover:bg-[#25D366]/90"
+      className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom,0px))] md:bottom-6 right-4 md:right-6 z-50 h-14 w-14 md:h-16 md:w-16 rounded-full shadow-elegant hover:shadow-refined transition-all duration-300 active:scale-95 bg-[#25D366] hover:bg-[#25D366]/90"
       onClick={handleWhatsAppClick}
       aria-label="Contact us on WhatsApp"
     >
-      <WhatsAppIcon size={28} />
+      <WhatsAppIcon size={24} />
     </Button>
   );
 };
