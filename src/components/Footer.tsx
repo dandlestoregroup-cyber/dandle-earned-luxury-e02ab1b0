@@ -38,35 +38,40 @@ const Footer = () => {
     { labelEn: "Compare", labelAr: "قارن", href: "/compare" },
   ];
 
+  const fontClass = isArabic ? 'font-body-ar' : 'font-body';
+
   return (
     <footer 
-      className="bg-deep-brown border-t border-dandle-orange/10 text-off-white" 
+      className="bg-foreground border-t border-primary/10 text-primary-foreground" 
       dir={isArabic ? 'rtl' : 'ltr'}
       style={{
-        paddingTop: '3rem',
+        paddingTop: '4rem',
         paddingBottom: 'max(5rem, calc(3rem + env(safe-area-inset-bottom, 0px)))',
       }}
     >
       <div className="container mx-auto px-6">
         {/* Logo & Tagline */}
         <motion.div 
-          className="text-center mb-10"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="font-headline text-3xl md:text-4xl font-light text-off-white tracking-tight mb-3">
+          <h3 className="font-serif text-4xl md:text-5xl font-light text-primary-foreground tracking-tight mb-4">
             Dandle
           </h3>
-          <p className={`text-sm tracking-[0.12em] font-light opacity-90 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+          <p className={`text-xs tracking-[0.2em] font-light text-primary-foreground/60 ${fontClass}`}>
             {isArabic ? "راحة تصنع الفرق" : "Comfort That Transforms"}
           </p>
         </motion.div>
         
+        {/* Divider */}
+        <div className="w-12 h-px bg-primary/20 mx-auto mb-10" />
+        
         {/* Navigation Links */}
         <motion.div 
-          className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm mb-6"
+          className="flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm mb-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -76,7 +81,7 @@ const Footer = () => {
             <Link
               key={link.href}
               to={link.href}
-              className={`text-off-white hover:text-dandle-orange transition-colors duration-300 font-light ${isArabic ? 'font-body-ar' : 'font-body'}`}
+              className={`text-primary-foreground/60 hover:text-primary transition-colors duration-500 font-light ${fontClass}`}
             >
               {isArabic ? link.labelAr : link.labelEn}
             </Link>
@@ -85,31 +90,31 @@ const Footer = () => {
 
         {/* Quick Tools Links */}
         <motion.div 
-          className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs mb-10"
+          className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs mb-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.25, duration: 0.6 }}
         >
-          <span className={`opacity-90 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+          <span className={`text-primary-foreground/40 ${fontClass}`}>
             {isArabic ? "أدوات:" : "Tools:"}
           </span>
           {toolLinks.map((link, index) => (
             <span key={link.href} className="flex items-center gap-2">
               <Link
                 to={link.href}
-                className={`text-dandle-orange hover:text-dandle-orange/80 transition-colors duration-300 font-medium ${isArabic ? 'font-body-ar' : 'font-body'}`}
+                className={`text-primary/80 hover:text-primary transition-colors duration-300 font-medium ${fontClass}`}
               >
                 {isArabic ? link.labelAr : link.labelEn}
               </Link>
-              {index < toolLinks.length - 1 && <span className="opacity-30">•</span>}
+              {index < toolLinks.length - 1 && <span className="text-primary-foreground/20">·</span>}
             </span>
           ))}
         </motion.div>
         
         {/* Social Links */}
         <motion.div 
-          className="flex justify-center gap-4 mb-8"
+          className="flex justify-center gap-4 mb-10"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -119,25 +124,25 @@ const Footer = () => {
             href="https://facebook.com/dandlestoregroup"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-current/30 flex items-center justify-center opacity-80 hover:text-dandle-orange hover:opacity-100 hover:border-dandle-orange/50 transition-all duration-300"
+            className="w-10 h-10 rounded-full border border-primary-foreground/15 flex items-center justify-center text-primary-foreground/50 hover:text-primary hover:border-primary/40 transition-all duration-500"
             aria-label={isArabic ? "فيسبوك" : "Facebook"}
           >
-            <Facebook size={18} />
+            <Facebook size={16} />
           </a>
           <a
             href="https://instagram.com/dandlestoregroup"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-current/30 flex items-center justify-center opacity-80 hover:text-dandle-orange hover:opacity-100 hover:border-dandle-orange/50 transition-all duration-300"
+            className="w-10 h-10 rounded-full border border-primary-foreground/15 flex items-center justify-center text-primary-foreground/50 hover:text-primary hover:border-primary/40 transition-all duration-500"
             aria-label={isArabic ? "إنستاجرام" : "Instagram"}
           >
-            <Instagram size={18} />
+            <Instagram size={16} />
           </a>
         </motion.div>
         
         {/* Phone Number */}
         <motion.div 
-          className="text-center mb-6"
+          className="text-center mb-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -145,25 +150,25 @@ const Footer = () => {
         >
           <a 
             href="tel:+201222804255" 
-            className="inline-flex items-center gap-2 opacity-90 hover:text-dandle-orange hover:opacity-100 transition-colors text-base font-light"
+            className="inline-flex items-center gap-2 text-primary-foreground/50 hover:text-primary transition-colors duration-500 text-sm font-light"
           >
-            <Phone size={16} className="text-dandle-orange" />
+            <Phone size={14} className="text-primary/60" />
             <span dir="ltr">01222804255</span>
           </a>
         </motion.div>
         
         {/* Divider */}
-        <div className="w-32 h-px bg-gradient-to-r from-transparent via-dandle-orange/40 to-transparent mx-auto mb-6" />
+        <div className="w-32 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent mx-auto mb-8" />
         
-        {/* LOCKED Service Info - verbatim per spec */}
+        {/* Service Info */}
         <motion.div 
-          className="text-center mb-6 px-4"
+          className="text-center mb-8 px-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.35, duration: 0.6 }}
         >
-          <p className={`text-sm font-medium opacity-90 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+          <p className={`text-sm font-medium text-primary-foreground/70 ${fontClass}`}>
             {isArabic 
               ? "التسليم خلال 14 يوم في جميع المحافظات. ضمان سنتين."
               : "Delivery in 14 days nationwide. 2-year warranty."
@@ -172,7 +177,7 @@ const Footer = () => {
         </motion.div>
         
         {/* Copyright & Legal */}
-        <div className={`text-center text-xs font-light space-y-2 opacity-80 ${isArabic ? 'font-body-ar' : 'font-body'}`}>
+        <div className={`text-center text-xs font-light space-y-2 text-primary-foreground/40 ${fontClass}`}>
           <p>
             {isArabic 
               ? `© ${currentYear} مجموعة داندل ستور`
@@ -180,11 +185,11 @@ const Footer = () => {
             }
           </p>
           <p>
-            <Link to="/privacy" className="hover:opacity-100 transition-opacity">
+            <Link to="/privacy" className="hover:text-primary-foreground/70 transition-opacity">
               {isArabic ? "الخصوصية" : "Privacy"}
             </Link>
-            <span className="mx-2">·</span>
-            <Link to="/terms" className="hover:opacity-100 transition-opacity">
+            <span className="mx-3">·</span>
+            <Link to="/terms" className="hover:text-primary-foreground/70 transition-opacity">
               {isArabic ? "الشروط" : "Terms"}
             </Link>
           </p>

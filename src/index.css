@@ -120,7 +120,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.6;
@@ -135,24 +135,24 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
+    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
+    font-weight: 500;
     line-height: 1.1;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
   }
   
-  h1 { font-weight: 700; line-height: 1.05; }
-  h2 { font-weight: 700; line-height: 1.1; }
+  h1 { font-weight: 500; line-height: 1.05; }
+  h2 { font-weight: 500; line-height: 1.1; }
   h3, h4, h5, h6 { font-weight: 500; line-height: 1.2; }
   
   .font-body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-weight: 400;
   }
   
   .font-headline {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
+    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
+    font-weight: 500;
   }
   
   .font-light {
