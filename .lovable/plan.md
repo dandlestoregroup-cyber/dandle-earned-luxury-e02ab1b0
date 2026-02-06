@@ -1,85 +1,107 @@
 
+# Dandle v2.1 -- Ship-Ready Elevation Plan
 
-# Consolidate: Add PWA + Utility Hooks (Non-Destructive)
+## Overview
+Implementing the corrected v2.1 spec across 3 phases: conversion-critical features first, UX polish second, engagement capture third. No typography changes. No unverified claims. All WhatsApp links use the existing `buildWhatsAppUrl` helper.
 
-## What This Does
-Adds PWA installability, offline awareness, WhatsApp helper centralization, and a share hook -- without touching the existing app structure, routing, product data, or components.
+---
 
-## What We Will NOT Do (and Why)
-Your spec proposes replacing `App.tsx`, `src/types/product.ts`, creating a new `src/data/products.ts`, and rebuilding the product grid/card/sheet components from scratch. The existing app is a full multi-page e-commerce site with 20+ routes, cart system, bilingual support, navigation, hero video, partners, trust blocks, etc. Replacing `App.tsx` would destroy all of that. The existing product type and data in `src/types/product.ts` is the locked single source of truth (catalog freeze). We will not duplicate or replace it.
+## Phase 1 -- Conversion Lift (Ship This Week)
 
-## Changes
+### 1.1 Always-Visible Price + Installment on ProductCard
+**File:** `src/components/ProductCard.tsx`
+- Add a permanent installment line below the price in the bottom card footer (lines 732-746)
+- Show "From X EGP/mo" using the existing `formatMonthlyInstallment` helper
+- Use the lowest price (manual or single) for the monthly estimate
+- Only show for purchasable products (not comingSoon/beFirstToKnow)
 
-### 1. Install `vite-plugin-pwa`
-Single new dependency. Everything else in your install list is already present.
+### 1.2 TrustBar -- Verified Statements Only
+**New file:** `src/components/TrustBar.tsx`
+- Rotating bar using `AnimatePresence` with 2 locked statements from `DANDLE` constants
+- English: "Delivery in 14 days nationwide. 2-year warranty."
+- Arabic: matching from constants
+- Placed between Navigation and Hero in `Index.tsx`
 
-### 2. Update `vite.config.ts` -- Append PWA Plugin
-Keep existing config (react, lovable-tagger, aliases, server). Add VitePWA plugin with:
-- Manifest: name "Dandle Recliners Egypt", short_name "Dandle", description "Earned comfort. Quiet luxury. Refined taste.", theme_color `#E67E22`, background_color `#FAF7F2`, display standalone, orientation portrait, lang ar, dir rtl
-- Icons: pwa-192x192.png, pwa-512x512.png
-- Workbox: cache images (30 days, max 200), Google Fonts (365 days)
+### 1.3 Reduce 3D Tilt from 8deg to 4deg
+**File:** `src/components/ProductCard.tsx` (line 98-99)
+- Change `[8, -8]` to `[4, -4]` on both rotateX and rotateY transforms
 
-### 3. Update `index.html` -- Add PWA Meta Tags
-Add to `<head>`:
-- `<meta name="theme-color" content="#E67E22">`
-- `<link rel="apple-touch-icon" href="/pwa-192x192.png">`
-- `<meta name="apple-mobile-web-app-capable" content="yes">`
-- `<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">`
+---
 
-### 4. Delete `public/sw.js`
-Currently only caches a non-existent model file. The PWA plugin generates a proper service worker.
+## Phase 2 -- UX Polish (Week 2)
 
-### 5. Update `src/main.tsx` -- Register PWA Service Worker
-Add `import { registerSW } from 'virtual:pwa-register'` and call `registerSW({ immediate: true })`. Keep all existing imports (i18n, dandle-ui, heroVideoInstantPlay).
+### 2.1 Scroll Progress Bar
+**New file:** `src/components/ScrollProgress.tsx`
+- Thin 2px primary-colored bar fixed at top of viewport
+- Uses `window.scrollY / documentHeight` for width percentage
+- Rendered in `Index.tsx` above Navigation
 
-### 6. Create `src/hooks/useOnlineStatus.ts`
-Returns `boolean` for online/offline state using `navigator.onLine` + event listeners.
+### 2.2 Back-to-Top Button
+**New file:** `src/components/BackToTop.tsx`
+- Appears after 50% scroll, smooth scroll to top on click
+- Positioned above WhatsApp float on mobile, bottom-right on desktop
+- Uses `framer-motion` for fade in/out
 
-### 7. Create `src/components/OfflineNotice.tsx`
-Fixed top banner showing Arabic offline message with WifiOff icon. Uses `useOnlineStatus` hook. Only renders when offline.
+### 2.3 Skeleton Loading for ProductGallery
+**New file:** `src/components/SkeletonProductCard.tsx`
+- Matches ProductCard aspect ratio (4/5 image + footer)
+- Uses existing `Skeleton` component from `ui/skeleton.tsx`
+- ProductGallery shows skeleton grid briefly on mount
 
-### 8. Create `src/hooks/useShare.ts`
-Uses Web Share API with clipboard fallback. Accepts product name and current URL.
+---
 
-### 9. Create `src/lib/whatsapp.ts`
-Centralizes WhatsApp URL building with the existing number (201222804255 from WhatsAppFloat.tsx). Uses `buildWhatsAppUrl(message)` helper.
+## Phase 3 -- Engagement Capture (Week 3)
 
-### 10. Create `src/lib/format.ts`
-`formatEGP(price: number)` helper returning formatted string with locale separators.
+### 3.1 Exit Intent Capture (Desktop Only)
+**New file:** `src/components/ExitIntentCapture.tsx`
+- Triggers on `mouseleave` when `clientY <= 0`
+- Shows once per session (state flag, no localStorage abuse)
+- WhatsApp link uses `buildWhatsAppUrl` from `src/lib/whatsapp.ts`
+- Arabic-first modal: "Before you leave... Save your favorites"
+- Dismiss permanently for session
 
-### 11. Create `src/data/constants.ts`
-Locked truth constants: `deliveryDays: 14`, `warrantyYears: 2`, footer text in EN/AR, WhatsApp number.
+### 3.2 PWA Install Banner
+**New file:** `src/components/PWAInstallBanner.tsx`
+- Captures `beforeinstallprompt` event in `useRef` (not state, survives re-renders)
+- Shows branded banner after 2nd page visit (tracked via `localStorage` counter)
+- Dismissible, stores dismissal in localStorage
+- Uses Dandle brand styling, not browser default
 
-### 12. Add OfflineNotice to `src/pages/Index.tsx`
-Import and render `<OfflineNotice />` at the top of the Index page layout.
+### 3.3 Quick WhatsApp from ProductCard (Context Menu)
+**File:** `src/components/ProductCard.tsx`
+- Add `onContextMenu` handler to the card's `motion.div`
+- Opens WhatsApp with pre-filled product inquiry message
+- Uses existing WhatsApp number constant `201222804255`
 
-### 13. Create PWA Icon Placeholders
-Add `public/pwa-192x192.png` and `public/pwa-512x512.png` (orange-branded placeholder icons).
+---
 
-## Files Summary
+## What is NOT included (Deferred)
+- Product JSON-LD schema per product (needs real `/products/:id` routes -- routes already exist in App.tsx but render modals)
+- Dynamic OG meta per product (needs SSR/prerender for social crawlers)
+- Sitemap with product URLs (deferred until prerender decision)
+- No unverified social proof numbers ("147 delivered", "4.9 rating")
 
-| Action | File |
-|--------|------|
-| Install | `vite-plugin-pwa` |
-| Edit | `vite.config.ts` (append PWA plugin) |
-| Edit | `index.html` (add 4 meta tags) |
-| Edit | `src/main.tsx` (add SW registration, keep everything else) |
-| Edit | `src/pages/Index.tsx` (add OfflineNotice) |
-| Delete | `public/sw.js` |
-| Create | `src/hooks/useOnlineStatus.ts` |
-| Create | `src/hooks/useShare.ts` |
-| Create | `src/components/OfflineNotice.tsx` |
-| Create | `src/lib/whatsapp.ts` |
-| Create | `src/lib/format.ts` |
-| Create | `src/data/constants.ts` |
-| Create | `public/pwa-192x192.png` |
-| Create | `public/pwa-512x512.png` |
+---
 
-## What Does NOT Change
-- `src/App.tsx` -- all routes, providers, cart context untouched
-- `src/types/product.ts` -- locked catalog, no schema changes
-- `tailwind.config.ts` -- already correct (Montserrat + Cairo, brand colors)
-- `src/components/ProductCard.tsx` -- existing card with swatches untouched
-- `src/components/WhatsAppFloat.tsx` -- keeps working, can optionally be refactored later to use the new `whatsapp.ts` helper
-- `src/components/MobileStickyBar.tsx` -- keeps working as-is
+## Technical Details
 
+### Files Created (6)
+- `src/components/TrustBar.tsx`
+- `src/components/ScrollProgress.tsx`
+- `src/components/BackToTop.tsx`
+- `src/components/SkeletonProductCard.tsx`
+- `src/components/ExitIntentCapture.tsx`
+- `src/components/PWAInstallBanner.tsx`
+
+### Files Modified (3)
+- `src/components/ProductCard.tsx` -- reduce tilt, add installment line, add context menu WhatsApp
+- `src/components/ProductGallery.tsx` -- optional skeleton loading state
+- `src/pages/Index.tsx` -- add TrustBar, ScrollProgress, BackToTop, ExitIntentCapture, PWAInstallBanner
+
+### Dependencies
+- No new packages. Uses existing framer-motion, lucide-react, and project utilities.
+
+### Risk Assessment
+- Phase 1: Zero risk (locked data, existing helpers)
+- Phase 2: Zero risk (additive UI components)
+- Phase 3: Low risk (non-intrusive, session-scoped)
