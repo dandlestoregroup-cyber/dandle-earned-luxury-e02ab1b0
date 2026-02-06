@@ -23,12 +23,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { PaymentTrustBadges } from "@/components/commerce/PaymentTrustBadges";
 import { ValuInstallmentCalculator } from "@/components/commerce/ValuInstallmentCalculator";
+import { trackViewContent, trackAddToCart } from "@/hooks/useAnalytics";
+import { useLang } from "@/hooks/useBilingualText";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const navigate = useNavigate();
   const { addItem } = useShopifyCartStore();
   const { openCart, addToCompare, isInCompare, removeFromCompare } = useUIStore();
+  const { isArabic } = useLang();
 
   const [product, setProduct] = useState<MergedProduct | null>(null);
   const [isLoadingCommerce, setIsLoadingCommerce] = useState(true);
@@ -71,11 +74,32 @@ const ProductDetail = () => {
       });
   }, [handle, navigate]);
 
+  // Track view_item on mount
+  useEffect(() => {
+    if (product && product.commerce?.price) {
+      trackViewContent(
+        product.productHandle,
+        product.title,
+        parseFloat(product.commerce.price),
+        "Recliners"
+      );
+    }
+  }, [product?.productHandle, product?.commerce?.price]);
+
   const handleAddToCart = async () => {
     if (!product || !product.commerce?.variants?.[0]) return;
 
     setIsAddingToCart(true);
     const variant = product.commerce.variants[0];
+    
+    // Track add_to_cart event
+    trackAddToCart(
+      product.productHandle,
+      product.title,
+      parseFloat(variant.price),
+      quantity,
+      variant.optionValue
+    );
     
     await addItem({
       product: {

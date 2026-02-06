@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -26,14 +26,16 @@ import { useShopifyCartStore } from "@/stores/shopifyCartStore";
 import { useUIStore } from "@/stores/uiStore";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
 import { PaymentTrustBadges } from "@/components/commerce/PaymentTrustBadges";
+import { trackInitiateCheckout } from "@/hooks/useAnalytics";
+import { useLang } from "@/hooks/useBilingualText";
 
 const VALID_PROMO_CODE = "FESTIVE10";
 const PROMO_DISCOUNT = 0.10;
 
 export const CartDrawer = () => {
   const { isCartOpen, closeCart } = useUIStore();
+  const { isArabic } = useLang();
   const [promoCode, setPromoCode] = useState("");
   const [promoApplied, setPromoApplied] = useState(false);
   const [promoError, setPromoError] = useState("");
@@ -93,6 +95,18 @@ export const CartDrawer = () => {
   };
 
   const handleCheckout = async () => {
+    // Track begin_checkout event
+    trackInitiateCheckout(
+      items.map(item => ({
+        item_id: item.product.id,
+        item_name: item.product.title,
+        price: parseFloat(item.price.amount),
+        quantity: item.quantity,
+        item_variant: item.variantTitle,
+      })),
+      totalPrice
+    );
+    
     const checkoutUrl = await createCheckout();
     if (checkoutUrl) {
       const finalUrl = promoApplied 
@@ -123,14 +137,19 @@ export const CartDrawer = () => {
 
   return (
     <Sheet open={isCartOpen} onOpenChange={(open) => !open && closeCart()}>
-      <SheetContent className="w-full sm:max-w-lg flex flex-col h-full p-0">
+      <SheetContent className="w-full sm:max-w-lg flex flex-col h-full p-0" dir={isArabic ? "rtl" : "ltr"}>
         <SheetHeader className="flex-shrink-0 p-6 pb-0">
           <SheetTitle className="font-headline text-2xl flex items-center gap-2">
             <ShoppingBag className="h-6 w-6" />
-            Shopping Cart
+            {isArabic ? "سلة التسوق" : "Shopping Cart"}
           </SheetTitle>
           <SheetDescription>
-            {totalItems === 0 ? "Your cart is empty" : `${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart`}
+            {totalItems === 0 
+              ? (isArabic ? "سلتك فارغة" : "Your cart is empty")
+              : (isArabic 
+                  ? `${totalItems} منتج في سلتك` 
+                  : `${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart`)
+            }
           </SheetDescription>
         </SheetHeader>
         
@@ -141,10 +160,14 @@ export const CartDrawer = () => {
                 <div className="w-20 h-20 mx-auto mb-4 bg-secondary/20 rounded-full flex items-center justify-center">
                   <ShoppingCart className="h-10 w-10 text-muted-foreground" />
                 </div>
-                <p className="text-lg font-medium text-foreground mb-1">Your cart is empty</p>
-                <p className="text-sm text-muted-foreground mb-4">Start browsing our collection</p>
+                <p className="text-lg font-medium text-foreground mb-1">
+                  {isArabic ? "سلتك فارغة" : "Your cart is empty"}
+                </p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {isArabic ? "ابدأ بتصفح مجموعتنا" : "Start browsing our collection"}
+                </p>
                 <Button onClick={closeCart} variant="outline">
-                  Continue Shopping
+                  {isArabic ? "تابع التسوق" : "Continue Shopping"}
                 </Button>
               </div>
             </div>
@@ -237,7 +260,7 @@ export const CartDrawer = () => {
                     <div className="relative flex-1">
                       <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
-                        placeholder="Promo code"
+                        placeholder={isArabic ? "كود الخصم" : "Promo code"}
                         value={promoCode}
                         onChange={(e) => {
                           setPromoCode(e.target.value);
@@ -245,7 +268,7 @@ export const CartDrawer = () => {
                         }}
                         disabled={promoApplied}
                         className={`pl-9 ${promoApplied ? 'bg-green-50 border-green-500' : promoError ? 'border-destructive' : ''}`}
-                        aria-label="Promo code"
+                        aria-label={isArabic ? "كود الخصم" : "Promo code"}
                       />
                     </div>
                     {promoApplied ? (
@@ -254,7 +277,7 @@ export const CartDrawer = () => {
                         size="icon"
                         onClick={handleRemovePromo}
                         className="shrink-0"
-                        aria-label="Remove promo code"
+                        aria-label={isArabic ? "إزالة الكود" : "Remove promo code"}
                       >
                         <X className="h-4 w-4" />
                       </Button>
@@ -265,14 +288,14 @@ export const CartDrawer = () => {
                         disabled={!promoCode.trim()}
                         className="shrink-0"
                       >
-                        Apply
+                        {isArabic ? "تطبيق" : "Apply"}
                       </Button>
                     )}
                   </div>
                   {promoApplied && (
                     <div className="flex items-center gap-1.5 text-sm text-green-600">
                       <Check className="h-4 w-4" />
-                      <span>FESTIVE10 applied — seasonal appreciation</span>
+                      <span>{isArabic ? "تم تطبيق FESTIVE10 — تقدير موسمي" : "FESTIVE10 applied — seasonal appreciation"}</span>
                     </div>
                   )}
                   {promoError && (
@@ -280,20 +303,19 @@ export const CartDrawer = () => {
                   )}
                 </div>
 
-                {/* Price breakdown */}
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Subtotal</span>
+                    <span className="text-muted-foreground">{isArabic ? "المجموع الفرعي" : "Subtotal"}</span>
                     <span className="font-medium">EGP {subtotal.toLocaleString()}</span>
                   </div>
                   {promoApplied && (
                     <div className="flex justify-between text-green-600">
-                      <span>Discount (10%)</span>
+                      <span>{isArabic ? "الخصم (10%)" : "Discount (10%)"}</span>
                       <span>-EGP {discount.toLocaleString()}</span>
                     </div>
                   )}
                   <div className="flex justify-between items-center pt-2 border-t border-border">
-                    <span className="text-lg font-headline">Total</span>
+                    <span className="text-lg font-headline">{isArabic ? "الإجمالي" : "Total"}</span>
                     <span className="text-xl font-bold text-primary">
                       EGP {totalPrice.toLocaleString()}
                     </span>
@@ -313,12 +335,12 @@ export const CartDrawer = () => {
                     {isLoading ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Creating Checkout...
+                        {isArabic ? "جاري التحضير..." : "Creating Checkout..."}
                       </>
                     ) : (
                       <>
                         <ExternalLink className="w-4 h-4 mr-2" />
-                        Checkout with Shopify
+                        {isArabic ? "الدفع عبر Shopify" : "Checkout with Shopify"}
                       </>
                     )}
                   </Button>
@@ -331,7 +353,7 @@ export const CartDrawer = () => {
                     disabled={items.length === 0}
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Order via WhatsApp
+                    {isArabic ? "الطلب عبر واتساب" : "Order via WhatsApp"}
                   </Button>
                 </div>
               </div>
