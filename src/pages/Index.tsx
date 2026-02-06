@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import OfflineNotice from "@/components/OfflineNotice";
 import Quote from "@/components/Quote";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -43,6 +44,7 @@ const Index = () => {
           {JSON.stringify(generateLocalBusinessSchema())}
         </script>
       </Helmet>
+      <OfflineNotice />
       <Navigation />
       <main>
         <Hero />

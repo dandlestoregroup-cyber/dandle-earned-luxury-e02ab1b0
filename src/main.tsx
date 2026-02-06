@@ -5,8 +5,10 @@ import "./index.css";
 import "./i18n/config";
 import { initDandleUi } from "./dandle-ui";
 import { initHeroVideoInstantPlay } from "./patches/heroVideoInstantPlay";
+import { registerSW } from "virtual:pwa-register";
 
 initDandleUi();
 initHeroVideoInstantPlay();
+registerSW({ immediate: true });
 
 createRoot(document.getElementById("root")!).render(<App />);
