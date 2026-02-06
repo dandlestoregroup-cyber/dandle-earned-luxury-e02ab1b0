@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Product } from "@/types/product";
 import { getLovableProduct } from "@/catalog/lovableCatalog";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 import { productColorImages, getProductColorImage } from "@/data/productColorImages";
 import { productSwatches } from "@/data/productSwatches";
@@ -95,8 +96,8 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
   const mouseY = useMotionValue(0);
   
   const springConfig = { damping: 20, stiffness: 300 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [4, -4]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-4, 4]), springConfig);
   
   // Cursor position for custom cursor
   const cursorX = useMotionValue(0);
@@ -259,6 +260,13 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
         showCustomCursor && "cursor-none"
       )}
       onClick={handleCardClick}
+      onContextMenu={(e) => {
+        if (product.comingSoon || product.beFirstToKnow) return;
+        e.preventDefault();
+        const name = isArabic && translation ? translation.name : product.name;
+        const msg = `أهلاً، أنا مهتم بـ ${name}${product.price ? ` - ${formatPrice(product.price)}` : ""}`;
+        window.open(buildWhatsAppUrl(msg), "_blank", "noopener");
+      }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -730,20 +738,31 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
           )}
           
           {/* Price or Status */}
-          {(product.comingSoon || product.beFirstToKnow) ? (
-            <span className={cn(
-              "text-sm font-medium text-dandle-orange",
-              isArabic ? "font-body-ar" : "font-body"
-            )}>
-              {showBeFirstBadge 
-                ? (isArabic ? "كن أول من يعرف" : "Be First to Know")
-                : (isArabic ? "قريباً" : "Coming Soon")}
-            </span>
-          ) : (
-            <span className="font-headline text-lg text-charcoal font-semibold whitespace-nowrap">
-              {getPriceDisplay()}
-            </span>
-          )}
+          <div className={isArabic ? "text-right" : "text-left"}>
+            {(product.comingSoon || product.beFirstToKnow) ? (
+              <span className={cn(
+                "text-sm font-medium text-dandle-orange",
+                isArabic ? "font-body-ar" : "font-body"
+              )}>
+                {showBeFirstBadge 
+                  ? (isArabic ? "كن أول من يعرف" : "Be First to Know")
+                  : (isArabic ? "قريباً" : "Coming Soon")}
+              </span>
+            ) : (
+              <>
+                <span className="font-headline text-lg text-charcoal font-semibold whitespace-nowrap block">
+                  {getPriceDisplay()}
+                </span>
+                {product.price && (
+                  <span className="text-xs text-dandle-orange font-medium block mt-0.5">
+                    {isArabic
+                      ? `من ${formatMonthlyInstallment(product.price)} ج.م/شهرياً`
+                      : `From ${formatMonthlyInstallment(product.price)} EGP/mo`}
+                  </span>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>

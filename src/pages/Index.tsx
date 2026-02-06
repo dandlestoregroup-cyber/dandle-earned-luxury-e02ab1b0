@@ -19,6 +19,11 @@ import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/utils
 import MobileStickyBar from "@/components/MobileStickyBar";
 import ThunderButton from "@/components/ThunderButton";
 import { useLang } from "@/hooks/useBilingualText";
+import TrustBar from "@/components/TrustBar";
+import ScrollProgress from "@/components/ScrollProgress";
+import BackToTop from "@/components/BackToTop";
+import ExitIntentCapture from "@/components/ExitIntentCapture";
+import PWAInstallBanner from "@/components/PWAInstallBanner";
 
 const Index = () => {
   const { isArabic } = useLang();
@@ -44,8 +49,10 @@ const Index = () => {
           {JSON.stringify(generateLocalBusinessSchema())}
         </script>
       </Helmet>
+      <ScrollProgress />
       <OfflineNotice />
       <Navigation />
+      <TrustBar />
       <main>
         <Hero />
         <Quote />
@@ -64,6 +71,9 @@ const Index = () => {
       <CartDrawer />
       <MobileStickyBar />
       <ThunderButton />
+      <BackToTop />
+      <ExitIntentCapture />
+      <PWAInstallBanner />
     </div>
   );
 };
