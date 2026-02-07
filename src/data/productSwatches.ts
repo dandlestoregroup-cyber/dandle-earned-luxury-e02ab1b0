@@ -3,12 +3,12 @@
 export const productSwatches: Record<string, string[]> = {
   'relaxmax': ['cognac-leather', 'alexandria-linen', 'mocha-taupe', 'coastal-fog'],
   'relaxmax-limited': ['camel-leather'],
-  'spacesaver': ['mocha-taupe', 'desert-grey', 'coastal-fog', 'terracotta', 'offwhite'],
-  'comfortplus': ['coastal-fog', 'tan'],
-  'diva': ['terracotta', 'desert-sage', 'giza-gold', 'oasis-green', 'red'],
-  'cozycompanion': ['mocha-taupe', 'coastal-fog'],
-  'easyup': ['oasis-green', 'mocha-taupe', 'grey', 'beige'],
+  'spacesaver': ['alexandria-linen', 'mocha-taupe', 'desert-grey', 'terracotta', 'offwhite'],
+  'comfortplus': ['tan', 'coastal-fog'],
+  'diva': ['terracotta', 'giza-gold', 'oasis-green', 'desert-sage'],
+  'cozycompanion': ['alexandria-linen', 'mocha-taupe', 'coastal-fog'],
+  'easyup-standard': ['oasis-green', 'mocha-taupe', 'grey', 'coastal-fog'],
   'easyup-compact': ['charcoal', 'grey', 'oasis-green'],
   'worknest': ['oasis-green', 'desert-grey', 'blue-nile-denim'],
-  'complete-set': ['family-modern', 'alexandria-linen', 'coastal-fog'],
+  'complete-set': ['family-modern'],
 };
