@@ -26,6 +26,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
 import PWAInstallBanner from "@/components/PWAInstallBanner";
 
+
 const Index = () => {
   const { isArabic } = useLang();
   

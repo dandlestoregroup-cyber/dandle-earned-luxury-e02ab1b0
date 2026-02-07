@@ -14,6 +14,11 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     mainImage: '/images/dandle-relaxmax-hero.webp',
     galleryImages: [
       '/images/relaxmax-hero-offwhite.jpg',
+      '/images/relaxmax-cognac-side.png',
+      '/images/relaxmax-cognac-reclined.png',
+      '/images/relaxmax-linen-front.png',
+      '/images/relaxmax-linen-side.png',
+      '/images/relaxmax-lifestyle-muse.png',
       '/images/relaxmax-brown-lifestyle.jpg',
       '/images/relaxmax-lifestyle-day.png',
       '/images/relaxmax-lifestyle-night.png',
@@ -62,6 +67,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
   'cozycompanion': {
     mainImage: '/images/dandle-cozycompanion-hero.webp',
     galleryImages: [
+      '/images/cozycompanion-lifestyle-muse.png',
       '/images/cozycompanion-beige-front.jpg',
       '/images/cozycompanion-yellow-front.jpg',
       '/images/cozycompanion-couple-lifestyle.jpg',

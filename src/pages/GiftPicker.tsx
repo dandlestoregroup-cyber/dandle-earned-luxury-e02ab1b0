@@ -144,7 +144,7 @@ const GiftPicker = () => {
       
       <Navigation />
       
-      <main className="min-h-screen bg-off-white pt-28 pb-20">
+      <main className="min-h-screen bg-dandle-white pt-28 pb-20">
         <div className="container mx-auto px-4 max-w-2xl">
           {/* Header */}
           <motion.div
@@ -154,14 +154,14 @@ const GiftPicker = () => {
           >
             <Gift className="w-12 h-12 text-dandle-orange mx-auto mb-4" />
             <h1 
-              className="font-headline text-3xl md:text-4xl text-deep-brown mb-2"
+              className="font-headline text-3xl md:text-4xl text-dandle-charcoal mb-2"
               data-en="Gift Finder"
               data-ar="دليل الهدايا"
             >
               Gift Finder
             </h1>
             <p 
-              className="text-deep-brown/60"
+              className="text-dandle-charcoal/60"
               data-en="Find the perfect recliner gift in 3 questions"
               data-ar="اختر هدية الكرسي المثالية في ٣ أسئلة"
             >
@@ -175,7 +175,7 @@ const GiftPicker = () => {
               <div
                 key={s}
                 className={`h-1 flex-1 rounded-full transition-colors ${
-                  s <= step ? "bg-dandle-orange" : "bg-deep-brown/10"
+                  s <= step ? "bg-dandle-orange" : "bg-dandle-charcoal/10"
                 }`}
               />
             ))}
@@ -192,7 +192,7 @@ const GiftPicker = () => {
                 className="space-y-6"
               >
                 <h2 
-                  className="font-headline text-2xl text-deep-brown text-center"
+                  className="font-headline text-2xl text-dandle-charcoal text-center"
                   data-en="Who is it for?"
                   data-ar="لمين الهدية؟"
                 >
@@ -206,12 +206,12 @@ const GiftPicker = () => {
                       className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                         selection.recipient === option.id
                           ? "border-dandle-orange bg-dandle-orange/5"
-                          : "border-deep-brown/10 hover:border-deep-brown/30"
+                          : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                       }`}
                     >
-                      <option.icon className={`w-6 h-6 ${selection.recipient === option.id ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                      <option.icon className={`w-6 h-6 ${selection.recipient === option.id ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                       <span 
-                        className="text-lg text-deep-brown"
+                        className="text-lg text-dandle-charcoal"
                         data-en={option.labelEn}
                         data-ar={option.labelAr}
                       >
@@ -235,7 +235,7 @@ const GiftPicker = () => {
                 className="space-y-6"
               >
                 <h2 
-                  className="font-headline text-2xl text-deep-brown text-center"
+                  className="font-headline text-2xl text-dandle-charcoal text-center"
                   data-en="Primary use?"
                   data-ar="الاستخدام الأساسي؟"
                 >
@@ -249,12 +249,12 @@ const GiftPicker = () => {
                       className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                         selection.usage === option.id
                           ? "border-dandle-orange bg-dandle-orange/5"
-                          : "border-deep-brown/10 hover:border-deep-brown/30"
+                          : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                       }`}
                     >
-                      <option.icon className={`w-6 h-6 ${selection.usage === option.id ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                      <option.icon className={`w-6 h-6 ${selection.usage === option.id ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                       <span 
-                        className="text-lg text-deep-brown"
+                        className="text-lg text-dandle-charcoal"
                         data-en={option.labelEn}
                         data-ar={option.labelAr}
                       >
@@ -278,7 +278,7 @@ const GiftPicker = () => {
                 className="space-y-6"
               >
                 <h2 
-                  className="font-headline text-2xl text-deep-brown text-center"
+                  className="font-headline text-2xl text-dandle-charcoal text-center"
                   data-en="Budget range?"
                   data-ar="الميزانية؟"
                 >
@@ -292,12 +292,12 @@ const GiftPicker = () => {
                       className={`p-6 rounded-xl border-2 flex flex-col items-start transition-all ${
                         selection.budget === option.id
                           ? "border-dandle-orange bg-dandle-orange/5"
-                          : "border-deep-brown/10 hover:border-deep-brown/30"
+                          : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                       }`}
                     >
                       <div className="flex items-center justify-between w-full">
                         <span 
-                          className="text-lg text-deep-brown"
+                          className="text-lg text-dandle-charcoal"
                           data-en={option.labelEn}
                           data-ar={option.labelAr}
                         >
@@ -326,14 +326,14 @@ const GiftPicker = () => {
                 </div>
                 <div>
                   <h2 
-                    className="font-headline text-2xl text-deep-brown mb-2"
+                    className="font-headline text-2xl text-dandle-charcoal mb-2"
                     data-en="Perfect Match Found!"
                     data-ar="وجدنا الهدية المثالية!"
                   >
                     Perfect Match Found!
                   </h2>
                   <p 
-                    className="text-deep-brown/60"
+                    className="text-dandle-charcoal/60"
                     data-en="Based on your answers, we recommend:"
                     data-ar="بناءً على إجاباتك، نرشح لك:"
                   >
@@ -341,9 +341,9 @@ const GiftPicker = () => {
                   </p>
                 </div>
                 
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-deep-brown/5">
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-dandle-charcoal/5">
                   {/* Product Image */}
-                  <div className="aspect-square max-w-[280px] mx-auto mb-6 bg-off-white rounded-xl overflow-hidden">
+                  <div className="aspect-square max-w-[280px] mx-auto mb-6 bg-dandle-white rounded-xl overflow-hidden">
                     <img 
                       src={getProductImage()} 
                       alt={getRecommendation().product}
@@ -351,7 +351,7 @@ const GiftPicker = () => {
                     />
                   </div>
                   
-                  <h3 className="font-headline text-3xl text-deep-brown mb-4">
+                  <h3 className="font-headline text-3xl text-dandle-charcoal mb-4">
                     {getRecommendation().product}
                   </h3>
                   <Button
@@ -374,7 +374,7 @@ const GiftPicker = () => {
                 <Button
                   variant="outline"
                   onClick={() => setStep((s) => (s - 1) as Step)}
-                  className="flex-1 border-deep-brown/20 text-deep-brown"
+                  className="flex-1 border-dandle-charcoal/20 text-dandle-charcoal"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   <span data-en="Back" data-ar="رجوع">Back</span>
@@ -398,7 +398,7 @@ const GiftPicker = () => {
                 setStep(1);
                 setSelection({ recipient: "", usage: "", budget: "" });
               }}
-              className="w-full mt-6 text-deep-brown"
+              className="w-full mt-6 text-dandle-charcoal"
             >
               <span data-en="Start Over" data-ar="ابدأ من جديد">Start Over</span>
             </Button>

@@ -21,7 +21,7 @@ interface ReferenceImage {
 }
 
 const REFERENCE_IMAGES: ReferenceImage[] = [
-  { id: "01", url: "/images/relaxmax-hero-offwhite.jpg", product: "RelaxMax", handle: "relaxmax", description: "Hero off-white" },
+  { id: "01", url: "/images/relaxmax-hero-offwhite.jpg", product: "RelaxMax", handle: "relaxmax", description: "Hero dandle-white" },
   { id: "02", url: "/images/relaxmax-brown-lifestyle.jpg", product: "RelaxMax", handle: "relaxmax", description: "Brown lifestyle" },
   { id: "03", url: "/images/diva-red-front.jpg", product: "Diva", handle: "diva", description: "Red front" },
   { id: "04", url: "/images/cozycompanion-beige-front.jpg", product: "CozyCompanion", handle: "cozycompanion", description: "Beige front" },

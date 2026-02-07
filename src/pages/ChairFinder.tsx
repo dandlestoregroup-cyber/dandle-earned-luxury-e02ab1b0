@@ -239,7 +239,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
       
       <Navigation />
       
-      <main className="min-h-screen bg-off-white pt-28 pb-20" dir="rtl">
+      <main className="min-h-screen bg-dandle-white pt-28 pb-20" dir="rtl">
         <div className="container mx-auto px-4 max-w-2xl">
           {/* Header */}
           <motion.div
@@ -247,16 +247,16 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="font-cairo text-3xl md:text-4xl text-deep-brown mb-2">
+            <h1 className="font-cairo text-3xl md:text-4xl text-dandle-charcoal mb-2">
               دليل اختيار الكرسي
             </h1>
-            <p className="text-deep-brown/60">
+            <p className="text-dandle-charcoal/60">
               {step === 10 ? "راجع طلبك وأرسله" : `الخطوة ${step} من ${totalSteps}`}
             </p>
           </motion.div>
 
           {/* Progress Bar */}
-          <div className="h-2 bg-deep-brown/10 rounded-full mb-10 overflow-hidden">
+          <div className="h-2 bg-dandle-charcoal/10 rounded-full mb-10 overflow-hidden">
             <motion.div
               className="h-full bg-dandle-orange rounded-full"
               initial={{ width: 0 }}
@@ -276,7 +276,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   اختر الموديل
                 </h2>
                 <div className="grid gap-4">
@@ -287,7 +287,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                       className={`p-4 rounded-xl border-2 flex items-center gap-4 transition-all ${
                         selection.model === model.handle
                           ? "border-dandle-orange bg-dandle-orange/5"
-                          : "border-deep-brown/10 hover:border-deep-brown/30"
+                          : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                       }`}
                     >
                       <img 
@@ -296,10 +296,10 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                         className="w-16 h-16 object-contain rounded-lg bg-white"
                       />
                       <div className="flex-1 text-right">
-                        <span className="block text-lg text-deep-brown font-medium">
+                        <span className="block text-lg text-dandle-charcoal font-medium">
                           {model.nameAr}
                         </span>
-                        <span className="text-sm text-deep-brown/60">
+                        <span className="text-sm text-dandle-charcoal/60">
                           من {model.price.toLocaleString()} جنيه
                         </span>
                         {model.limitedColors && (
@@ -326,7 +326,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   اختر الآلية
                 </h2>
                 <div className="grid gap-4">
@@ -335,13 +335,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.mechanism === "manual"
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <Hand className={`w-8 h-8 ${selection.mechanism === "manual" ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <Hand className={`w-8 h-8 ${selection.mechanism === "manual" ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">يدوي</span>
-                      <span className="text-sm text-deep-brown/60">تحكم بسيط ومباشر</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">يدوي</span>
+                      <span className="text-sm text-dandle-charcoal/60">تحكم بسيط ومباشر</span>
                     </div>
                     {selection.mechanism === "manual" && <Check className="w-5 h-5 text-dandle-orange" />}
                   </button>
@@ -350,13 +350,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.mechanism === "power"
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <Zap className={`w-8 h-8 ${selection.mechanism === "power" ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <Zap className={`w-8 h-8 ${selection.mechanism === "power" ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">كهربائي</span>
-                      <span className="text-sm text-deep-brown/60">تحكم بالريموت</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">كهربائي</span>
+                      <span className="text-sm text-dandle-charcoal/60">تحكم بالريموت</span>
                       <span className="text-xs text-dandle-orange">
                         +{(selectedModel?.priceWithPower || 0) - (selectedModel?.price || 0)} جنيه
                       </span>
@@ -376,7 +376,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   نوع الحركة
                 </h2>
                 <div className="grid gap-4">
@@ -385,13 +385,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.movement === "rocking"
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <RotateCcw className={`w-8 h-8 ${selection.movement === "rocking" ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <RotateCcw className={`w-8 h-8 ${selection.movement === "rocking" ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">هزاز</span>
-                      <span className="text-sm text-deep-brown/60">حركة مريحة للاسترخاء</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">هزاز</span>
+                      <span className="text-sm text-dandle-charcoal/60">حركة مريحة للاسترخاء</span>
                     </div>
                     {selection.movement === "rocking" && <Check className="w-5 h-5 text-dandle-orange" />}
                   </button>
@@ -400,13 +400,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.movement === "stable"
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <Circle className={`w-8 h-8 ${selection.movement === "stable" ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <Circle className={`w-8 h-8 ${selection.movement === "stable" ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">ثابت</span>
-                      <span className="text-sm text-deep-brown/60">ثبات تام على الأرض</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">ثابت</span>
+                      <span className="text-sm text-dandle-charcoal/60">ثبات تام على الأرض</span>
                     </div>
                     {selection.movement === "stable" && <Check className="w-5 h-5 text-dandle-orange" />}
                   </button>
@@ -423,7 +423,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   الدوران
                 </h2>
                 <div className="grid gap-4">
@@ -432,13 +432,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.rotation === "360"
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <RotateCcw className={`w-8 h-8 ${selection.rotation === "360" ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <RotateCcw className={`w-8 h-8 ${selection.rotation === "360" ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">دوار 360°</span>
-                      <span className="text-sm text-deep-brown/60">حرية الحركة في كل الاتجاهات</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">دوار 360°</span>
+                      <span className="text-sm text-dandle-charcoal/60">حرية الحركة في كل الاتجاهات</span>
                     </div>
                     {selection.rotation === "360" && <Check className="w-5 h-5 text-dandle-orange" />}
                   </button>
@@ -447,13 +447,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.rotation === "fixed"
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <Circle className={`w-8 h-8 ${selection.rotation === "fixed" ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <Circle className={`w-8 h-8 ${selection.rotation === "fixed" ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">ثابت</span>
-                      <span className="text-sm text-deep-brown/60">ثبات في مكانه</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">ثابت</span>
+                      <span className="text-sm text-dandle-charcoal/60">ثبات في مكانه</span>
                     </div>
                     {selection.rotation === "fixed" && <Check className="w-5 h-5 text-dandle-orange" />}
                   </button>
@@ -470,14 +470,14 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   اختر اللون
                 </h2>
                 
                 {isEasyUpCompact ? (
                   // EasyUp Compact - Limited Colors from OMASH
                   <div className="space-y-4">
-                    <p className="text-center text-deep-brown/60 text-sm">
+                    <p className="text-center text-dandle-charcoal/60 text-sm">
                       جلد OMASH Damsuk الفاخر - ألوان محدودة
                     </p>
                     <div className="grid grid-cols-3 gap-4">
@@ -493,14 +493,14 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                           className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all ${
                             selection.color === color.key
                               ? "border-dandle-orange bg-dandle-orange/5"
-                              : "border-deep-brown/10 hover:border-deep-brown/30"
+                              : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                           }`}
                         >
                           <div 
-                            className="w-16 h-16 rounded-full border-2 border-deep-brown/10 shadow-inner"
+                            className="w-16 h-16 rounded-full border-2 border-dandle-charcoal/10 shadow-inner"
                             style={{ backgroundColor: color.hex }}
                           />
-                          <span className="text-sm text-deep-brown font-medium text-center">
+                          <span className="text-sm text-dandle-charcoal font-medium text-center">
                             {color.nameAr}
                           </span>
                           {selection.color === color.key && (
@@ -528,14 +528,14 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                           className={`p-3 rounded-xl border-2 flex flex-col items-center gap-2 transition-all ${
                             selection.color === swatchKey
                               ? "border-dandle-orange bg-dandle-orange/5"
-                              : "border-deep-brown/10 hover:border-deep-brown/30"
+                              : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                           }`}
                         >
                           <div 
-                            className="w-12 h-12 rounded-full border border-deep-brown/10 shadow-inner"
+                            className="w-12 h-12 rounded-full border border-dandle-charcoal/10 shadow-inner"
                             style={{ backgroundColor: color.hex }}
                           />
-                          <span className="text-xs text-deep-brown text-center leading-tight">
+                          <span className="text-xs text-dandle-charcoal text-center leading-tight">
                             {color.nameAr}
                           </span>
                           {selection.color === swatchKey && (
@@ -548,9 +548,9 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 )}
                 
                 {selection.color && (
-                  <div className="bg-white p-4 rounded-xl border border-deep-brown/10 text-center">
-                    <p className="text-deep-brown font-medium">{selection.colorName}</p>
-                    <p className="text-sm text-deep-brown/60">{selection.fabric}</p>
+                  <div className="bg-white p-4 rounded-xl border border-dandle-charcoal/10 text-center">
+                    <p className="text-dandle-charcoal font-medium">{selection.colorName}</p>
+                    <p className="text-sm text-dandle-charcoal/60">{selection.fabric}</p>
                   </div>
                 )}
               </motion.div>
@@ -565,18 +565,18 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   معلومات EasyUp Compact
                 </h2>
-                <div className="bg-white p-6 rounded-xl border border-deep-brown/10 space-y-4">
+                <div className="bg-white p-6 rounded-xl border border-dandle-charcoal/10 space-y-4">
                   <div className="flex items-center gap-3">
                     <Package className="w-6 h-6 text-dandle-orange" />
                     <div>
-                      <p className="text-deep-brown font-medium">جلد OMASH Damsuk الفاخر</p>
-                      <p className="text-sm text-deep-brown/60">جودة عالية من شريكنا الموثوق</p>
+                      <p className="text-dandle-charcoal font-medium">جلد OMASH Damsuk الفاخر</p>
+                      <p className="text-sm text-dandle-charcoal/60">جودة عالية من شريكنا الموثوق</p>
                     </div>
                   </div>
-                  <div className="text-sm text-deep-brown/70 space-y-2">
+                  <div className="text-sm text-dandle-charcoal/70 space-y-2">
                     <p>• تصميم مدمج يناسب المساحات الصغيرة</p>
                     <p>• نظام رفع كهربائي سلس</p>
                     <p>• ثلاثة ألوان متاحة: أزرق داكن، رمادي حجري، بني إسبريسو</p>
@@ -594,7 +594,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   خيارات الهدية
                 </h2>
                 
@@ -604,13 +604,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`w-full p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.giftWrap
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <Gift className={`w-8 h-8 ${selection.giftWrap ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <Gift className={`w-8 h-8 ${selection.giftWrap ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">تغليف هدية</span>
-                      <span className="text-sm text-deep-brown/60">تغليف فاخر مع شريط</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">تغليف هدية</span>
+                      <span className="text-sm text-dandle-charcoal/60">تغليف فاخر مع شريط</span>
                     </div>
                     {selection.giftWrap && <Check className="w-5 h-5 text-dandle-orange" />}
                   </button>
@@ -622,7 +622,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                       className="space-y-4"
                     >
                       <div>
-                        <label className="block text-sm text-deep-brown/70 mb-2">اسم المُهدى إليه</label>
+                        <label className="block text-sm text-dandle-charcoal/70 mb-2">اسم المُهدى إليه</label>
                         <Input
                           value={selection.recipientName}
                           onChange={(e) => setSelection(s => ({ ...s, recipientName: e.target.value }))}
@@ -632,7 +632,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm text-deep-brown/70 mb-2">رسالة الهدية (اختياري)</label>
+                        <label className="block text-sm text-dandle-charcoal/70 mb-2">رسالة الهدية (اختياري)</label>
                         <Textarea
                           value={selection.giftNote}
                           onChange={(e) => setSelection(s => ({ ...s, giftNote: e.target.value }))}
@@ -656,13 +656,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   معلومات التوصيل
                 </h2>
                 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm text-deep-brown/70 mb-2">
+                    <label className="block text-sm text-dandle-charcoal/70 mb-2">
                       <User className="w-4 h-4 inline ml-1" />
                       الاسم الكامل *
                     </label>
@@ -676,7 +676,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                   </div>
                   
                   <div>
-                    <label className="block text-sm text-deep-brown/70 mb-2">
+                    <label className="block text-sm text-dandle-charcoal/70 mb-2">
                       <Phone className="w-4 h-4 inline ml-1" />
                       رقم الهاتف *
                     </label>
@@ -691,14 +691,14 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                   </div>
                   
                   <div>
-                    <label className="block text-sm text-deep-brown/70 mb-2">
+                    <label className="block text-sm text-dandle-charcoal/70 mb-2">
                       <MapPin className="w-4 h-4 inline ml-1" />
                       المدينة *
                     </label>
                     <select
                       value={selection.city}
                       onChange={(e) => setSelection(s => ({ ...s, city: e.target.value }))}
-                      className="w-full p-3 rounded-lg border border-deep-brown/20 bg-white text-right"
+                      className="w-full p-3 rounded-lg border border-dandle-charcoal/20 bg-white text-right"
                       dir="rtl"
                     >
                       <option value="">اختر المدينة</option>
@@ -709,7 +709,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                   </div>
                   
                   <div>
-                    <label className="block text-sm text-deep-brown/70 mb-2">العنوان التفصيلي *</label>
+                    <label className="block text-sm text-dandle-charcoal/70 mb-2">العنوان التفصيلي *</label>
                     <Textarea
                       value={selection.address}
                       onChange={(e) => setSelection(s => ({ ...s, address: e.target.value }))}
@@ -720,7 +720,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                   </div>
                   
                   <div>
-                    <label className="block text-sm text-deep-brown/70 mb-2">
+                    <label className="block text-sm text-dandle-charcoal/70 mb-2">
                       رابط الموقع على الخريطة (اختياري)
                     </label>
                     <Input
@@ -744,7 +744,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   طريقة الدفع
                 </h2>
                 
@@ -754,13 +754,13 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.paymentMethod === "cash"
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <CreditCard className={`w-8 h-8 ${selection.paymentMethod === "cash" ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <CreditCard className={`w-8 h-8 ${selection.paymentMethod === "cash" ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">كاش عند الاستلام</span>
-                      <span className="text-sm text-deep-brown/60">ادفع عند التوصيل</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">كاش عند الاستلام</span>
+                      <span className="text-sm text-dandle-charcoal/60">ادفع عند التوصيل</span>
                     </div>
                     {selection.paymentMethod === "cash" && <Check className="w-5 h-5 text-dandle-orange" />}
                   </button>
@@ -770,20 +770,20 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                     className={`p-6 rounded-xl border-2 flex items-center gap-4 transition-all ${
                       selection.paymentMethod === "installments"
                         ? "border-dandle-orange bg-dandle-orange/5"
-                        : "border-deep-brown/10 hover:border-deep-brown/30"
+                        : "border-dandle-charcoal/10 hover:border-dandle-charcoal/30"
                     }`}
                   >
-                    <CreditCard className={`w-8 h-8 ${selection.paymentMethod === "installments" ? "text-dandle-orange" : "text-deep-brown/40"}`} />
+                    <CreditCard className={`w-8 h-8 ${selection.paymentMethod === "installments" ? "text-dandle-orange" : "text-dandle-charcoal/40"}`} />
                     <div className="flex-1 text-right">
-                      <span className="block text-lg text-deep-brown font-medium">تقسيط</span>
-                      <span className="text-sm text-deep-brown/60">سيتم التواصل لتأكيد خيارات التقسيط</span>
+                      <span className="block text-lg text-dandle-charcoal font-medium">تقسيط</span>
+                      <span className="text-sm text-dandle-charcoal/60">سيتم التواصل لتأكيد خيارات التقسيط</span>
                     </div>
                     {selection.paymentMethod === "installments" && <Check className="w-5 h-5 text-dandle-orange" />}
                   </button>
                 </div>
                 
                 <div>
-                  <label className="block text-sm text-deep-brown/70 mb-2">ملاحظات إضافية (اختياري)</label>
+                  <label className="block text-sm text-dandle-charcoal/70 mb-2">ملاحظات إضافية (اختياري)</label>
                   <Textarea
                     value={selection.notes}
                     onChange={(e) => setSelection(s => ({ ...s, notes: e.target.value }))}
@@ -804,22 +804,22 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-6"
               >
-                <h2 className="font-cairo text-2xl text-deep-brown text-center">
+                <h2 className="font-cairo text-2xl text-dandle-charcoal text-center">
                   مراجعة الطلب
                 </h2>
                 
                 {/* Order Summary */}
-                <div className="bg-white rounded-xl border border-deep-brown/10 overflow-hidden">
+                <div className="bg-white rounded-xl border border-dandle-charcoal/10 overflow-hidden">
                   {/* Product */}
-                  <div className="p-4 border-b border-deep-brown/10 flex items-center gap-4">
+                  <div className="p-4 border-b border-dandle-charcoal/10 flex items-center gap-4">
                     <img 
                       src={getProductImage(selection.model)} 
                       alt={selectedModel?.nameAr}
-                      className="w-20 h-20 object-contain rounded-lg bg-off-white"
+                      className="w-20 h-20 object-contain rounded-lg bg-dandle-white"
                     />
                     <div className="flex-1">
-                      <h3 className="font-medium text-deep-brown">{selectedModel?.nameAr}</h3>
-                      <p className="text-sm text-deep-brown/60">{selectedModel?.nameEn}</p>
+                      <h3 className="font-medium text-dandle-charcoal">{selectedModel?.nameAr}</h3>
+                      <p className="text-sm text-dandle-charcoal/60">{selectedModel?.nameEn}</p>
                       <p className="text-dandle-orange font-bold mt-1">
                         {calculatePrice().toLocaleString()} جنيه
                       </p>
@@ -830,48 +830,48 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                   <div className="p-4 space-y-3 text-sm">
                     {selection.mechanism && (
                       <div className="flex justify-between">
-                        <span className="text-deep-brown/60">الآلية</span>
-                        <span className="text-deep-brown">{selection.mechanism === "power" ? "كهربائي" : "يدوي"}</span>
+                        <span className="text-dandle-charcoal/60">الآلية</span>
+                        <span className="text-dandle-charcoal">{selection.mechanism === "power" ? "كهربائي" : "يدوي"}</span>
                       </div>
                     )}
                     {selection.movement && (
                       <div className="flex justify-between">
-                        <span className="text-deep-brown/60">الحركة</span>
-                        <span className="text-deep-brown">{selection.movement === "rocking" ? "هزاز" : "ثابت"}</span>
+                        <span className="text-dandle-charcoal/60">الحركة</span>
+                        <span className="text-dandle-charcoal">{selection.movement === "rocking" ? "هزاز" : "ثابت"}</span>
                       </div>
                     )}
                     {selection.rotation && (
                       <div className="flex justify-between">
-                        <span className="text-deep-brown/60">الدوران</span>
-                        <span className="text-deep-brown">{selection.rotation === "360" ? "360°" : "ثابت"}</span>
+                        <span className="text-dandle-charcoal/60">الدوران</span>
+                        <span className="text-dandle-charcoal">{selection.rotation === "360" ? "360°" : "ثابت"}</span>
                       </div>
                     )}
                     <div className="flex justify-between">
-                      <span className="text-deep-brown/60">اللون</span>
-                      <span className="text-deep-brown">{selection.colorName}</span>
+                      <span className="text-dandle-charcoal/60">اللون</span>
+                      <span className="text-dandle-charcoal">{selection.colorName}</span>
                     </div>
                     {selection.giftWrap && (
                       <div className="flex justify-between">
-                        <span className="text-deep-brown/60">تغليف هدية</span>
+                        <span className="text-dandle-charcoal/60">تغليف هدية</span>
                         <span className="text-dandle-orange">نعم 🎁</span>
                       </div>
                     )}
                   </div>
                   
                   {/* Delivery */}
-                  <div className="p-4 border-t border-deep-brown/10 space-y-2 text-sm">
-                    <h4 className="font-medium text-deep-brown flex items-center gap-2">
+                  <div className="p-4 border-t border-dandle-charcoal/10 space-y-2 text-sm">
+                    <h4 className="font-medium text-dandle-charcoal flex items-center gap-2">
                       <MapPin className="w-4 h-4" /> التوصيل
                     </h4>
-                    <p className="text-deep-brown/70">{selection.customerName}</p>
-                    <p className="text-deep-brown/70">{selection.phone}</p>
-                    <p className="text-deep-brown/70">{selection.city} - {selection.address}</p>
+                    <p className="text-dandle-charcoal/70">{selection.customerName}</p>
+                    <p className="text-dandle-charcoal/70">{selection.phone}</p>
+                    <p className="text-dandle-charcoal/70">{selection.city} - {selection.address}</p>
                   </div>
                   
                   {/* Payment */}
-                  <div className="p-4 border-t border-deep-brown/10 flex justify-between text-sm">
-                    <span className="text-deep-brown/60">طريقة الدفع</span>
-                    <span className="text-deep-brown">{selection.paymentMethod === "installments" ? "تقسيط" : "كاش"}</span>
+                  <div className="p-4 border-t border-dandle-charcoal/10 flex justify-between text-sm">
+                    <span className="text-dandle-charcoal/60">طريقة الدفع</span>
+                    <span className="text-dandle-charcoal">{selection.paymentMethod === "installments" ? "تقسيط" : "كاش"}</span>
                   </div>
                 </div>
                 
@@ -898,7 +898,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                   <Button
                     variant="outline"
                     onClick={handleSaveForLater}
-                    className="w-full border-deep-brown/20 text-deep-brown"
+                    className="w-full border-dandle-charcoal/20 text-dandle-charcoal"
                   >
                     <Save className="w-4 h-4 ml-2" />
                     حفظ والمتابعة لاحقاً
@@ -933,7 +933,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 <Button
                   variant="outline"
                   onClick={() => setStep(getPrevStep(step))}
-                  className="border-deep-brown/20 text-deep-brown"
+                  className="border-dandle-charcoal/20 text-dandle-charcoal"
                 >
                   <ArrowRight className="w-4 h-4 ml-2" />
                   <span>رجوع</span>
@@ -950,7 +950,7 @@ ${selection.notes ? `ملاحظات: ${selection.notes}` : ""}
                 setSelection(initialSelection);
                 setResumeLink(null);
               }}
-              className="w-full mt-6 text-deep-brown"
+              className="w-full mt-6 text-dandle-charcoal"
             >
               البدء من جديد
             </Button>

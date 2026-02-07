@@ -65,7 +65,7 @@ const HeroGiftingSeason = ({
     <motion.section
       className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
       style={{ 
-        background: 'linear-gradient(135deg, hsl(36 52% 90%) 0%, hsl(30 100% 98%) 100%)'
+        background: 'linear-gradient(135deg, #FAF9F7 0%, #F5F1EB 100%)'
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

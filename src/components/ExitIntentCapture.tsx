@@ -43,7 +43,7 @@ const ExitIntentCapture = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative bg-off-white rounded-2xl shadow-xl p-8 max-w-sm w-full space-y-5"
+            className="relative bg-dandle-white rounded-2xl shadow-xl p-8 max-w-sm w-full space-y-5"
             dir="rtl"
           >
             <button
@@ -64,7 +64,7 @@ const ExitIntentCapture = () => {
 
             <button
               onClick={handleSave}
-              className="w-full bg-dandle-orange hover:bg-dandle-orange/90 text-off-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-dandle-orange hover:bg-dandle-orange/90 text-dandle-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
             >
               <Heart className="w-4 h-4" />
               <span className="font-body-ar">احفظ المفضلة</span>

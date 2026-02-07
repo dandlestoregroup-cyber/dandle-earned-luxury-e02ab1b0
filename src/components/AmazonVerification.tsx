@@ -50,7 +50,7 @@ const AmazonVerification = ({ variant = "home" }: AmazonVerificationProps) => {
     return (
       <>
         <section 
-          className="bg-gradient-to-b from-off-white to-cream py-16 px-4 border-t border-champagne/20"
+          className="bg-gradient-to-b from-dandle-white to-cream py-16 px-4 border-t border-champagne/20"
           dir={isArabic ? 'rtl' : 'ltr'}
         >
           <div className="max-w-3xl mx-auto">
@@ -59,7 +59,7 @@ const AmazonVerification = ({ variant = "home" }: AmazonVerificationProps) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-off-white rounded-sm p-8 md:p-10 shadow-lg border border-champagne/10"
+              className="bg-dandle-white rounded-sm p-8 md:p-10 shadow-lg border border-champagne/10"
             >
               {/* Amazon Logo + Shield */}
               <div className="flex items-center justify-center gap-4 mb-6">
@@ -85,7 +85,7 @@ const AmazonVerification = ({ variant = "home" }: AmazonVerificationProps) => {
               <div className="flex justify-center">
                 <Button
                   onClick={() => setIsModalOpen(true)}
-                  className="bg-dandle-orange hover:bg-dandle-orange/90 text-off-white px-8 py-6 text-base font-medium rounded-sm gap-3"
+                  className="bg-dandle-orange hover:bg-dandle-orange/90 text-dandle-white px-8 py-6 text-base font-medium rounded-sm gap-3"
                 >
                   <ShieldCheck className="w-5 h-5" />
                   {isArabic ? "تحقق من إعلان" : "Verify a Listing"}
@@ -224,7 +224,7 @@ const VerificationModal = ({
           />
           
           <motion.div
-            className="relative bg-off-white rounded-sm shadow-2xl max-w-md w-full p-8 z-10"
+            className="relative bg-dandle-white rounded-sm shadow-2xl max-w-md w-full p-8 z-10"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}

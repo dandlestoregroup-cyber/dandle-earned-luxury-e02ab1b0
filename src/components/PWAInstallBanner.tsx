@@ -53,7 +53,7 @@ const PWAInstallBanner = () => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-80 z-50 bg-off-white border border-champagne/20 rounded-xl shadow-xl p-4"
+          className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-80 z-50 bg-dandle-white border border-champagne/20 rounded-xl shadow-xl p-4"
         >
           <button
             onClick={handleDismiss}
@@ -75,7 +75,7 @@ const PWAInstallBanner = () => {
               </p>
               <button
                 onClick={handleInstall}
-                className="bg-dandle-orange hover:bg-dandle-orange/90 text-off-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                className="bg-dandle-orange hover:bg-dandle-orange/90 text-dandle-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
               >
                 Install
               </button>

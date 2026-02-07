@@ -71,7 +71,7 @@ function parseFilename(filename: string): { productKey?: string; swatchKey?: str
     'beige': 'alexandria-linen',
     'linen': 'alexandria-linen',
     'offwhite': 'alexandria-linen',
-    'off-white': 'alexandria-linen',
+    'dandle-white': 'alexandria-linen',
     'cream': 'alexandria-linen',
     'desert-grey': 'desert-grey',
     'grey': 'desert-grey',
@@ -429,7 +429,7 @@ export function getProductSwatchKeys(productId: string): string[] {
           <CardContent className="space-y-4">
             {/* ZIP Selector */}
             <div className="flex flex-wrap items-center gap-4 p-4 bg-obsidian/50 rounded-lg border border-champagne/10">
-              <span className="text-off-white text-sm font-medium">Select ZIP:</span>
+              <span className="text-dandle-white text-sm font-medium">Select ZIP:</span>
               {ZIP_OPTIONS.map((opt) => (
                 <Button
                   key={opt.path}
@@ -463,7 +463,7 @@ export function getProductSwatchKeys(productId: string): string[] {
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="text-off-white/70 text-sm mb-2">Folders:</h4>
+                    <h4 className="text-dandle-white/70 text-sm mb-2">Folders:</h4>
                     <ScrollArea className="h-40 bg-obsidian rounded p-2">
                       {zipContents.folders.map((folder, i) => (
                         <div key={i} className="text-champagne/80 text-xs font-mono">
@@ -473,10 +473,10 @@ export function getProductSwatchKeys(productId: string): string[] {
                     </ScrollArea>
                   </div>
                   <div>
-                    <h4 className="text-off-white/70 text-sm mb-2">Sample Files:</h4>
+                    <h4 className="text-dandle-white/70 text-sm mb-2">Sample Files:</h4>
                     <ScrollArea className="h-40 bg-obsidian rounded p-2">
                       {zipContents.files.slice(0, 50).map((file, i) => (
-                        <div key={i} className="text-off-white/60 text-xs font-mono truncate" title={file.path}>
+                        <div key={i} className="text-dandle-white/60 text-xs font-mono truncate" title={file.path}>
                           📄 {file.path}
                         </div>
                       ))}
@@ -530,7 +530,7 @@ export function getProductSwatchKeys(productId: string): string[] {
               </Button>
             </div>
             
-            <div className="text-off-white/70 text-sm space-y-1">
+            <div className="text-dandle-white/70 text-sm space-y-1">
               <p><strong>Step 1:</strong> Select a ZIP and click "Extract & Preview" to see images</p>
               <p><strong>Step 2:</strong> Upload all images to Supabase Storage</p>
               <p><strong>Step 3:</strong> Generate the productColorImages.ts mapping code</p>
@@ -579,7 +579,7 @@ export function getProductSwatchKeys(productId: string): string[] {
                             alt={img.name}
                             className="w-full aspect-square object-contain rounded mb-2 bg-white/5"
                           />
-                          <p className="text-off-white text-xs truncate mb-1" title={img.name}>
+                          <p className="text-dandle-white text-xs truncate mb-1" title={img.name}>
                             {img.name}
                           </p>
                           <div className="flex flex-col gap-1 text-xs">
@@ -606,7 +606,7 @@ export function getProductSwatchKeys(productId: string): string[] {
               </Card>
             ) : (
               <Card className="bg-warm-beige/10 border-champagne/20">
-                <CardContent className="py-12 text-center text-off-white/50">
+                <CardContent className="py-12 text-center text-dandle-white/50">
                   Click "Extract & Preview" to load images from the selected ZIP
                 </CardContent>
               </Card>
@@ -634,7 +634,7 @@ export function getProductSwatchKeys(productId: string): string[] {
                             alt={img.name}
                             className="w-full aspect-square object-contain rounded mb-2 bg-white/5"
                           />
-                          <p className="text-off-white text-xs truncate mb-1" title={img.name}>
+                          <p className="text-dandle-white text-xs truncate mb-1" title={img.name}>
                             {img.name}
                           </p>
                           <div className="flex flex-col gap-1 text-xs">
@@ -653,7 +653,7 @@ export function getProductSwatchKeys(productId: string): string[] {
               </Card>
             ) : (
               <Card className="bg-warm-beige/10 border-champagne/20">
-                <CardContent className="py-12 text-center text-off-white/50">
+                <CardContent className="py-12 text-center text-dandle-white/50">
                   No images in storage yet. Upload some images first.
                 </CardContent>
               </Card>
