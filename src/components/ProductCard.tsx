@@ -211,7 +211,7 @@ const ProductCard = ({ product, onClick, landscape = false }: ProductCardProps) 
             target.dataset.fallbackApplied = "1";
             target.src = defaultHeroFallback;
           }}
-          className="w-full h-full object-contain object-center"
+          className={`w-full h-full ${landscape ? 'object-cover' : 'object-contain'} object-center`}
           animate={{ scale: isHovered ? 1.05 : 1 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           loading="lazy"
@@ -292,11 +292,11 @@ const ProductCard = ({ product, onClick, landscape = false }: ProductCardProps) 
                 <span className="font-headline text-lg text-foreground font-bold whitespace-nowrap block">
                   {getPriceDisplay()}
                 </span>
-                {product.price && (
-                  <span className="text-xs text-primary font-medium block mt-0.5">
+                {(product.price || product.priceManual) && (
+                  <span className="text-sm text-primary font-semibold block mt-0.5">
                     {isArabic
-                      ? `من ${formatMonthlyInstallment(product.price)} ج.م/شهرياً`
-                      : `From ${formatMonthlyInstallment(product.price)} EGP/mo`}
+                      ? `ValU | من ${formatMonthlyInstallment(product.priceManual || product.price!)} ج.م/شهرياً`
+                      : `ValU | From ${formatMonthlyInstallment(product.priceManual || product.price!)} EGP/mo`}
                   </span>
                 )}
               </>
