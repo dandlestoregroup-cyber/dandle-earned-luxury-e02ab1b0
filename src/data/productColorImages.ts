@@ -1,7 +1,6 @@
 /**
  * Maps each product to available color variants with actual product images
  * Keys match the palette keys from palette.ts
- * Uses new uploaded hero images as primary variants
  */
 
 export type ColorVariant = {
@@ -9,11 +8,11 @@ export type ColorVariant = {
   imageSrc: string;
 };
 
-// Product-specific color variants with new hero images
+// Product-specific color variants with new surgical i2i images
 export const productColorImages: Record<string, ColorVariant[]> = {
   'relaxmax': [
-    { swatchKey: 'cognac-leather', imageSrc: '/images/dandle-relaxmax-hero.webp' },
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/relaxmax-hero-offwhite.jpg' },
+    { swatchKey: 'cognac-leather', imageSrc: '/images/relaxmax-primary-cognac.webp' },
+    { swatchKey: 'alexandria-linen', imageSrc: '/images/relaxmax-alexandria-linen.webp' },
     { swatchKey: 'mocha-taupe', imageSrc: '/images/relaxmax-mocha-taupe.webp' },
     { swatchKey: 'coastal-fog', imageSrc: '/images/relaxmax-coastal-fog.webp' },
   ],
@@ -21,49 +20,26 @@ export const productColorImages: Record<string, ColorVariant[]> = {
     { swatchKey: 'camel-leather', imageSrc: '/images/dandle-relaxmax-limited-hero.webp' },
   ],
   'spacesaver': [
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/dandle-spacesaver-hero.webp' },
+    { swatchKey: 'alexandria-linen', imageSrc: '/images/spacesaver-primary-linen.webp' },
+    { swatchKey: 'mocha-taupe', imageSrc: '/images/spacesaver-mocha-taupe.webp' },
     { swatchKey: 'desert-grey', imageSrc: '/images/spacesaver-desert-grey.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/spacesaver-mocha-taupe.webp' },
-    { swatchKey: 'terracotta', imageSrc: '/images/spacesaver-terracotta-reclined.webp' },
-    { swatchKey: 'offwhite', imageSrc: '/images/spacesaver-offwhite-reclined.jpg' },
   ],
   'diva': [
-    { swatchKey: 'terracotta', imageSrc: '/images/dandle-diva-hero.webp' },
-    { swatchKey: 'desert-sage', imageSrc: '/images/diva-desert-sage-green.webp' },
+    { swatchKey: 'terracotta', imageSrc: '/images/diva-primary-terracotta.webp' },
     { swatchKey: 'giza-gold', imageSrc: '/images/diva-giza-gold.webp' },
     { swatchKey: 'oasis-green', imageSrc: '/images/diva-oasis-green.webp' },
-    { swatchKey: 'red', imageSrc: '/images/diva-red-front.jpg' },
-  ],
-  'cozycompanion': [
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/dandle-cozycompanion-hero.webp' },
-    { swatchKey: 'sandstorm-ochre', imageSrc: '/images/cozycompanion-yellow-front.jpg' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/cozycompanion-coastal-fog.webp' },
-    { swatchKey: 'couple-lifestyle', imageSrc: '/images/cozycompanion-couple-lifestyle.webp' },
   ],
   'worknest': [
-    { swatchKey: 'oasis-green', imageSrc: '/images/dandle-worknest-hero.webp' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/worknest-desert-grey-reclined.webp' },
-    { swatchKey: 'blue-nile-denim', imageSrc: '/images/worknest-blue-front.webp' },
+    { swatchKey: 'oasis-green', imageSrc: '/images/worknest-primary-green.webp' },
+    { swatchKey: 'blue-nile-denim', imageSrc: '/images/worknest-blue-nile.webp' },
+    { swatchKey: 'desert-grey', imageSrc: '/images/worknest-desert-grey.webp' },
   ],
-  'comfortplus': [
-    { swatchKey: 'coastal-fog', imageSrc: '/images/comfortplus-coastal-fog-lifestyle.webp' },
-    { swatchKey: 'tan', imageSrc: '/images/comfortplus-tan-front.webp' },
-  ],
-  'easyup': [
-    { swatchKey: 'oasis-green', imageSrc: '/images/dandle-easyup-standard-hero.jpg' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/easyup-standard-mocha-taupe.webp' },
-    { swatchKey: 'grey', imageSrc: '/images/easyup-standard-grey-front.webp' },
-    { swatchKey: 'beige', imageSrc: '/images/easyup-beige-front.jpg' },
-  ],
-  'easyup-compact': [
-    { swatchKey: 'charcoal', imageSrc: '/images/dandle-easyup-compact-hero.webp' },
-    { swatchKey: 'grey', imageSrc: '/images/easyup-compact-grey-front.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/easyup-compact-oasis-green.webp' },
+  'cozycompanion': [
+    { swatchKey: 'alexandria-linen', imageSrc: '/images/cozycompanion-lifestyle-elder.webp' },
+    { swatchKey: 'mocha-taupe', imageSrc: '/images/dandle-cozycompanion-hero.webp' },
   ],
   'complete-set': [
     { swatchKey: 'family-modern', imageSrc: '/images/dandle-complete-set-hero.webp' },
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/complete-set-classic.jpg' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/complete-set-coastal-modern.jpg' },
   ],
 };
 
