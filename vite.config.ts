@@ -9,56 +9,35 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    allowedHosts: ["8080-ilyfp20suu51167603w0j-052cc905.sg1.manus.computer"],
   },
   plugins: [
     react(),
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "pwa-192x192.png", "pwa-512x512.png"],
+      includeAssets: ["favicon.ico", "robots.txt", "placeholder.svg"],
       manifest: {
-        name: "Dandle Recliners Egypt",
+        name: "Dandle Earned Luxury",
         short_name: "Dandle",
-        description: "Earned comfort. Quiet luxury. Refined taste.",
-        theme_color: "#E67E22",
-        background_color: "#FAF7F2",
-        display: "standalone",
-        orientation: "portrait",
-        dir: "rtl",
-        lang: "ar",
-        categories: ["shopping", "lifestyle"],
+        description: "Luxury furniture and comfort solutions by Dandle.",
+        theme_color: "#ffffff",
         icons: [
-          { src: "pwa-192x192.png", sizes: "192x192", type: "image/png" },
-          { src: "pwa-512x512.png", sizes: "512x512", type: "image/png" },
-        ],
-      },
-      workbox: {
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
-        runtimeCaching: [
           {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "google-fonts-cache",
-              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
-            },
+            src: "placeholder.svg",
+            sizes: "192x192",
+            type: "image/svg+xml",
           },
           {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "google-fonts-webfonts",
-              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
-            },
+            src: "placeholder.svg",
+            sizes: "512x512",
+            type: "image/svg+xml",
           },
           {
-            urlPattern: ({ request }) => request.destination === "image",
-            handler: "CacheFirst",
-            options: {
-              cacheName: "images-cache",
-              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 30 },
-            },
+            src: "placeholder.svg",
+            sizes: "512x512",
+            type: "image/svg+xml",
+            purpose: "any maskable",
           },
         ],
       },

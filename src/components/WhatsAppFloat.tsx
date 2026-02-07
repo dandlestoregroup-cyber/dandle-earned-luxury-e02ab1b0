@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 const WhatsAppIcon = ({ size = 28 }: { size?: number }) => (
   <svg
@@ -13,6 +14,21 @@ const WhatsAppIcon = ({ size = 28 }: { size?: number }) => (
 );
 
 const WhatsAppFloat = () => {
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.querySelector('.dandle-hero-video');
+      if (heroSection) {
+        const rect = heroSection.getBoundingClientRect();
+        setIsHeroVisible(rect.bottom > window.innerHeight * 0.5);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleWhatsAppClick = () => {
     window.open(
       "https://wa.me/201222804255?text=Hello! I'd like to learn more about Dandle recliners.",
@@ -24,11 +40,13 @@ const WhatsAppFloat = () => {
     <Button
       variant="accent"
       size="icon"
-      className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom,0px))] md:bottom-6 right-4 md:right-6 z-50 h-14 w-14 md:h-16 md:w-16 rounded-full shadow-elegant hover:shadow-refined transition-all duration-300 active:scale-95 bg-[#25D366] hover:bg-[#25D366]/90"
+      className={`fixed z-40 h-16 w-16 rounded-full shadow-luxury hover:shadow-gold animate-pulse hover:animate-none bg-[#25D366] hover:bg-[#25D366]/90 ${
+        isHeroVisible ? "bottom-24 right-6" : "bottom-6 right-6"
+      } transition-all duration-300`}
       onClick={handleWhatsAppClick}
       aria-label="Contact us on WhatsApp"
     >
-      <WhatsAppIcon size={24} />
+      <WhatsAppIcon size={28} />
     </Button>
   );
 };
