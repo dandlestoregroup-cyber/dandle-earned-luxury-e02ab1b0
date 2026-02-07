@@ -68,7 +68,7 @@ export const products: Product[] = [
       "Memory Foam Cushioning",
     ],
     targetAudience: "Wellness enthusiasts seeking therapy",
-    imageUrl: "/images/dandle-comfortplus.jpg",
+    imageUrl: "/images/comfortplus-tan-lifestyle.webp",
   },
   {
     id: "diva",
@@ -104,7 +104,7 @@ export const products: Product[] = [
       "Center Console with Storage",
     ],
     targetAudience: "Couples and families",
-    imageUrl: "/images/cozycompanion-hero-new.jpg",
+    imageUrl: "/images/cozycompanion-mocha-taupe-front.webp",
   },
   {
     id: "easyup",
@@ -121,7 +121,7 @@ export const products: Product[] = [
       "Easy-Clean Fabric",
     ],
     targetAudience: "Seniors and mobility assistance",
-    imageUrl: "/images/easyup-standard-hero-new.jpg",
+    imageUrl: "/images/easyup-standard-grey-pregnant.webp",
   },
   {
     id: "easyup-compact",
@@ -194,6 +194,6 @@ export const products: Product[] = [
       "Full Home Comfort Solution",
     ],
     targetAudience: "Families seeking complete home solutions",
-    imageUrl: "/images/dandle-heritage-set.jpg",
+    imageUrl: "/images/complete-set-final.webp",
   },
 ];

@@ -28,13 +28,13 @@ export const productColorImages: Record<string, ColorVariant[]> = {
     { swatchKey: 'offwhite', imageSrc: '/images/spacesaver-primary.webp' },
   ],
   'comfortplus': [
-    { swatchKey: 'tan', imageSrc: '/images/comfortplus-tan-front.webp' },
+    { swatchKey: 'tan', imageSrc: '/images/comfortplus-tan-lifestyle.webp' },
     { swatchKey: 'coastal-fog', imageSrc: '/images/comfortplus-coastal-fog-lifestyle.webp' },
   ],
   'diva': [
     { swatchKey: 'terracotta', imageSrc: '/images/diva-primary-terracotta.webp' },
     { swatchKey: 'giza-gold', imageSrc: '/images/diva-giza-gold.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/diva-oasis-green.webp' },
+    { swatchKey: 'oasis-green', imageSrc: '/images/diva-oasis-green-reclined.webp' },
     { swatchKey: 'desert-sage', imageSrc: '/images/diva-desert-sage-green.webp' },
   ],
   'worknest': [
@@ -43,9 +43,9 @@ export const productColorImages: Record<string, ColorVariant[]> = {
     { swatchKey: 'desert-grey', imageSrc: '/images/worknest-desert-grey.webp' },
   ],
   'easyup-standard': [
+    { swatchKey: 'grey', imageSrc: '/images/easyup-standard-grey-pregnant.webp' },
     { swatchKey: 'oasis-green', imageSrc: '/images/easyup-standard-oasis-green.webp' },
     { swatchKey: 'mocha-taupe', imageSrc: '/images/easyup-standard-mocha-taupe.webp' },
-    { swatchKey: 'grey', imageSrc: '/images/easyup-standard-grey-front.webp' },
     { swatchKey: 'coastal-fog', imageSrc: '/images/easyup-standard-coastal-fog.webp' },
   ],
   'easyup-compact': [
@@ -54,12 +54,12 @@ export const productColorImages: Record<string, ColorVariant[]> = {
     { swatchKey: 'oasis-green', imageSrc: '/images/easyup-compact-oasis-green.webp' },
   ],
   'cozycompanion': [
+    { swatchKey: 'mocha-taupe', imageSrc: '/images/cozycompanion-mocha-taupe-front.webp' },
     { swatchKey: 'alexandria-linen', imageSrc: '/images/cozycompanion-lifestyle-elder.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/dandle-cozycompanion-hero.webp' },
     { swatchKey: 'coastal-fog', imageSrc: '/images/cozycompanion-coastal-fog.webp' },
   ],
   'complete-set': [
-    { swatchKey: 'family-modern', imageSrc: '/images/dandle-complete-set-hero.webp' },
+    { swatchKey: 'family-modern', imageSrc: '/images/complete-set-final.webp' },
   ],
 };
 

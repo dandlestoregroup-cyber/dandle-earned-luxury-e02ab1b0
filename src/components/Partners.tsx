@@ -3,11 +3,11 @@ import { getLangFromStorage, type LangKey } from "@/i18n/strings";
 
 const heroPartner = {
   nameEn: "OMASH Damsuk",
-  nameAr: "أوماش دمسوق",
+  nameAr: "OMASH Damsuk",
   taglineEn: "Material Partner",
   taglineAr: "شريك المواد",
   descEn: "Textured leather and fabric excellence. Micro-detail craftsmanship for durability and refined feel.",
-  descAr: "جلد محبب وأقمشة فاخرة. حرفية في التفاصيل الدقيقة للمتانة والملمس الراقي.",
+  descAr: "جلد محبب وأقمشة فاخرة من OMASH Damsuk. حرفية في التفاصيل الدقيقة للمتانة والملمس الراقي.",
   image: "/images/dandle-omash-partnership.webp",
 };
 
