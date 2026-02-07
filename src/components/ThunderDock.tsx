@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, MapPin, X } from "lucide-react";
+import { MapPin, X } from "lucide-react";
 import { useLang } from "@/hooks/useBilingualText";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { useLocation } from "react-router-dom";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -11,13 +13,44 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 const ThunderDock = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [nearProducts, setNearProducts] = useState(false);
   const { isArabic } = useLang();
   const fontClass = isArabic ? 'font-body-ar' : 'font-body';
+  const location = useLocation();
 
-  // Check if currently open (10AM-10PM)
+  const isProductPage = location.pathname.startsWith('/product');
+
+  // Detect if user scrolled near product gallery
+  useEffect(() => {
+    const handleScroll = () => {
+      const gallery = document.getElementById('products');
+      if (gallery) {
+        const rect = gallery.getBoundingClientRect();
+        setNearProducts(rect.top < window.innerHeight && rect.bottom > 0);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const now = new Date();
-  const hour = now.getHours();
-  const isStoreOpen = hour >= 10 && hour < 22;
+  const isStoreOpen = now.getHours() >= 10 && now.getHours() < 22;
+
+  const showProductContext = nearProducts || isProductPage;
+
+  const dockLabel = showProductContext
+    ? (isArabic ? "اطلب عبر واتساب" : "Order on WhatsApp")
+    : (isArabic ? "كيف نساعدك؟" : "How can we help?");
+
+  const getWhatsAppMessage = () => {
+    if (isArabic) return "مرحباً Dandle! أنا مهتم بكراسي الاسترخاء. ممكن تساعدوني؟";
+    return "Hi Dandle, I'm interested in your recliners. Can you help?";
+  };
+
+  const getVisitMessage = () => {
+    if (isArabic) return "أريد زيارة غرفة التجربة في تيفولي بلازا لتجربة الكراسي.";
+    return "I'd like to visit the Experience Room at Tivoli Plaza to try recliners.";
+  };
 
   return (
     <>
@@ -31,17 +64,14 @@ const ThunderDock = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.4 }}
       >
-        <MessageCircle className="w-5 h-5" />
-        <span className={`text-sm font-medium ${fontClass}`}>
-          {isArabic ? "كيف نساعدك؟" : "How can we help?"}
-        </span>
+        <WhatsAppIcon className="w-5 h-5" />
+        <span className={`text-sm font-medium ${fontClass}`}>{dockLabel}</span>
       </motion.button>
 
       {/* Thunder Sheet */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               className="fixed inset-0 bg-foreground/40 backdrop-blur-sm z-50"
               initial={{ opacity: 0 }}
@@ -50,7 +80,6 @@ const ThunderDock = () => {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Sheet */}
             <motion.div
               className="fixed bottom-0 left-0 right-0 z-50 bg-background rounded-t-3xl shadow-elegant max-w-lg mx-auto"
               initial={{ y: "100%" }}
@@ -59,12 +88,10 @@ const ThunderDock = () => {
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               dir={isArabic ? 'rtl' : 'ltr'}
             >
-              {/* Handle */}
               <div className="flex justify-center pt-3 pb-2">
                 <div className="w-10 h-1 rounded-full bg-border" />
               </div>
 
-              {/* Close */}
               <button
                 onClick={() => setIsOpen(false)}
                 className={`absolute top-4 p-2 text-muted-foreground hover:text-foreground ${isArabic ? 'left-4' : 'right-4'}`}
@@ -80,10 +107,7 @@ const ThunderDock = () => {
                 {/* Lane 1: WhatsApp */}
                 <button
                   onClick={() => {
-                    const msg = isArabic
-                      ? "مرحباً Dandle! محتاج مساعدة."
-                      : "Hi Dandle, I'm looking at your recliners. Can you help?";
-                    window.open(`https://wa.me/201222804255?text=${encodeURIComponent(msg)}`, "_blank");
+                    window.open(buildWhatsAppUrl(getWhatsAppMessage()), "_blank");
                     setIsOpen(false);
                   }}
                   className="w-full flex items-center gap-4 p-4 rounded-2xl border border-border hover:bg-secondary transition-colors"
@@ -91,7 +115,7 @@ const ThunderDock = () => {
                   <div className="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center flex-shrink-0">
                     <WhatsAppIcon className="w-6 h-6 text-white" />
                   </div>
-                  <div className={`${isArabic ? 'text-right' : 'text-left'}`}>
+                  <div className={isArabic ? 'text-right' : 'text-left'}>
                     <p className={`font-bold text-foreground ${fontClass}`}>
                       {isArabic ? "تحدث عبر واتساب" : "Chat on WhatsApp"}
                     </p>
@@ -101,13 +125,10 @@ const ThunderDock = () => {
                   </div>
                 </button>
 
-                {/* Lane 2: Visit Experience Room */}
+                {/* Lane 2: Visit */}
                 <button
                   onClick={() => {
-                    const msg = isArabic
-                      ? "أريد زيارة غرفة التجربة في تيفولي بلازا."
-                      : "I'd like to visit the Experience Room to try recliners.";
-                    window.open(`https://wa.me/201222804255?text=${encodeURIComponent(msg)}`, "_blank");
+                    window.open(buildWhatsAppUrl(getVisitMessage()), "_blank");
                     setIsOpen(false);
                   }}
                   className="w-full flex items-center gap-4 p-4 rounded-2xl border border-border hover:bg-secondary transition-colors"
@@ -123,7 +144,6 @@ const ThunderDock = () => {
                       Tivoli Plaza, Heliopolis
                     </p>
                   </div>
-                  {/* Open Now badge */}
                   <div className="flex items-center gap-1.5">
                     <div className={`w-2 h-2 rounded-full ${isStoreOpen ? 'bg-green-500' : 'bg-red-500'}`} />
                     <span className={`text-xs font-medium text-foreground/70 ${fontClass}`}>

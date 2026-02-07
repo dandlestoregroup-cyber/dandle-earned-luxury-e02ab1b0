@@ -7,7 +7,7 @@ const TrustBar = () => {
   const items = [
     { icon: Shield, en: "2-Year Structural Warranty", ar: "ضمان بنيوي سنتين" },
     { icon: Truck, en: "14-Day Delivery", ar: "توصيل ١٤ يوم" },
-    { icon: Factory, en: "Made in Obour", ar: "صنع في عبور" },
+    { icon: Factory, en: "Handmade in Obour", ar: "صناعة يدوية في عبور" },
   ];
 
   return (
