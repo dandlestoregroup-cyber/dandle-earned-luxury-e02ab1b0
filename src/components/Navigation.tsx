@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, ShoppingCart } from "lucide-react";
+import { Menu, X, Phone, Feather } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { CartButton } from "@/components/cart/CartButton";
 import { motion, AnimatePresence } from "framer-motion";
-import { useShopifyCartStore } from "@/stores/shopifyCartStore";
 import { useLang } from "@/hooks/useBilingualText";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const getTotalItems = useShopifyCartStore((state) => state.getTotalItems);
   const navigate = useNavigate();
   const { isArabic } = useLang();
 
@@ -39,8 +37,8 @@ const Navigation = () => {
       className={cn(
         "fixed z-50 transition-all duration-500",
         isScrolled 
-          ? "top-0 left-0 right-0 bg-obsidian/90 backdrop-blur-xl shadow-elegant border-b border-champagne/10" 
-          : "top-4 left-4 right-4 md:top-6 md:left-8 md:right-8 rounded-2xl bg-obsidian/60 backdrop-blur-lg border border-white/10"
+          ? "top-0 left-0 right-0 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)]" 
+          : "top-4 left-4 right-4 md:top-4 md:left-6 md:right-6 rounded-2xl bg-white/95 border border-border"
       )}
     >
       <div className={cn(
@@ -55,12 +53,9 @@ const Navigation = () => {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
-            <span className="font-serif text-2xl md:text-3xl font-light tracking-tight text-warm-white">
-              DANDLE
+            <span className="font-headline text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+              Dandle
             </span>
-            <motion.span 
-              className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-champagne to-transparent group-hover:w-full transition-all duration-500"
-            />
           </motion.button>
 
           {/* Desktop Navigation */}
@@ -70,7 +65,7 @@ const Navigation = () => {
                 <motion.button
                   key={link.href}
                   onClick={() => navigate(link.href)}
-                  className="relative text-sm font-body font-light text-warm-white/80 hover:text-warm-white transition-colors tracking-wide link-underline"
+                  className="relative text-sm font-body text-foreground/70 hover:text-foreground transition-colors tracking-wide link-underline"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
@@ -81,7 +76,7 @@ const Navigation = () => {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  className="relative text-sm font-body font-light text-warm-white/80 hover:text-warm-white transition-colors tracking-wide link-underline"
+                  className="relative text-sm font-body text-foreground/70 hover:text-foreground transition-colors tracking-wide link-underline"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
@@ -93,29 +88,21 @@ const Navigation = () => {
               )
             ))}
             
-            <div className="flex items-center gap-4 pl-6 border-l border-white/10">
+            <div className="flex items-center gap-4 pl-6 border-l border-border">
               <a 
                 href="tel:+201222804255" 
-                className="flex items-center gap-2 text-sm text-warm-white/80 hover:text-champagne transition-colors"
+                className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors tnum"
               >
                 <Phone className="w-4 h-4" />
                 <span className="hidden lg:inline">01222804255</span>
               </a>
               <CartButton />
-              <Button 
-                className="btn-luxury text-xs px-6 py-3 rounded-none"
-                onClick={() => navigate('/#products')}
-                data-en="Explore"
-                data-ar="استكشف"
-              >
-                Explore
-              </Button>
             </div>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-warm-white/80 hover:text-warm-white transition-colors p-2"
+            className="md:hidden text-foreground/70 hover:text-foreground transition-colors p-2"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen 
               ? (isArabic ? "إغلاق القائمة" : "Close menu") 
@@ -130,7 +117,7 @@ const Navigation = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div 
-              className="md:hidden py-6 border-t border-white/10"
+              className="md:hidden py-6 border-t border-border"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -144,7 +131,7 @@ const Navigation = () => {
                       navigate(link.href);
                       setIsOpen(false);
                     }}
-                    className="block w-full text-left py-3 text-warm-white/80 hover:text-warm-white transition-colors font-body font-light tracking-wide"
+                    className="block w-full text-left py-3 text-foreground/70 hover:text-foreground transition-colors font-body tracking-wide"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
@@ -155,7 +142,7 @@ const Navigation = () => {
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    className="block py-3 text-warm-white/80 hover:text-warm-white transition-colors font-body font-light tracking-wide"
+                    className="block py-3 text-foreground/70 hover:text-foreground transition-colors font-body tracking-wide"
                     onClick={() => setIsOpen(false)}
                     data-en={link.labelEn}
                     data-ar={link.labelAr}
@@ -167,24 +154,6 @@ const Navigation = () => {
                   </motion.a>
                 )
               ))}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <Button 
-                  className="w-full mt-4 btn-luxury rounded-none"
-                  onClick={() => {
-                    navigate('/cart');
-                    setIsOpen(false);
-                  }}
-                >
-                  <ShoppingCart className="w-4 h-4 mr-2" />
-                  <span data-en={`Cart (${getTotalItems()})`} data-ar={`السلة (${getTotalItems()})`}>
-                    Cart ({getTotalItems()})
-                  </span>
-                </Button>
-              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

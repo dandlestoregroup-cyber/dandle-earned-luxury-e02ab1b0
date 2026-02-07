@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 
 const ScrollProgress = () => {
   const [progress, setProgress] = useState(0);
@@ -18,12 +17,9 @@ const ScrollProgress = () => {
   if (progress < 1) return null;
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 h-[2px] bg-dandle-orange z-[60]"
-      style={{ width: `${progress}%` }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
+    <div
+      className="fixed top-0 left-0 h-[2px] bg-primary z-[60]"
+      style={{ width: `${progress}%`, transformOrigin: 'left' }}
     />
   );
 };
