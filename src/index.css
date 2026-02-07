@@ -1,106 +1,103 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Cairo:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ============================================
-   DANDLE BRAND DESIGN SYSTEM v11.0
-   LOCKED PALETTE - NO CHANGES
+   DANDLE BRAND DESIGN SYSTEM v4.0
+   Terracotta + Pure White + Cool Grey
    All colors MUST be HSL.
    ============================================ */
 
 @layer base {
   :root {
-    /* LOCKED BRAND PALETTE (EXACT HEX CONVERSIONS) */
-    --dandle-orange: 28 80% 52%;      /* #E67E22 - Primary accent, CTAs, frames */
-    --deep-brown: 14 25% 18%;         /* #3E2723 - Headlines, body text */
-    --off-white: 40 50% 97%;          /* #FAF7F2 - Backgrounds */
-    --warm-cream: 32 54% 89%;         /* #F5E6D3 - Taglines, secondary text */
+    /* v4.0 BRAND PALETTE */
+    --terracotta: 17 52% 47%;           /* #B85C38 - Primary accent */
+    --near-black: 0 0% 10%;             /* #1A1A1A - Headlines, dark sections */
+    --pure-white: 0 0% 100%;            /* #FFFFFF - Backgrounds */
+    --cool-grey: 210 20% 95%;           /* #F0F4F8 - Tinted backgrounds */
+    --edge-grey: 36 10% 89%;            /* #E8E5E0 - Borders */
     
     /* SEMANTIC TOKENS */
-    --background: 40 50% 97%;         /* Off White */
-    --foreground: 14 25% 18%;         /* Deep Brown */
+    --background: 0 0% 100%;            /* Pure White */
+    --foreground: 0 0% 10%;             /* Near Black */
     
-    --card: 40 50% 97%;
-    --card-foreground: 14 25% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
 
-    --popover: 40 50% 97%;
-    --popover-foreground: 14 25% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 28 80% 52%;            /* Dandle Orange */
-    --primary-foreground: 40 50% 97%;
+    --primary: 17 52% 47%;              /* Terracotta */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 32 54% 89%;          /* Warm Cream */
-    --secondary-foreground: 14 25% 18%;
+    --secondary: 210 20% 95%;           /* Cool Grey */
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 32 40% 92%;
-    --muted-foreground: 14 25% 40%;
+    --muted: 210 15% 93%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 28 80% 52%;             /* Dandle Orange */
-    --accent-foreground: 40 50% 97%;
+    --accent: 17 52% 47%;               /* Terracotta */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 40 50% 97%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 32 30% 88%;
-    --input: 32 30% 88%;
-    --ring: 28 80% 52%;
+    --border: 36 10% 89%;               /* Edge Grey */
+    --input: 36 10% 89%;
+    --ring: 17 52% 47%;
 
     --radius: 0.5rem;
     
-    /* BRAND GRADIENTS */
-    --gradient-hero: linear-gradient(180deg, hsl(14 25% 18% / 0.6), transparent, hsl(14 25% 18% / 0.8));
-    --gradient-subtle: linear-gradient(180deg, hsl(40 50% 97%), hsl(32 54% 92%));
-    
     /* BRAND SHADOWS */
-    --shadow-subtle: 0 4px 20px rgba(62, 39, 35, 0.04);
-    --shadow-refined: 0 20px 50px -20px rgba(62, 39, 35, 0.15);
-    --shadow-elegant: 0 30px 60px -30px rgba(62, 39, 35, 0.2);
+    --shadow-subtle: 0 4px 20px rgba(0,0,0,0.04);
+    --shadow-refined: 0 20px 50px -20px rgba(0,0,0,0.1);
+    --shadow-elegant: 0 30px 60px -30px rgba(0,0,0,0.15);
     
-    /* TRANSITIONS - Unhurried, quiet luxury (600-800ms) */
+    /* TRANSITIONS */
     --transition-slow: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
     --transition-medium: all 0.6s cubic-bezier(0.33, 1, 0.68, 1);
     --transition-fast: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
 
-    --sidebar-background: 40 50% 97%;
-    --sidebar-foreground: 14 25% 18%;
-    --sidebar-primary: 14 25% 18%;
-    --sidebar-primary-foreground: 40 50% 97%;
-    --sidebar-accent: 32 54% 89%;
-    --sidebar-accent-foreground: 14 25% 18%;
-    --sidebar-border: 32 30% 88%;
-    --sidebar-ring: 28 80% 52%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 0 0% 10%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 95%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 36 10% 89%;
+    --sidebar-ring: 17 52% 47%;
   }
 
   .dark {
-    --background: 14 25% 12%;
-    --foreground: 40 50% 95%;
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
     
-    --card: 14 25% 15%;
-    --card-foreground: 40 50% 95%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 14 25% 15%;
-    --popover-foreground: 40 50% 95%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 28 80% 52%;
-    --primary-foreground: 40 50% 97%;
+    --primary: 17 52% 47%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 14 25% 20%;
-    --secondary-foreground: 40 50% 95%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 14 20% 25%;
-    --muted-foreground: 32 30% 65%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 28 80% 52%;
-    --accent-foreground: 40 50% 97%;
+    --accent: 17 52% 47%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 30%;
-    --destructive-foreground: 40 50% 95%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 14 20% 25%;
-    --input: 14 20% 25%;
-    --ring: 28 80% 52%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 17 52% 47%;
   }
 }
 
@@ -111,16 +108,15 @@
 
   html {
     scroll-behavior: smooth;
-    background: hsl(40 50% 97%);
+    background: #FFFFFF;
     min-height: 100vh;
     min-height: 100dvh;
-    /* PWA safe-area padding for notch/home-indicator devices */
     padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
   }
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.6;
@@ -135,93 +131,59 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
-    font-weight: 500;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 700;
     line-height: 1.1;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.02em;
   }
   
-  h1 { font-weight: 500; line-height: 1.05; }
-  h2 { font-weight: 500; line-height: 1.1; }
-  h3, h4, h5, h6 { font-weight: 500; line-height: 1.2; }
-  
   .font-body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
   }
   
   .font-headline {
-    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
-    font-weight: 500;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 700;
   }
   
   .font-light {
     font-weight: 300;
   }
   
-  /* Arabic fonts */
+  /* Arabic fonts - Tajawal */
   [lang="ar"] body,
   [dir="rtl"] body {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Tajawal', sans-serif;
   }
   
   [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3, [lang="ar"] h4, [lang="ar"] h5, [lang="ar"] h6,
   [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Tajawal', sans-serif;
     font-weight: 700;
   }
   
   [lang="ar"] .font-body,
   [dir="rtl"] .font-body {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Tajawal', sans-serif;
   }
   
   [lang="ar"] .font-headline,
   [dir="rtl"] .font-headline {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Tajawal', sans-serif;
   }
-  
-  /* Editorial typography for Hero sections */
-  .font-editorial-headline {
-    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
-    font-weight: 500;
-  }
-  
-  .font-editorial-eyebrow {
-    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
-    font-weight: 400;
-  }
-  
-  .font-editorial-body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-weight: 400;
-  }
-  
-  /* Arabic overrides for editorial fonts */
-  [dir="rtl"] .font-editorial-headline,
-  [dir="rtl"] .font-editorial-eyebrow {
-    font-family: 'Cairo', sans-serif;
-  }
-  
-  [dir="rtl"] .font-editorial-body {
-    font-family: 'Cairo', sans-serif;
+
+  /* Tabular numerals for phone numbers */
+  .tnum {
+    font-feature-settings: "tnum";
   }
 }
 
 /* ============================================
-   REFINED ANIMATIONS
+   ANIMATIONS
    ============================================ */
 
 @layer base {
-  @keyframes soft-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.85; }
-  }
-  
-  .animate-soft-pulse {
-    animation: soft-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
   @keyframes ken-burns {
     0% { transform: scale(1) translate(0, 0); }
     100% { transform: scale(1.08) translate(-1%, -1%); }
@@ -231,49 +193,11 @@
     animation: ken-burns 20s ease-out forwards;
   }
 
-  .bg-gradient-radial {
-    background: radial-gradient(var(--tw-gradient-stops));
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
   @keyframes shimmer {
     0% { background-position: -200% center; }
     100% { background-position: 200% center; }
   }
 
-  @keyframes parallax-float {
-    0%, 100% { transform: translateY(0) translateZ(0); }
-    50% { transform: translateY(-8px) translateZ(8px); }
-  }
-
-  .animate-parallax {
-    animation: parallax-float 5s ease-in-out infinite;
-  }
-
-  @keyframes dandleFloat {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(14px, -125vh, 0); }
-  }
-
-  @keyframes dandleSnow {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(10px, 110vh, 0); }
-  }
-
-  @keyframes glowPulse {
-    0%, 100% { box-shadow: 0 0 8px hsl(var(--champagne) / 0.4); }
-    50% { box-shadow: 0 0 20px hsl(var(--champagne) / 0.6); }
-  }
-
-  /* Staggered reveal animation */
   @keyframes stagger-reveal {
     0% { opacity: 0; transform: translateY(30px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -285,9 +209,6 @@
 
   /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .dandle-particles, .dandle-snow { 
-      display: none !important; 
-    }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
@@ -296,212 +217,46 @@
 }
 
 /* ============================================
-   REFINED UTILITIES
+   UTILITIES
    ============================================ */
 
 @layer utilities {
-  /* LOCKED BRAND COLOR UTILITIES */
-  .bg-off-white { background-color: hsl(var(--off-white)); }
-  .bg-deep-brown { background-color: hsl(var(--deep-brown)); }
-  .bg-warm-cream { background-color: hsl(var(--warm-cream)); }
-  .bg-dandle-orange { background-color: hsl(var(--dandle-orange)); }
+  /* v4.0 Color utilities */
+  .bg-terracotta { background-color: hsl(var(--terracotta)); }
+  .bg-near-black { background-color: hsl(var(--near-black)); }
+  .bg-cool-grey { background-color: hsl(var(--cool-grey)); }
   
-  .text-off-white { color: hsl(var(--off-white)); }
-  .text-deep-brown { color: hsl(var(--deep-brown)); }
-  .text-warm-cream { color: hsl(var(--warm-cream)); }
-  .text-dandle-orange { color: hsl(var(--dandle-orange)); }
+  .text-terracotta { color: hsl(var(--terracotta)); }
+  .text-near-black { color: hsl(var(--near-black)); }
   
-  /* Border utilities */
-  .border-dandle-orange { border-color: hsl(var(--dandle-orange)); }
-  .border-deep-brown { border-color: hsl(var(--deep-brown)); }
-  .border-warm-cream { border-color: hsl(var(--warm-cream)); }
+  .border-terracotta { border-color: hsl(var(--terracotta)); }
+  .border-edge-grey { border-color: hsl(var(--edge-grey)); }
+  
+  /* Legacy aliases for compatibility */
+  .bg-off-white { background-color: hsl(var(--pure-white)); }
+  .bg-deep-brown { background-color: hsl(var(--near-black)); }
+  .bg-warm-cream { background-color: hsl(var(--cool-grey)); }
+  .bg-dandle-orange { background-color: hsl(var(--terracotta)); }
+  
+  .text-off-white { color: hsl(var(--pure-white)); }
+  .text-deep-brown { color: hsl(var(--near-black)); }
+  .text-warm-cream { color: hsl(var(--cool-grey)); }
+  .text-dandle-orange { color: hsl(var(--terracotta)); }
+  
+  .border-dandle-orange { border-color: hsl(var(--terracotta)); }
+  .border-deep-brown { border-color: hsl(var(--near-black)); }
+  .border-warm-cream { border-color: hsl(var(--cool-grey)); }
   
   /* Shadow utilities */
   .shadow-subtle { box-shadow: var(--shadow-subtle); }
   .shadow-refined { box-shadow: var(--shadow-refined); }
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
-  
-  /* Divider - 2px Dandle Orange */
-  .divider-brand {
-    width: 40%;
-    height: 2px;
-    background-color: hsl(var(--dandle-orange));
-    margin: 24px auto;
-  }
-  
-  /* L-CORNER BRACKETS - Signature Element */
-  .dandle-frame {
-    position: relative;
-  }
-  
-  .dandle-frame::before,
-  .dandle-frame::after {
-    content: '';
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    border-color: hsl(var(--dandle-orange));
-    border-style: solid;
-    border-width: 0;
-    pointer-events: none;
-  }
-  
-  /* Top-left */
-  .dandle-frame::before {
-    top: 40px;
-    left: 40px;
-    border-top-width: 8px;
-    border-left-width: 8px;
-  }
-  
-  /* Top-right */
-  .dandle-frame::after {
-    top: 40px;
-    right: 40px;
-    border-top-width: 8px;
-    border-right-width: 8px;
-  }
-  
-  .dandle-frame .corner-bl,
-  .dandle-frame .corner-br {
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    border-color: hsl(var(--dandle-orange));
-    border-style: solid;
-    border-width: 0;
-    pointer-events: none;
-  }
-  
-  /* Bottom-left */
-  .dandle-frame .corner-bl {
-    bottom: 40px;
-    left: 40px;
-    border-bottom-width: 8px;
-    border-left-width: 8px;
-  }
-  
-  /* Bottom-right */
-  .dandle-frame .corner-br {
-    bottom: 40px;
-    right: 40px;
-    border-bottom-width: 8px;
-    border-right-width: 8px;
-  }
-  
-  /* Mobile L-Brackets - smaller */
-  @media (max-width: 768px) {
-    .dandle-frame::before,
-    .dandle-frame::after,
-    .dandle-frame .corner-bl,
-    .dandle-frame .corner-br {
-      width: 35px;
-      height: 35px;
-    }
-    
-    .dandle-frame::before {
-      top: 20px;
-      left: 20px;
-      border-top-width: 4px;
-      border-left-width: 4px;
-    }
-    
-    .dandle-frame::after {
-      top: 20px;
-      right: 20px;
-      border-top-width: 4px;
-      border-right-width: 4px;
-    }
-    
-    .dandle-frame .corner-bl {
-      bottom: 20px;
-      left: 20px;
-      border-bottom-width: 4px;
-      border-left-width: 4px;
-    }
-    
-    .dandle-frame .corner-br {
-      bottom: 20px;
-      right: 20px;
-      border-bottom-width: 4px;
-      border-right-width: 4px;
-    }
-  }
-  
-  /* Inner L-Brackets for hover states (smaller, tighter) */
-  .dandle-frame-inner {
-    position: relative;
-  }
-  
-  .dandle-frame-inner::before,
-  .dandle-frame-inner::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    border-color: hsl(var(--dandle-orange));
-    border-style: solid;
-    border-width: 0;
-    pointer-events: none;
-  }
-  
-  .dandle-frame-inner::before {
-    top: 0;
-    left: 0;
-    border-top-width: 2px;
-    border-left-width: 2px;
-  }
-  
-  .dandle-frame-inner::after {
-    top: 0;
-    right: 0;
-    border-top-width: 2px;
-    border-right-width: 2px;
-  }
-  
-  .dandle-frame-inner .corner-bl-inner,
-  .dandle-frame-inner .corner-br-inner {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    border-color: hsl(var(--dandle-orange));
-    border-style: solid;
-    border-width: 0;
-    pointer-events: none;
-  }
-  
-  .dandle-frame-inner .corner-bl-inner {
-    bottom: 0;
-    left: 0;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-  }
-  
-  .dandle-frame-inner .corner-br-inner {
-    bottom: 0;
-    right: 0;
-    border-bottom-width: 2px;
-    border-right-width: 2px;
-  }
-  
-  /* Glass morphism */
-  .glass {
-    background: hsl(var(--off-white) / 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-  
-  .glass-dark {
-    background: hsl(var(--deep-brown) / 0.85);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-  
+
   /* BRAND BUTTON STYLES */
   .btn-primary {
-    @apply bg-dandle-orange text-off-white 
+    @apply bg-terracotta text-white 
            px-8 py-4 font-body font-medium tracking-wide 
-           uppercase text-sm transition-all duration-500;
+           text-sm transition-all duration-500;
   }
   
   .btn-primary:hover {
@@ -510,23 +265,13 @@
   }
   
   .btn-secondary {
-    @apply border-2 border-dandle-orange text-dandle-orange 
+    @apply border border-near-black text-near-black 
            px-8 py-4 font-body font-medium tracking-wide 
-           uppercase text-sm transition-all duration-500 bg-transparent;
+           text-sm transition-all duration-500 bg-transparent;
   }
   
   .btn-secondary:hover {
-    @apply bg-dandle-orange text-off-white;
-  }
-  
-  .btn-ghost {
-    @apply border border-warm-cream/30 text-off-white 
-           px-8 py-4 font-body font-light tracking-wide 
-           uppercase text-sm transition-all duration-500;
-  }
-  
-  .btn-ghost:hover {
-    @apply bg-off-white/10 border-off-white/50;
+    @apply bg-near-black text-white;
   }
 
   /* Scrollbar utilities */
@@ -549,29 +294,9 @@
 
   /* Hero video */
   .dandle-hero-video {
-    background: linear-gradient(180deg, hsl(var(--off-white)) 0%, hsl(var(--deep-brown)) 80%);
-  }
-  .dandle-hero-video-el {
-    opacity: 0.001;
-    transition: opacity 200ms ease;
-  }
-  .dandle-hero-video-el.is-ready {
-    opacity: 1;
+    background: #1A1A1A;
   }
 
-  /* Istikbal section */
-  .istikbal-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(62, 39, 35, 0.45), rgba(62, 39, 35, 0.45));
-    pointer-events: none;
-  }
-  .istikbal-section > * {
-    position: relative;
-    z-index: 1;
-  }
-  
   /* Link underline animation */
   .link-underline {
     @apply relative;
@@ -586,21 +311,11 @@
   .link-underline:hover::after {
     @apply scale-x-100;
   }
-  
-  /* Center underline */
-  .link-underline-center::after {
-    @apply origin-center;
-  }
 }
 
 /* RTL overrides */
 [dir="rtl"] {
   .dandle-lang-toggle {
-    right: auto;
-    left: 20px;
-  }
-  
-  .dandle-mute-toggle {
     right: auto;
     left: 20px;
   }

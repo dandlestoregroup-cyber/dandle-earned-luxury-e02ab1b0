@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import HeroParticles from "./HeroParticles";
-import HeroSnow from "./HeroSnow";
 import AnimatedHeadline from "./AnimatedHeadline";
 import { useLang } from "@/hooks/useBilingualText";
 
@@ -41,10 +39,10 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Background Image with Ken Burns */}
+      {/* Background */}
       <div className="absolute inset-0 overflow-hidden bg-foreground">
         {isLoading ? (
-          <div className="w-full h-full bg-gradient-to-br from-foreground to-foreground" />
+          <div className="w-full h-full bg-foreground" />
         ) : (
           <motion.img
             src={displayImage}
@@ -57,30 +55,11 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
         )}
       </div>
 
-      {/* Cinematic vignette */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_20%,rgba(0,0,0,0.5)_100%)]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35 pointer-events-none" />
-
-      {/* Atmospheric Effects */}
-      <div className="z-0">
-        <HeroParticles density={18} tone="ivory" />
-        <HeroSnow density={12} />
-      </div>
+      {/* Minimal overlay - 5% black top-only */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/60 pointer-events-none" />
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-20 px-6">
-        {/* Eyebrow */}
-        <motion.div
-          className="mb-6"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          <span className={`text-xs md:text-sm tracking-[0.25em] text-white/60 font-light ${fontClass}`}>
-            {isArabic ? "فن الراحة" : "The Art of Rest"}
-          </span>
-        </motion.div>
-
         {/* SEO H1 */}
         <h1 className="sr-only">Dandle Recliners - Premium Egyptian-Made Comfort Chairs</h1>
         
@@ -88,7 +67,7 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
         <AnimatedHeadline 
           textEn="The Gift of Comfort"
           textAr="هدية الراحة"
-          className="font-serif text-4xl md:text-6xl lg:text-7xl font-normal text-white text-center mb-5"
+          className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold text-white text-center mb-5"
           style={{ wordBreak: 'normal', overflowWrap: 'normal', hyphens: 'none', textWrap: 'balance' }}
           delay={0.5}
           aria-hidden="true"
@@ -96,34 +75,13 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
 
         {/* Subtitle */}
         <motion.p
-          className={`text-base md:text-lg lg:text-xl text-white/80 text-center mb-2 max-w-2xl font-light ${fontClass}`}
+          className={`text-base md:text-lg text-white/80 text-center mb-10 max-w-2xl ${fontClass}`}
           style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.0, duration: 0.6 }}
         >
-          {isArabic ? "لأصحاب الذوق الرفيع" : "For refined taste"}
-        </motion.p>
-
-        {/* Origin Line */}
-        <motion.p
-          className={`text-sm md:text-base text-white/60 text-center mb-3 ${fontClass}`}
-          style={{ textShadow: '0 2px 15px rgba(0,0,0,0.8)' }}
-          initial={{ y: 15, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.15, duration: 0.6 }}
-        >
           {isArabic ? "صناعة مصرية. لبيوت حقيقية." : "Crafted in Egypt. Made for Real Homes."}
-        </motion.p>
-
-        {/* Proof Line */}
-        <motion.p
-          className={`text-white/50 text-center text-xs md:text-sm tracking-wide mb-10 ${fontClass}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.3, duration: 0.5 }}
-        >
-          {isArabic ? "تسليم خلال ١٤ يوم  •  ضمان سنتين" : "14-Day Delivery  •  2-Year Warranty"}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -135,18 +93,18 @@ const HeroOffer = ({ onReplayVideo }: HeroOfferProps) => {
         >
           <Button
             onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-            className={`w-full sm:w-auto group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-5 text-base rounded-none tracking-wide transition-all duration-500 ${fontClass}`}
+            className={`w-full sm:w-auto group bg-foreground hover:bg-foreground/90 text-background px-8 py-5 text-base rounded-none tracking-wide transition-all duration-500 ${fontClass}`}
           >
-            {isArabic ? "اعثر على كرسيك المثالي" : "Find Your Perfect Recliner"}
+            {isArabic ? "اختر مقعدك" : "Find Your Seat"}
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Button>
           
           <Button
-            onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             variant="outline"
-            className={`w-full sm:w-auto bg-white/5 backdrop-blur-md border border-white/15 hover:bg-white/10 hover:border-white/30 text-white px-8 py-5 text-base rounded-none tracking-wide transition-all duration-500 ${fontClass}`}
+            className={`w-full sm:w-auto border border-white text-white hover:bg-white/10 px-8 py-5 text-base rounded-none tracking-wide transition-all duration-500 ${fontClass}`}
           >
-            {isArabic ? "استكشف المجموعة" : "Explore Collection"}
+            {isArabic ? "زُر غرفة التجربة" : "Visit Experience Room"}
           </Button>
         </motion.div>
       </div>

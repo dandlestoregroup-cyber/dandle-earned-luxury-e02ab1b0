@@ -10,7 +10,6 @@
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
     
-    <!-- DNS Prefetch for faster connections -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     
@@ -18,46 +17,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- PWA -->
-    <meta name="theme-color" content="#E67E22">
+    <meta name="theme-color" content="#B85C38">
     <link rel="apple-touch-icon" href="/pwa-192x192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- Critical fonts with display=swap for faster loading -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Cairo:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <!-- v4.0 Fonts: Tajawal + DM Sans -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Preload hero video for INSTANT play - highest priority -->
+    <!-- Preload hero video -->
     <link rel="preload" href="/videos/festive-hero.mp4" as="video" type="video/mp4">
     <link rel="preload" href="/dandle-og-image.jpg" as="image" fetchpriority="high">
     
-    <!-- Instant warm gradient - appears before React hydrates -->
     <style>
       html, body {
         margin: 0;
         padding: 0;
         min-height: 100vh;
-        background: linear-gradient(135deg, hsl(36 52% 90%) 0%, hsl(30 100% 98%) 100%);
+        background: #FFFFFF;
       }
-      
-      /* Critical video styles - prevent black screen */
       video {
-        background: linear-gradient(135deg, hsl(36 52% 90%) 0%, hsl(30 100% 98%) 100%);
+        background: #1A1A1A;
       }
-      
-      /* Soft pulse animation for loading state */
-      @keyframes soft-pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.85; }
-      }
-      
       #root {
         min-height: 100vh;
       }
     </style>
 
     <meta property="og:title" content="Dandle Recliners Egypt - Premium Comfort Chairs" />
-    <meta property="og:description" content="Shop premium recliners in Egypt. Handcrafted comfort chairs with 2-year warranty, free delivery & installation. Best Lazy Boy alternative in Cairo." />
+    <meta property="og:description" content="Shop premium recliners in Egypt. Handcrafted comfort chairs with 2-year warranty, free delivery & installation." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dandle-earned-luxury.lovable.app/" />
     <meta property="og:image" content="https://dandle-earned-luxury.lovable.app/dandle-og-image.jpg" />
@@ -75,7 +64,6 @@
     
     <link rel="canonical" href="https://dandle-earned-luxury.lovable.app/" />
     
-    <!-- Structured Data - Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -96,7 +84,6 @@
     }
     </script>
     
-    <!-- Structured Data - LocalBusiness -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -106,13 +93,13 @@
       "priceRange": "EGP 25,000 - EGP 80,000",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "City Stars Mall",
-        "addressLocality": "Nasr City",
+        "streetAddress": "Tivoli Plaza",
+        "addressLocality": "Heliopolis",
         "addressRegion": "Cairo",
         "addressCountry": "EG"
       },
       "telephone": "+20-122-280-4255",
-      "openingHours": ["Mo-Su 10:00-15:00", "Mo-Su 19:00-21:00"],
+      "openingHours": ["Mo-Su 10:00-22:00"],
       "paymentAccepted": "Cash, Credit Card, ValU Installments"
     }
     </script>

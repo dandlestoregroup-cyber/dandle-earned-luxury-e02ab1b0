@@ -5,24 +5,20 @@ import OfflineNotice from "@/components/OfflineNotice";
 import Quote from "@/components/Quote";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
 import Partners from "@/components/Partners";
 import CollectionIntro from "@/components/CollectionIntro";
 import ProductGallery from "@/components/ProductGallery";
 import TrustBlock from "@/components/TrustBlock";
 import IstikbalShowroom from "@/components/IstikbalShowroom";
 import GiftOfComfort from "@/components/GiftOfComfort";
-import AmazonVerification from "@/components/AmazonVerification";
 import WishlistModal from "@/components/WishlistModal";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/utils/structuredData";
-import MobileStickyBar from "@/components/MobileStickyBar";
-import ThunderButton from "@/components/ThunderButton";
+import ThunderDock from "@/components/ThunderDock";
 import { useLang } from "@/hooks/useBilingualText";
 import TrustBar from "@/components/TrustBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
-import ExitIntentCapture from "@/components/ExitIntentCapture";
 import PWAInstallBanner from "@/components/PWAInstallBanner";
 
 const Index = () => {
@@ -61,18 +57,14 @@ const Index = () => {
         <GiftOfComfort />
         <TrustBlock />
         <IstikbalShowroom />
-        <AmazonVerification variant="home" />
         <Partners />
         <Contact />
       </main>
       <Footer />
-      <WhatsAppFloat />
       <WishlistModal />
       <CartDrawer />
-      <MobileStickyBar />
-      <ThunderButton />
+      <ThunderDock />
       <BackToTop />
-      <ExitIntentCapture />
       <PWAInstallBanner />
     </div>
   );
