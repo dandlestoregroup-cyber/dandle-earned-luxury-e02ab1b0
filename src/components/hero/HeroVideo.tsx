@@ -98,7 +98,7 @@ const HeroVideo = ({ src, onEnded, onSkip }: HeroVideoProps) => {
         playsInline
         onEnded={onEnded}
         preload="auto"
-        poster="/dandle-og-image.jpg"
+        
         onLoadedData={() => setIsLoaded(true)}
         style={{ 
           imageRendering: 'auto',
