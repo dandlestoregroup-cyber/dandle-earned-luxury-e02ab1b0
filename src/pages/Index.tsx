@@ -15,6 +15,10 @@ import WishlistModal from "@/components/WishlistModal";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/utils/structuredData";
 import ThunderDock from "@/components/ThunderDock";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
+import MobileStickyBar from "@/components/MobileStickyBar";
+import ExitIntentCapture from "@/components/ExitIntentCapture";
+import AmazonVerification from "@/components/AmazonVerification";
 import { useLang } from "@/hooks/useBilingualText";
 import TrustBar from "@/components/TrustBar";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -55,6 +59,7 @@ const Index = () => {
         <CollectionIntro />
         <ProductGallery />
         <GiftOfComfort />
+        <AmazonVerification />
         <TrustBlock />
         <IstikbalShowroom />
         <Partners />
@@ -64,6 +69,9 @@ const Index = () => {
       <WishlistModal />
       <CartDrawer />
       <ThunderDock />
+      <WhatsAppFloat />
+      <MobileStickyBar />
+      <ExitIntentCapture />
       <BackToTop />
       <PWAInstallBanner />
     </div>

@@ -27,9 +27,10 @@ const productTranslations: Record<string, { name: string; englishName: string; t
 interface ProductCardProps {
   product: Product;
   onClick: () => void;
+  landscape?: boolean;
 }
 
-const ProductCard = ({ product, onClick }: ProductCardProps) => {
+const ProductCard = ({ product, onClick, landscape = false }: ProductCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const lovableProduct = getLovableProduct(product.id);
   const defaultHeroImage = lovableProduct?.heroImage.src || product.imageUrl;
@@ -180,7 +181,7 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
       transition={{ duration: 0.3 }}
     >
       {/* Image Container */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
+      <div className={`relative ${landscape ? 'aspect-[16/9]' : 'aspect-[4/5]'} overflow-hidden bg-secondary`}>
         {/* Wishlist */}
         {!product.comingSoon && !product.beFirstToKnow && (
           <div className="absolute top-4 left-4 z-30">

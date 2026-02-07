@@ -65,6 +65,7 @@ const ProductGallery = () => {
                 <ProductCard
                   product={product}
                   onClick={() => handleProductClick(product)}
+                  landscape={isCompleteSet}
                 />
               </motion.div>
             );
