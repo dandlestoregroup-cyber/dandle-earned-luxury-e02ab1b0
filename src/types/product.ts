@@ -50,7 +50,7 @@ export const products: Product[] = [
       "Premium Full-Grain Leather",
     ],
     targetAudience: "Discerning professionals who want the best",
-    imageUrl: "/images/dandle-relaxmax-limited-hero.webp",
+    imageUrl: "/images/relaxmax-limited-mocha-taupe.webp",
   },
   {
     id: "comfortplus",
@@ -104,7 +104,7 @@ export const products: Product[] = [
       "Center Console with Storage",
     ],
     targetAudience: "Couples and families",
-    imageUrl: "/images/dandle-cozycompanion-hero.webp",
+    imageUrl: "/images/cozycompanion-hero-new.jpg",
   },
   {
     id: "easyup",
@@ -121,7 +121,7 @@ export const products: Product[] = [
       "Easy-Clean Fabric",
     ],
     targetAudience: "Seniors and mobility assistance",
-    imageUrl: "/images/dandle-easyup-standard.jpg",
+    imageUrl: "/images/easyup-standard-hero-new.jpg",
   },
   {
     id: "easyup-compact",
@@ -138,7 +138,7 @@ export const products: Product[] = [
       "Limited Colors Available",
     ],
     targetAudience: "Seniors and mobility assistance in smaller spaces",
-    imageUrl: "/images/dandle-easyup-compact.jpg",
+    imageUrl: "/images/easyup-compact-hero-new.jpg",
   },
   {
     id: "worknest",

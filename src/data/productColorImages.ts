@@ -18,6 +18,7 @@ export const productColorImages: Record<string, ColorVariant[]> = {
   ],
   'relaxmax-limited': [
     { swatchKey: 'camel-leather', imageSrc: '/images/dandle-relaxmax-limited-hero.webp' },
+    { swatchKey: 'mocha-taupe', imageSrc: '/images/relaxmax-limited-mocha-taupe.webp' },
   ],
   'spacesaver': [
     { swatchKey: 'alexandria-linen', imageSrc: '/images/spacesaver-primary-linen.webp' },

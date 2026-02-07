@@ -37,13 +37,6 @@ export function initHeroVideoInstantPlay() {
       if (posterUrl) video.poster = posterUrl;
     }
 
-    // Start almost invisible until frames are ready
-    video.style.opacity = '0.001';
-
-    const markReady = () => video.classList.add('is-ready');
-    video.addEventListener('loadeddata', markReady, { once: true });
-    video.addEventListener('canplay', markReady, { once: true });
-
     // Force first frame sooner
     try {
       video.load();
