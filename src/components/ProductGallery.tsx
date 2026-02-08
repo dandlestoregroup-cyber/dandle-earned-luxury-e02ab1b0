@@ -18,17 +18,19 @@ const ProductGallery = () => {
     setTimeout(() => setSelectedProduct(null), 300);
   };
 
+  // Bird's-Eye Harmony: no two adjacent cards (horiz or vert in 3-col grid) share primary color
+  // Row 1: cognac(2col) + terracotta | Row 2: grey, tan, green | Row 3: camel, charcoal, mocha | Row 4: cream + complete-set(full)
   const featuredOrder = [
-    "relaxmax",
-    "relaxmax-limited",
-    "spacesaver",
-    "easyup",
-    "easyup-compact",
-    "comfortplus",
-    "diva",
-    "worknest",
-    "cozycompanion",
-    "complete-set",
+    "relaxmax",        // cognac brown — 2col
+    "diva",            // terracotta/orange
+    "easyup",          // grey
+    "comfortplus",     // tan
+    "worknest",        // green
+    "relaxmax-limited",// camel brown
+    "easyup-compact",  // charcoal
+    "cozycompanion",   // mocha
+    "spacesaver",      // cream/linen
+    "complete-set",    // mixed — full width
   ] as const;
 
   const featuredProducts = featuredOrder
