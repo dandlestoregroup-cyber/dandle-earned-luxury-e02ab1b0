@@ -51,7 +51,6 @@ const Index = () => {
           {JSON.stringify(generateLocalBusinessSchema())}
         </script>
       </Helmet>
-      <TopBanner />
       <ScrollProgress />
       <OfflineNotice />
       <Navigation />
