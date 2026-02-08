@@ -15,15 +15,19 @@ const Navigation = () => {
   const { isArabic } = useLang();
   const rafRef = useRef<number>();
 
+  const toggleLang = () => {
+    const next = isArabic ? "en" : "ar";
+    localStorage.setItem("dandle-lang", next);
+    window.dispatchEvent(new Event("storage"));
+  };
+
   useEffect(() => {
     const sampleBackground = () => {
-      // Sample the color just below the navbar (roughly 80px from top)
       const el = document.elementFromPoint(window.innerWidth / 2, 80);
       if (!el) return;
 
       const bg = window.getComputedStyle(el).backgroundColor;
       if (!bg || bg === "rgba(0, 0, 0, 0)" || bg === "transparent") {
-        // Walk up to find a non-transparent ancestor
         let parent = el.parentElement;
         while (parent) {
           const parentBg = window.getComputedStyle(parent).backgroundColor;
@@ -74,6 +78,31 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Language Toggle Pill */}
+          <button
+            onClick={toggleLang}
+            className={cn(
+              "flex items-center gap-0 rounded-full px-4 py-2 text-sm font-body transition-all duration-300 shadow-subtle",
+              isLight
+                ? "bg-white/90 backdrop-blur-sm text-foreground"
+                : "bg-card text-foreground shadow-subtle"
+            )}
+          >
+            <span className={cn(
+              "transition-colors",
+              isArabic ? "text-primary font-bold" : "text-muted-foreground"
+            )}>
+              العربية
+            </span>
+            <span className="mx-2 text-border">|</span>
+            <span className={cn(
+              "transition-colors",
+              !isArabic ? "text-primary font-bold" : "text-muted-foreground"
+            )}>
+              EN
+            </span>
+          </button>
+
           {/* Logo */}
           <motion.button
             onClick={() => navigate('/')}
@@ -82,10 +111,10 @@ const Navigation = () => {
             transition={{ duration: 0.3 }}
           >
             <span className={cn(
-              "font-headline text-2xl md:text-3xl font-bold tracking-tight transition-colors duration-500",
+              "font-headline text-2xl md:text-3xl font-bold tracking-[0.15em] transition-colors duration-500",
               isLight ? "text-white" : "text-foreground"
             )}>
-              Dandle
+              DANDLE
             </span>
           </motion.button>
 
@@ -104,7 +133,9 @@ const Navigation = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
                 >
-                  <span data-en={link.labelEn} data-ar={link.labelAr}>{link.labelEn}</span>
+                  <span data-en={link.labelEn} data-ar={link.labelAr}>
+                    {isArabic ? link.labelAr : link.labelEn}
+                  </span>
                 </motion.button>
               ) : (
                 <motion.a
@@ -117,10 +148,8 @@ const Navigation = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  data-en={link.labelEn}
-                  data-ar={link.labelAr}
                 >
-                  {link.labelEn}
+                  {isArabic ? link.labelAr : link.labelEn}
                 </motion.a>
               )
             ))}
@@ -188,7 +217,9 @@ const Navigation = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    <span data-en={link.labelEn} data-ar={link.labelAr}>{link.labelEn}</span>
+                    <span data-en={link.labelEn} data-ar={link.labelAr}>
+                      {isArabic ? link.labelAr : link.labelEn}
+                    </span>
                   </motion.button>
                 ) : (
                   <motion.a
@@ -199,13 +230,11 @@ const Navigation = () => {
                       isLight ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
                     )}
                     onClick={() => setIsOpen(false)}
-                    data-en={link.labelEn}
-                    data-ar={link.labelAr}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    {link.labelEn}
+                    {isArabic ? link.labelAr : link.labelEn}
                   </motion.a>
                 )
               ))}
