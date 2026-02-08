@@ -1,57 +1,91 @@
 
+# Cloud Image Manager
 
-# Cloud Image Storage Migration
+Build a full image management admin page and an API endpoint for external tools.
 
-## What This Does
-Moves all ~120 product images from the bundled `public/images/` folder to Lovable Cloud file storage, served via CDN. This makes the site load faster (especially on Egyptian 4G), reduces the app bundle size, and gives you a single place to manage images.
+## Part 1: Admin Image Manager Page
 
-## How It Works
+Replace the current upload-only page at `/admin/upload-images` with a full image manager that lets you:
 
-1. **Upload Edge Function** -- A new backend function that takes images from `public/images/` and uploads them to the existing `product-images` storage bucket under an `images/` prefix. This is a one-time migration tool you trigger from an admin page.
+- **Browse**: Grid of thumbnail previews for all images in cloud storage, grouped by product
+- **Search/Filter**: Type to filter by filename
+- **Upload new**: Drag-and-drop or file picker to upload one or more new images
+- **Replace**: Click an existing image to replace it with a new file (keeps the same filename/path)
+- **Delete**: Remove images you no longer need
+- **Copy URL**: One-click copy of the CDN URL for any image
+- **Preview**: Click to see full-size in a lightbox
 
-2. **Image URL Helper** -- A single utility (`src/lib/imageUrl.ts`) that converts any local path like `/images/relaxmax-hero.webp` into its CDN URL: `https://[cloud-url]/storage/v1/object/public/product-images/images/relaxmax-hero.webp`. Every image reference in the app flows through this function.
+The page will read directly from the `product-images` storage bucket and display everything found there.
 
-3. **Update All Image Data Files** -- The three data files that hold image paths (`productImageData.ts`, `productColorImages.ts`, `siteImageManifest.ts`) will import and use the URL helper instead of raw `/images/...` strings.
+## Part 2: Image Upload API (for Manus and other AI agents)
 
-4. **OptimizedImage Upgrade** -- The existing image component already supports cloud storage `srcset` with width/quality parameters. Once URLs point to cloud storage, responsive resizing works automatically -- no code change needed there.
+Create a new backend function `manage-images` that accepts REST-style requests:
 
-5. **Admin Upload Page** -- A simple page at `/admin/upload-images` that lists all images in `public/images/`, lets you upload them in bulk to cloud storage, and shows upload progress. After migration, the local files can be removed from the repo to shrink it.
+| Method | Action | Body |
+|--------|--------|------|
+| GET | List all images | (none) |
+| POST | Upload/replace image | `{ filename, base64, contentType }` |
+| DELETE | Delete image | `{ filename }` |
 
-## Execution Order
-
-| Step | What | Files |
-|------|-------|-------|
-| 1 | Create the image URL helper | `src/lib/imageUrl.ts` |
-| 2 | Create the bulk-upload edge function | `supabase/functions/upload-images/index.ts` |
-| 3 | Create admin upload page | `src/pages/admin/UploadImages.tsx` |
-| 4 | Wire admin route | `src/App.tsx` |
-| 5 | Update `productImageData.ts` to use CDN URLs | `src/data/productImageData.ts` |
-| 6 | Update `productColorImages.ts` to use CDN URLs | `src/data/productColorImages.ts` |
-| 7 | Update `siteImageResolver.ts` to use the helper | `src/utils/siteImageResolver.ts` |
-| 8 | Update hero fallback images in `useResponsiveImage.ts` | `src/hooks/useResponsiveImage.ts` |
+This gives any external tool (Manus, scripts, Zapier, etc.) a simple API to manage images without needing the web UI. The endpoint URL would be:
+`https://rbvbrxjnhmgrtxvwusxr.supabase.co/functions/v1/manage-images`
 
 ## Technical Details
 
-**`src/lib/imageUrl.ts`** -- Core helper:
-```typescript
-const STORAGE_BASE = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/product-images`;
+### New/Modified Files
 
-export function cdnUrl(localPath: string): string {
-  // "/images/relaxmax-hero.webp" -> full CDN URL
-  if (localPath.startsWith('/images/')) {
-    return `${STORAGE_BASE}${localPath}`;
-  }
-  return localPath; // already absolute or other path
+| File | What |
+|------|------|
+| `supabase/functions/manage-images/index.ts` | New REST API for list/upload/delete |
+| `src/pages/admin/UploadImages.tsx` | Rewrite as full image manager with grid, upload, replace, delete |
+| `supabase/config.toml` | Add `manage-images` function config |
+
+### Admin Image Manager UI (`UploadImages.tsx`)
+
+- Fetches all files from `product-images` bucket via Supabase Storage JS client
+- Displays as a responsive thumbnail grid (lazy loaded)
+- Each image card shows: thumbnail, filename, file size, copy-URL button, replace button, delete button
+- Top bar: search input, "Upload New" button (opens file picker for multi-file upload)
+- Upload uses the existing `upload-images` edge function for new files, or direct Supabase storage `upload()` with `upsert: true` for replacements
+- Delete uses Supabase storage `remove()`
+- Confirmation dialog before delete
+
+### Manage Images API (`manage-images/index.ts`)
+
+- `GET` -- lists all objects in `product-images/images/` with their public URLs
+- `POST` -- accepts `{ filename, base64, contentType }`, decodes base64, uploads to `product-images/images/{filename}` with `upsert: true`
+- `DELETE` -- accepts `{ filename }`, removes from bucket
+- Uses service role key for storage access
+- `verify_jwt = false` in config so external tools can call it (images are already public)
+- Returns JSON responses with success/error status
+
+### Example API Usage (for Manus)
+
+```
+POST /functions/v1/manage-images
+Content-Type: application/json
+
+{
+  "filename": "relaxmax-new-angle.webp",
+  "base64": "/9j/4AAQSkZJRg...",
+  "contentType": "image/webp"
 }
 ```
 
-**Upload edge function** -- Reads a list of filenames posted to it, fetches each from the app's public URL, and uploads to the `product-images` bucket under the same path structure.
+```
+DELETE /functions/v1/manage-images
+Content-Type: application/json
 
-**Fallback strategy** -- The `cdnUrl` helper keeps working even if an image hasn't been uploaded yet, because the `product-images` bucket is already public. `OptimizedImage` already has error fallback to `placeholder.svg`.
+{ "filename": "old-unused-image.webp" }
+```
 
-## What Won't Change
-- No catalogue data, pricing, or business logic touched
-- No changes to the image composition rules or L-bracket system
-- The existing AI image generation pipeline continues to write to the same bucket
-- PWA precache config stays as-is (will cache CDN URLs instead)
+```
+GET /functions/v1/manage-images
+--> returns list of all images with CDN URLs
+```
 
+### Execution Order
+
+1. Create `manage-images` edge function and add to config.toml
+2. Rebuild `UploadImages.tsx` as full image manager
+3. Keep existing bulk migration functionality as a tab/section within the new page
