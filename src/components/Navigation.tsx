@@ -1,24 +1,55 @@
-import { useState, useEffect } from "react";
-import { Menu, X, Phone, Feather } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { CartButton } from "@/components/cart/CartButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/hooks/useBilingualText";
 
+type NavTheme = "light" | "dark";
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [theme, setTheme] = useState<NavTheme>("dark");
   const navigate = useNavigate();
   const { isArabic } = useLang();
+  const rafRef = useRef<number>();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const sampleBackground = () => {
+      // Sample the color just below the navbar (roughly 80px from top)
+      const el = document.elementFromPoint(window.innerWidth / 2, 80);
+      if (!el) return;
+
+      const bg = window.getComputedStyle(el).backgroundColor;
+      if (!bg || bg === "rgba(0, 0, 0, 0)" || bg === "transparent") {
+        // Walk up to find a non-transparent ancestor
+        let parent = el.parentElement;
+        while (parent) {
+          const parentBg = window.getComputedStyle(parent).backgroundColor;
+          if (parentBg && parentBg !== "rgba(0, 0, 0, 0)" && parentBg !== "transparent") {
+            setTheme(isColorDark(parentBg) ? "light" : "dark");
+            return;
+          }
+          parent = parent.parentElement;
+        }
+        setTheme("dark");
+        return;
+      }
+      setTheme(isColorDark(bg) ? "light" : "dark");
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const handleScroll = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(sampleBackground);
+    };
+
+    sampleBackground();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   const navLinks = [
@@ -29,31 +60,31 @@ const Navigation = () => {
     { labelEn: "Contact", labelAr: "تواصل", href: "#contact" },
   ];
 
+  const isLight = theme === "light";
+
   return (
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
       className={cn(
-        "fixed z-50 transition-all duration-500",
-        isScrolled 
-          ? "top-0 left-0 right-0 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)]" 
-          : "top-4 left-4 right-4 md:top-4 md:left-6 md:right-6 rounded-2xl bg-white/95 border border-border"
+        "fixed top-0 left-0 right-0 z-50 transition-colors duration-500",
+        isLight ? "bg-transparent" : "bg-white/95 shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
       )}
     >
-      <div className={cn(
-        "mx-auto px-4 md:px-8",
-        isScrolled ? "container" : ""
-      )}>
+      <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <motion.button 
-            onClick={() => navigate('/')} 
+          <motion.button
+            onClick={() => navigate('/')}
             className="relative group"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
-            <span className="font-headline text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+            <span className={cn(
+              "font-headline text-2xl md:text-3xl font-bold tracking-tight transition-colors duration-500",
+              isLight ? "text-white" : "text-foreground"
+            )}>
               Dandle
             </span>
           </motion.button>
@@ -65,7 +96,10 @@ const Navigation = () => {
                 <motion.button
                   key={link.href}
                   onClick={() => navigate(link.href)}
-                  className="relative text-sm font-body text-foreground/70 hover:text-foreground transition-colors tracking-wide link-underline"
+                  className={cn(
+                    "relative text-sm font-body transition-colors tracking-wide link-underline",
+                    isLight ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
+                  )}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
@@ -76,7 +110,10 @@ const Navigation = () => {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  className="relative text-sm font-body text-foreground/70 hover:text-foreground transition-colors tracking-wide link-underline"
+                  className={cn(
+                    "relative text-sm font-body transition-colors tracking-wide link-underline",
+                    isLight ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
+                  )}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
@@ -87,11 +124,17 @@ const Navigation = () => {
                 </motion.a>
               )
             ))}
-            
-            <div className="flex items-center gap-4 pl-6 border-l border-border">
-              <a 
-                href="tel:+201222804255" 
-                className="flex items-center gap-2 text-sm text-foreground/70 hover:text-primary transition-colors tnum"
+
+            <div className={cn(
+              "flex items-center gap-4 pl-6 border-l transition-colors duration-500",
+              isLight ? "border-white/30" : "border-border"
+            )}>
+              <a
+                href="tel:+201222804255"
+                className={cn(
+                  "flex items-center gap-2 text-sm transition-colors tnum",
+                  isLight ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-primary"
+                )}
               >
                 <Phone className="w-4 h-4" />
                 <span className="hidden lg:inline">01222804255</span>
@@ -102,10 +145,13 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-foreground/70 hover:text-foreground transition-colors p-2"
+            className={cn(
+              "md:hidden transition-colors p-2",
+              isLight ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
+            )}
             onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen 
-              ? (isArabic ? "إغلاق القائمة" : "Close menu") 
+            aria-label={isOpen
+              ? (isArabic ? "إغلاق القائمة" : "Close menu")
               : (isArabic ? "فتح القائمة" : "Open menu")
             }
           >
@@ -116,8 +162,11 @@ const Navigation = () => {
         {/* Mobile Navigation */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div 
-              className="md:hidden py-6 border-t border-border"
+            <motion.div
+              className={cn(
+                "md:hidden py-6 border-t",
+                isLight ? "border-white/20 bg-black/60 backdrop-blur-md" : "border-border"
+              )}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -131,7 +180,10 @@ const Navigation = () => {
                       navigate(link.href);
                       setIsOpen(false);
                     }}
-                    className="block w-full text-left py-3 text-foreground/70 hover:text-foreground transition-colors font-body tracking-wide"
+                    className={cn(
+                      "block w-full text-left py-3 transition-colors font-body tracking-wide",
+                      isLight ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
+                    )}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
@@ -142,7 +194,10 @@ const Navigation = () => {
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    className="block py-3 text-foreground/70 hover:text-foreground transition-colors font-body tracking-wide"
+                    className={cn(
+                      "block py-3 transition-colors font-body tracking-wide",
+                      isLight ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
+                    )}
                     onClick={() => setIsOpen(false)}
                     data-en={link.labelEn}
                     data-ar={link.labelAr}
@@ -161,5 +216,14 @@ const Navigation = () => {
     </motion.nav>
   );
 };
+
+/** Returns true if the parsed RGB color is dark (luminance < 0.5) */
+function isColorDark(color: string): boolean {
+  const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if (!match) return false;
+  const [, r, g, b] = match.map(Number);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance < 0.45;
+}
 
 export default Navigation;
