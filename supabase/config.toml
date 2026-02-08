@@ -41,3 +41,6 @@ verify_jwt = false
 
 [functions.upload-images]
 verify_jwt = false
+
+[functions.manage-images]
+verify_jwt = false
