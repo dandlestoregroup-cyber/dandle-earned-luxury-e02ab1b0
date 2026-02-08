@@ -3,6 +3,8 @@
  * Keys match the palette keys from palette.ts
  */
 
+import { cdnUrl } from '@/lib/imageUrl';
+
 export type ColorVariant = {
   swatchKey: string;
   imageSrc: string;
@@ -11,55 +13,55 @@ export type ColorVariant = {
 // Product-specific color variants with new surgical i2i images
 export const productColorImages: Record<string, ColorVariant[]> = {
   'relaxmax': [
-    { swatchKey: 'cognac-leather', imageSrc: '/images/relaxmax-primary-cognac.webp' },
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/relaxmax-alexandria-linen.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/relaxmax-mocha-taupe.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/relaxmax-coastal-fog.webp' },
+    { swatchKey: 'cognac-leather', imageSrc: cdnUrl('/images/relaxmax-primary-cognac.webp') },
+    { swatchKey: 'alexandria-linen', imageSrc: cdnUrl('/images/relaxmax-alexandria-linen.webp') },
+    { swatchKey: 'mocha-taupe', imageSrc: cdnUrl('/images/relaxmax-mocha-taupe.webp') },
+    { swatchKey: 'coastal-fog', imageSrc: cdnUrl('/images/relaxmax-coastal-fog.webp') },
   ],
   'relaxmax-limited': [
-    { swatchKey: 'camel-leather', imageSrc: '/images/dandle-relaxmax-limited-hero.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/relaxmax-limited-mocha-taupe.webp' },
+    { swatchKey: 'camel-leather', imageSrc: cdnUrl('/images/dandle-relaxmax-limited-hero.webp') },
+    { swatchKey: 'mocha-taupe', imageSrc: cdnUrl('/images/relaxmax-limited-mocha-taupe.webp') },
   ],
   'spacesaver': [
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/spacesaver-primary-linen.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/spacesaver-mocha-taupe.webp' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/spacesaver-desert-grey.webp' },
-    { swatchKey: 'terracotta', imageSrc: '/images/spacesaver-terracotta-reclined.webp' },
-    { swatchKey: 'offwhite', imageSrc: '/images/spacesaver-primary.webp' },
+    { swatchKey: 'alexandria-linen', imageSrc: cdnUrl('/images/spacesaver-primary-linen.webp') },
+    { swatchKey: 'mocha-taupe', imageSrc: cdnUrl('/images/spacesaver-mocha-taupe.webp') },
+    { swatchKey: 'desert-grey', imageSrc: cdnUrl('/images/spacesaver-desert-grey.webp') },
+    { swatchKey: 'terracotta', imageSrc: cdnUrl('/images/spacesaver-terracotta-reclined.webp') },
+    { swatchKey: 'offwhite', imageSrc: cdnUrl('/images/spacesaver-primary.webp') },
   ],
   'comfortplus': [
-    { swatchKey: 'tan', imageSrc: '/images/comfortplus-tan-lifestyle.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/comfortplus-coastal-fog-lifestyle.webp' },
+    { swatchKey: 'tan', imageSrc: cdnUrl('/images/comfortplus-tan-lifestyle.webp') },
+    { swatchKey: 'coastal-fog', imageSrc: cdnUrl('/images/comfortplus-coastal-fog-lifestyle.webp') },
   ],
   'diva': [
-    { swatchKey: 'terracotta', imageSrc: '/images/diva-primary-terracotta.webp' },
-    { swatchKey: 'giza-gold', imageSrc: '/images/diva-giza-gold.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/diva-oasis-green-reclined.webp' },
-    { swatchKey: 'desert-sage', imageSrc: '/images/diva-desert-sage-green.webp' },
+    { swatchKey: 'terracotta', imageSrc: cdnUrl('/images/diva-primary-terracotta.webp') },
+    { swatchKey: 'giza-gold', imageSrc: cdnUrl('/images/diva-giza-gold.webp') },
+    { swatchKey: 'oasis-green', imageSrc: cdnUrl('/images/diva-oasis-green-reclined.webp') },
+    { swatchKey: 'desert-sage', imageSrc: cdnUrl('/images/diva-desert-sage-green.webp') },
   ],
   'worknest': [
-    { swatchKey: 'oasis-green', imageSrc: '/images/worknest-primary-green.webp' },
-    { swatchKey: 'blue-nile-denim', imageSrc: '/images/worknest-blue-nile.webp' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/worknest-desert-grey.webp' },
+    { swatchKey: 'oasis-green', imageSrc: cdnUrl('/images/worknest-primary-green.webp') },
+    { swatchKey: 'blue-nile-denim', imageSrc: cdnUrl('/images/worknest-blue-nile.webp') },
+    { swatchKey: 'desert-grey', imageSrc: cdnUrl('/images/worknest-desert-grey.webp') },
   ],
   'easyup-standard': [
-    { swatchKey: 'grey', imageSrc: '/images/easyup-standard-grey-pregnant.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/easyup-standard-oasis-green.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/easyup-standard-mocha-taupe.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/easyup-standard-coastal-fog.webp' },
+    { swatchKey: 'grey', imageSrc: cdnUrl('/images/easyup-standard-grey-pregnant.webp') },
+    { swatchKey: 'oasis-green', imageSrc: cdnUrl('/images/easyup-standard-oasis-green.webp') },
+    { swatchKey: 'mocha-taupe', imageSrc: cdnUrl('/images/easyup-standard-mocha-taupe.webp') },
+    { swatchKey: 'coastal-fog', imageSrc: cdnUrl('/images/easyup-standard-coastal-fog.webp') },
   ],
   'easyup-compact': [
-    { swatchKey: 'charcoal', imageSrc: '/images/easyup-compact-charcoal-front.jpg' },
-    { swatchKey: 'grey', imageSrc: '/images/easyup-compact-grey-front.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/easyup-compact-oasis-green.webp' },
+    { swatchKey: 'charcoal', imageSrc: cdnUrl('/images/easyup-compact-charcoal-front.jpg') },
+    { swatchKey: 'grey', imageSrc: cdnUrl('/images/easyup-compact-grey-front.webp') },
+    { swatchKey: 'oasis-green', imageSrc: cdnUrl('/images/easyup-compact-oasis-green.webp') },
   ],
   'cozycompanion': [
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/cozycompanion-mocha-taupe-front.webp' },
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/cozycompanion-lifestyle-elder.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/cozycompanion-coastal-fog.webp' },
+    { swatchKey: 'mocha-taupe', imageSrc: cdnUrl('/images/cozycompanion-mocha-taupe-front.webp') },
+    { swatchKey: 'alexandria-linen', imageSrc: cdnUrl('/images/cozycompanion-lifestyle-elder.webp') },
+    { swatchKey: 'coastal-fog', imageSrc: cdnUrl('/images/cozycompanion-coastal-fog.webp') },
   ],
   'complete-set': [
-    { swatchKey: 'family-modern', imageSrc: '/images/complete-set-final.webp' },
+    { swatchKey: 'family-modern', imageSrc: cdnUrl('/images/complete-set-final.webp') },
   ],
 };
 

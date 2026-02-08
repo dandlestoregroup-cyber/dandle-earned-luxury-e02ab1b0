@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { cdnUrl } from '@/lib/imageUrl';
 
 interface ResponsiveImageSources {
   mobile: string;
@@ -55,7 +56,7 @@ export const getHeroImageUrl = (slideIndex: number, size: 'mobile' | 'tablet' | 
   return `${storageUrl}/storage/v1/object/public/product-images/hero/slide-${slideIndex + 1}-${size}.webp`;
 };
 
-// Fallback local images (before AI generation)
+// Fallback local images (before AI generation) — served via CDN
 export const getFallbackImage = (slideIndex: number): string => {
   const fallbacks = [
     '/images/relaxmax-hero-offwhite.jpg',
@@ -68,5 +69,5 @@ export const getFallbackImage = (slideIndex: number): string => {
     '/images/cozycompanion-beige-front.jpg',
     '/images/worknest-blue-front.webp',
   ];
-  return fallbacks[slideIndex] || fallbacks[0];
+  return cdnUrl(fallbacks[slideIndex] || fallbacks[0]);
 };
