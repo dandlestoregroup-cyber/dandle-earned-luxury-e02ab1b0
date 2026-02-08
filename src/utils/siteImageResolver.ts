@@ -6,6 +6,7 @@
  */
 
 import { siteImageManifest, SiteImage, ImageCategory } from '@/data/siteImageManifest';
+import { cdnUrl } from '@/lib/imageUrl';
 
 // Supabase storage base URL for generated images
 const STORAGE_BASE_URL = `https://rbvbrxjnhmgrtxvwusxr.supabase.co/storage/v1/object/public/product-images/site-images`;
@@ -33,8 +34,14 @@ export function resolveImageUrl(imageId: string): string {
     return image.generatedUrl;
   }
   
-  // Fall back to reference URL (these are real existing images)
-  return image.referenceUrl;
+  // Fall back to reference URL, applying CDN transform for local paths
+  const ref = image.referenceUrl;
+  // If referenceUrl is a full URL with the deployed domain, extract the /images/ path
+  if (ref.includes('/images/')) {
+    const imgPath = ref.substring(ref.indexOf('/images/'));
+    return cdnUrl(imgPath);
+  }
+  return ref;
 }
 
 /**
