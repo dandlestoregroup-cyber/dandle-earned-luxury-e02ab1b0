@@ -48,7 +48,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     ],
   },
   'comfortplus': {
-    mainImage: cdnUrl('/images/dandle-comfortplus.jpg'),
+    mainImage: cdnUrl('/images/comfortplus-hero-new.jpg'),
     galleryImages: [
       cdnUrl('/images/comfortplus-coastal-fog-lifestyle.webp'),
       ...(generatedByProduct['comfortplus'] || []),
@@ -66,7 +66,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     ],
   },
   'cozycompanion': {
-    mainImage: cdnUrl('/images/dandle-cozycompanion-hero.webp'),
+    mainImage: cdnUrl('/images/cozycompanion-hero-new.jpg'),
     galleryImages: [
       cdnUrl('/images/cozycompanion-lifestyle-muse.png'),
       cdnUrl('/images/cozycompanion-beige-front.jpg'),

@@ -68,7 +68,7 @@ export const products: Product[] = [
       "Memory Foam Cushioning",
     ],
     targetAudience: "Wellness enthusiasts seeking therapy",
-    imageUrl: "/images/comfortplus-tan-lifestyle.webp",
+    imageUrl: "/images/comfortplus-hero-new.jpg",
   },
   {
     id: "diva",
@@ -104,7 +104,7 @@ export const products: Product[] = [
       "Center Console with Storage",
     ],
     targetAudience: "Couples and families",
-    imageUrl: "/images/cozycompanion-mocha-taupe-front.webp",
+    imageUrl: "/images/cozycompanion-hero-new.jpg",
   },
   {
     id: "easyup",

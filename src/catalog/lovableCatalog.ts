@@ -97,10 +97,10 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Comfort for Two",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-cozycompanion-hero.webp",
+      src: "/images/cozycompanion-hero-new.jpg",
       width: 1024,
       height: 1024,
-      alt: "Dandle CozyCompanion: A premium two-seated recliner loveseat."
+      alt: "Dandle CozyCompanion: A premium two-seated recliner loveseat — mother and daughter reading together."
     },
     gallery: [
       { src: "/images/cozycompanion-yellow-front.jpg", width: 2752, height: 1536, alt: "CozyCompanion - Yellow Front View" },
@@ -132,7 +132,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Settle Deep. Think Clear.",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-comfortplus.jpg",
+      src: "/images/comfortplus-hero-new.jpg",
       width: 1024,
       height: 1024,
       alt: "Dandle ComfortPlus: Built-in massage experience that resets the day."
