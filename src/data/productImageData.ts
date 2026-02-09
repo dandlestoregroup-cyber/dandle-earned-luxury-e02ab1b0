@@ -29,7 +29,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     ],
   },
   'relaxmax-limited': {
-    mainImage: cdnUrl('/images/dandle-relaxmax-limited-hero.webp'),
+    mainImage: cdnUrl('/images/relaxmax-limited-hero-new.webp'),
     galleryImages: [
       ...(generatedByProduct['relaxmax-limited'] || []),
     ],
@@ -107,7 +107,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     ],
   },
   'easyup-compact': {
-    mainImage: cdnUrl('/images/dandle-easyup-compact-hero.webp'),
+    mainImage: cdnUrl('/images/easyup-compact-hero-new.jpg'),
     galleryImages: [
       cdnUrl('/images/easyup-compact-charcoal-front.jpg'),
       cdnUrl('/images/easyup-compact-charcoal-reclined.png'),
