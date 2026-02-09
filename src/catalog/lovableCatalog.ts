@@ -46,7 +46,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Premium Meets Performance",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-relaxmax-limited-hero.webp",
+      src: "/images/relaxmax-limited-hero-new.webp",
       width: 1024,
       height: 1024,
       alt: "Dandle RelaxMax Limited Edition: 360° swivel, dual cup holders, premium full-grain leather."
@@ -168,10 +168,10 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Gentle Lift, Compact Design",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-easyup-compact-hero.webp",
+      src: "/images/easyup-compact-hero-new.jpg",
       width: 1024,
       height: 1024,
-      alt: "Dandle EasyUp Compact: Slim power lift in OMASH Damsuk textured leather."
+      alt: "Dandle EasyUp Compact: Pregnant woman using the green lift recliner for gentle support."
     },
     gallery: [
       { src: "/images/easyup-compact-charcoal-front.png", width: 2752, height: 1536, alt: "EasyUp Compact - Charcoal Front" },

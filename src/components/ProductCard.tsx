@@ -181,7 +181,7 @@ const ProductCard = ({ product, onClick, landscape = false }: ProductCardProps) 
       transition={{ duration: 0.3 }}
     >
       {/* Image Container */}
-      <div className={`relative ${landscape ? 'aspect-[16/9]' : 'aspect-[4/5]'} overflow-hidden bg-secondary`}>
+      <div className={`relative ${landscape ? 'aspect-[16/9]' : 'aspect-square'} overflow-hidden bg-secondary`}>
         {/* Wishlist */}
         {!product.comingSoon && !product.beFirstToKnow && (
           <div className="absolute top-4 left-4 z-30">
@@ -211,7 +211,7 @@ const ProductCard = ({ product, onClick, landscape = false }: ProductCardProps) 
             target.dataset.fallbackApplied = "1";
             target.src = defaultHeroFallback;
           }}
-          className={`w-full h-full ${landscape ? 'object-cover' : 'object-contain'} object-center`}
+          className="w-full h-full object-cover object-center"
           animate={{ scale: isHovered ? 1.05 : 1 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           loading="lazy"
