@@ -18,6 +18,7 @@ import GenerateSiteImages from "./pages/admin/GenerateSiteImages";
 import ExtractProductImages from "./pages/admin/ExtractProductImages";
 import UploadImages from "./pages/admin/UploadImages";
 import ImageManager from "./pages/admin/ImageManager";
+import RegenerateHeroes from "./pages/admin/RegenerateHeroes";
 import AdminLayout from "./components/AdminLayout";
 import About from "./pages/trust/About";
 import Warranty from "./pages/trust/Warranty";
@@ -73,6 +74,7 @@ const App = () => (
               <Route path="/admin/extract-images" element={<AdminLayout><ExtractProductImages /></AdminLayout>} />
               <Route path="/admin/upload-images" element={<AdminLayout><UploadImages /></AdminLayout>} />
               <Route path="/admin/images" element={<AdminLayout><ImageManager /></AdminLayout>} />
+              <Route path="/admin/regenerate-heroes" element={<AdminLayout><RegenerateHeroes /></AdminLayout>} />
               <Route path="/about" element={<About />} />
               <Route path="/warranty" element={<Warranty />} />
               <Route path="/delivery" element={<Delivery />} />
