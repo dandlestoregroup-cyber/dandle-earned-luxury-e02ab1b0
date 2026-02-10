@@ -22,10 +22,17 @@ const ImageEditorToolkit = () => {
   // Position the toolkit near the active image
   useEffect(() => {
     if (!activeImgEl) return;
-    const rect = activeImgEl.getBoundingClientRect();
-    const top = rect.bottom + window.scrollY + 8;
-    const left = Math.max(8, Math.min(rect.left + window.scrollX, window.innerWidth - 380));
-    setPosition({ top, left });
+    const updatePosition = () => {
+      const rect = activeImgEl.getBoundingClientRect();
+      // Check if toolkit fits below the image, otherwise place above
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const top = spaceBelow > 280 ? rect.bottom + 8 : Math.max(8, rect.top - 280);
+      const left = Math.max(8, Math.min(rect.left, window.innerWidth - 380));
+      setPosition({ top, left });
+    };
+    updatePosition();
+    window.addEventListener("scroll", updatePosition, { passive: true });
+    return () => window.removeEventListener("scroll", updatePosition);
   }, [activeImgEl]);
 
   if (!activePath || !activeImgEl) return null;
