@@ -18,7 +18,7 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    const { referenceImage, prompt, filename, dimensions, category, productHandle } = await req.json();
+    const { referenceImage, prompt, filename, dimensions, category, productHandle, preview } = await req.json();
 
     if (!referenceImage || !prompt || !filename) {
       throw new Error('Missing required fields: referenceImage, prompt, filename');
@@ -116,6 +116,20 @@ OUTPUT REQUIREMENTS:
     if (!generatedImage) {
       console.error('No image in response:', JSON.stringify(aiResult));
       throw new Error('No image generated in response');
+    }
+
+    // Preview mode: return base64 without uploading
+    if (preview) {
+      console.log('Preview mode — returning image data without uploading');
+      return new Response(
+        JSON.stringify({
+          success: true,
+          preview: true,
+          imageData: generatedImage,
+          filename,
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     // Upload to Supabase Storage

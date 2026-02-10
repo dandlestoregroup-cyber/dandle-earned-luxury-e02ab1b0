@@ -1,6 +1,8 @@
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/hooks/useBilingualText";
+import { cdnUrl } from "@/lib/imageUrl";
+import { IMAGES } from "@/lib/imageRegistry";
 
 const IstikbalShowroom = () => {
   const { isArabic } = useLang();
@@ -32,7 +34,7 @@ const IstikbalShowroom = () => {
             {/* Image */}
             <div className="relative h-64 md:h-80 w-full">
               <img
-                src="/images/dandle-partnerships-room.png"
+                src={cdnUrl(IMAGES.SHOWROOM_IMAGE)}
                 alt={isArabic ? "غرفة التجربة" : "Experience Room"}
                 className="w-full h-full object-cover"
                 loading="lazy"
