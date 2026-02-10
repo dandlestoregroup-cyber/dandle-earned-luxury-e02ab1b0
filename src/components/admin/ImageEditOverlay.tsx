@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useImageEditor } from "@/hooks/useImageEditor";
-import { cdnUrl } from "@/lib/imageUrl";
 import ImageEditorToolkit from "./ImageEditorToolkit";
 import { Check, X } from "lucide-react";
-
-const STORAGE_BASE = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/product-images`;
 
 /** Parse an img.src back to its canonical storagePath, e.g. "/images/foo.jpg" */
 function extractStoragePath(src: string): string | null {
@@ -13,7 +10,6 @@ function extractStoragePath(src: string): string | null {
   const idx = src.indexOf("/storage/v1/object/public/product-images");
   if (idx !== -1) {
     let path = src.slice(idx + "/storage/v1/object/public/product-images".length);
-    // Strip query params
     const q = path.indexOf("?");
     if (q !== -1) path = path.slice(0, q);
     return path.startsWith("/") ? path : "/" + path;
@@ -25,6 +21,15 @@ function extractStoragePath(src: string): string | null {
   return null;
 }
 
+/** Stamp data-original-src on an img if it has a recognisable storage path */
+function stampOriginalSrc(img: HTMLImageElement) {
+  if (img.getAttribute("data-original-src")) return; // already stamped
+  const path = extractStoragePath(img.src);
+  if (path) {
+    img.setAttribute("data-original-src", img.src);
+  }
+}
+
 interface Props {
   children: React.ReactNode;
 }
@@ -33,12 +38,57 @@ const ImageEditOverlay = ({ children }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { activePath, activeImgEl, pendingEdits, setActive, approve, discard } = useImageEditor();
 
-  // Hover styling
+  // ── 1. Stamp data-original-src on every image eagerly ──
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    // Stamp all existing images
+    el.querySelectorAll<HTMLImageElement>("img").forEach(stampOriginalSrc);
+
+    // Watch for new images added to the DOM
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes) {
+          if (node instanceof HTMLImageElement) {
+            stampOriginalSrc(node);
+          } else if (node instanceof HTMLElement) {
+            node.querySelectorAll<HTMLImageElement>("img").forEach(stampOriginalSrc);
+          }
+        }
+      }
+    });
+    observer.observe(el, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
+  // ── 2. Apply / restore pending edit previews ──
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const imgs = containerRef.current.querySelectorAll<HTMLImageElement>("img");
+    imgs.forEach((img) => {
+      const origSrc = img.getAttribute("data-original-src");
+      if (!origSrc) return; // not stamped yet — skip
+      const path = extractStoragePath(origSrc);
+      if (!path) return;
+
+      const edit = pendingEdits[path];
+      if (edit) {
+        // Show the staged preview
+        img.src = edit.previewDataUrl;
+      } else if (img.src !== origSrc) {
+        // Restore original when edit is discarded
+        img.src = origSrc;
+      }
+    });
+  }, [pendingEdits]);
+
+  // ── Hover styling ──
   const handleMouseOver = useCallback((e: MouseEvent) => {
     const img = (e.target as HTMLElement).closest("img") as HTMLImageElement | null;
     if (!img) return;
-    const path = extractStoragePath(img.src) || extractStoragePath(img.getAttribute("data-original-src") || "");
-    if (!path) return;
+    const src = img.getAttribute("data-original-src") || img.src;
+    if (!extractStoragePath(src)) return;
     img.style.outline = "2px dashed #E67E22";
     img.style.outlineOffset = "2px";
     img.style.cursor = "pointer";
@@ -52,7 +102,7 @@ const ImageEditOverlay = ({ children }: Props) => {
     img.style.cursor = "";
   }, []);
 
-  // Click handler via event delegation
+  // ── Click handler via event delegation ──
   const handleClick = useCallback(
     (e: MouseEvent) => {
       const img = (e.target as HTMLElement).closest("img") as HTMLImageElement | null;
@@ -81,27 +131,6 @@ const ImageEditOverlay = ({ children }: Props) => {
       el.removeEventListener("mouseout", handleMouseOut);
     };
   }, [handleClick, handleMouseOver, handleMouseOut]);
-
-  // Apply pending edit previews to img elements
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const imgs = containerRef.current.querySelectorAll<HTMLImageElement>("img");
-    imgs.forEach((img) => {
-      const origSrc = img.getAttribute("data-original-src") || img.src;
-      const path = extractStoragePath(origSrc);
-      if (!path) return;
-
-      // Save original src
-      if (!img.getAttribute("data-original-src")) {
-        img.setAttribute("data-original-src", img.src);
-      }
-
-      const edit = pendingEdits[path];
-      if (edit) {
-        img.src = edit.previewDataUrl;
-      }
-    });
-  }, [pendingEdits]);
 
   return (
     <div ref={containerRef} className="relative">
@@ -158,7 +187,6 @@ function PendingBadge({
 
   useEffect(() => {
     if (!containerRef.current || !badgeRef.current) return;
-    // Find the img with this storagePath
     const imgs = containerRef.current.querySelectorAll<HTMLImageElement>("img");
     for (const img of imgs) {
       const origSrc = img.getAttribute("data-original-src") || img.src;

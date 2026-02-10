@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useImageEditor } from "@/hooks/useImageEditor";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Upload, Wand2, RefreshCw, Check, X, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,13 +17,13 @@ const ImageEditorToolkit = () => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
   const hasPending = activePath ? !!pendingEdits[activePath] : false;
+  const pendingPreview = activePath ? pendingEdits[activePath]?.previewDataUrl : null;
 
   // Position the toolkit near the active image
   useEffect(() => {
     if (!activeImgEl) return;
     const updatePosition = () => {
       const rect = activeImgEl.getBoundingClientRect();
-      // Check if toolkit fits below the image, otherwise place above
       const spaceBelow = window.innerHeight - rect.bottom;
       const top = spaceBelow > 280 ? rect.bottom + 8 : Math.max(8, rect.top - 280);
       const left = Math.max(8, Math.min(rect.left, window.innerWidth - 380));
@@ -53,7 +52,6 @@ const ImageEditorToolkit = () => {
     if (!prompt.trim()) return;
     setIsGenerating(true);
     try {
-      // Convert current image to base64
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d")!;
       canvas.width = activeImgEl.naturalWidth || activeImgEl.width;
@@ -68,7 +66,7 @@ const ImageEditorToolkit = () => {
           filename: activePath.split("/").pop() || "edited.webp",
           dimensions: { width: canvas.width, height: canvas.height },
           category: "homepage",
-          preview: true, // Don't upload to storage
+          preview: true,
         },
       });
 
@@ -136,7 +134,6 @@ const ImageEditorToolkit = () => {
 
   const handleDiscard = () => {
     discard(activePath);
-    // Restore original src
     const origSrc = activeImgEl.getAttribute("data-original-src");
     if (origSrc) activeImgEl.src = origSrc;
   };
@@ -229,20 +226,32 @@ const ImageEditorToolkit = () => {
         </div>
       )}
 
-      {/* Approve / Discard */}
+      {/* Staged Preview Thumbnail + Approve / Discard */}
       {hasPending && (
-        <div className="flex gap-2 mt-3 pt-3 border-t border-border">
-          <Button
-            onClick={handleApprove}
-            disabled={isApproving}
-            className="flex-1 bg-green-600 hover:bg-green-700 text-white"
-          >
-            {isApproving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Check className="w-4 h-4 mr-2" />}
-            Approve
-          </Button>
-          <Button variant="outline" onClick={handleDiscard} className="flex-1">
-            <X className="w-4 h-4 mr-2" /> Discard
-          </Button>
+        <div className="mt-3 pt-3 border-t border-border">
+          {pendingPreview && (
+            <div className="mb-3">
+              <p className="text-xs text-muted-foreground mb-1.5">Staged preview:</p>
+              <img
+                src={pendingPreview}
+                alt="Staged preview"
+                className="w-full max-h-[120px] object-contain rounded-md border border-border bg-muted"
+              />
+            </div>
+          )}
+          <div className="flex gap-2">
+            <Button
+              onClick={handleApprove}
+              disabled={isApproving}
+              className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+            >
+              {isApproving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Check className="w-4 h-4 mr-2" />}
+              Approve
+            </Button>
+            <Button variant="outline" onClick={handleDiscard} className="flex-1">
+              <X className="w-4 h-4 mr-2" /> Discard
+            </Button>
+          </div>
         </div>
       )}
     </div>,
