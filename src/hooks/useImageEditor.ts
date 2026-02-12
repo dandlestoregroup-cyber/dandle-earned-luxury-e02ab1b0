@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { supabase } from "@/integrations/supabase/client";
-import { cdnUrl } from "@/lib/imageUrl";
+import { cdnUrl, markImageUpdated } from "@/lib/imageUrl";
 
 interface PendingEdit {
   originalSrc: string;
@@ -81,8 +81,11 @@ export const useImageEditor = create<ImageEditorState>((set, get) => ({
 
       if (error) throw error;
 
+      // Persist cache-bust so ALL pages (including main site) pick up the new image
+      markImageUpdated(storagePath);
+
       // Force-refresh: update the img element src with cache buster
-      const freshUrl = cdnUrl(storagePath) + "?t=" + Date.now();
+      const freshUrl = cdnUrl(storagePath);
 
       // Update all matching img elements on the page
       document.querySelectorAll<HTMLImageElement>("img").forEach((img) => {

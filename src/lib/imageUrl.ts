@@ -7,14 +7,33 @@
 
 const STORAGE_BASE = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/product-images`;
 
+const CACHE_BUST_KEY = "dandle_image_busts";
+
+/** Get stored cache-bust timestamps */
+function getCacheBusts(): Record<string, number> {
+  try {
+    return JSON.parse(localStorage.getItem(CACHE_BUST_KEY) || "{}");
+  } catch { return {}; }
+}
+
+/** Mark a path as updated so all pages append a cache buster */
+export function markImageUpdated(storagePath: string) {
+  const busts = getCacheBusts();
+  busts[storagePath] = Date.now();
+  localStorage.setItem(CACHE_BUST_KEY, JSON.stringify(busts));
+}
+
 /**
  * Convert a local image path to its CDN URL.
  * Paths starting with /images/ are rewritten to the cloud storage bucket.
- * All other paths (absolute URLs, /placeholder.svg, etc.) are returned as-is.
+ * Appends cache-buster for recently updated images.
  */
 export function cdnUrl(localPath: string): string {
   if (localPath.startsWith('/images/')) {
-    return `${STORAGE_BASE}${localPath}`;
+    const busts = getCacheBusts();
+    const t = busts[localPath];
+    const suffix = t ? `?t=${t}` : "";
+    return `${STORAGE_BASE}${localPath}${suffix}`;
   }
   return localPath;
 }
