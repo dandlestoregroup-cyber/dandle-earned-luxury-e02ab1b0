@@ -110,26 +110,12 @@ const Partners = () => {
             className="block bg-background rounded-2xl overflow-hidden shadow-subtle border border-border group hover:shadow-md transition-shadow"
           >
             {/* Istikbal Banner */}
-            <div className="relative h-48 md:h-56 w-full bg-gradient-to-br from-[hsl(var(--secondary))] to-[hsl(var(--muted))]">
-              <img
-                src="https://www.istikbal.com.eg/Themes/flavor1/Content/images/istikbal-logo.svg"
-                alt="Istikbal Logo"
-                className="absolute top-4 left-4 h-8 md:h-10 object-contain"
-                loading="lazy"
-              />
-              <img
-                src="https://www.istikbal.com.eg/Themes/flavor1/Content/images/slider/slide1.jpg"
-                alt={isArabic ? "معرض إستيكبال" : "Istikbal Showroom"}
-                className="w-full h-full object-cover opacity-80"
-                loading="lazy"
-                onError={(e) => {
-                  // Fallback if external image fails
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <span className={`text-xs text-primary tracking-wide ${fontClass}`}>
+            <div className="relative h-48 md:h-56 w-full bg-gradient-to-br from-[hsl(var(--secondary))] to-[hsl(var(--muted))] flex items-center justify-center">
+              <div className="text-center p-8">
+                <h4 className={`text-3xl md:text-4xl font-bold text-foreground/80 tracking-widest ${isArabic ? 'font-body-ar' : 'font-headline'}`}>
+                  ISTIKBAL
+                </h4>
+                <span className={`text-xs text-primary tracking-wide mt-2 block ${fontClass}`}>
                   {isArabic ? "شبكة التجربة" : "Experience Network"}
                 </span>
               </div>

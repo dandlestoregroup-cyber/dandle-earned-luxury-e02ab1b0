@@ -94,11 +94,11 @@ const HeroVideo = ({ src, onEnded, onSkip }: HeroVideoProps) => {
         src={src}
         className="w-full h-full object-cover"
         autoPlay
-        muted={isMuted}
+        muted
         playsInline
         onEnded={onEnded}
         preload="auto"
-        
+        poster="/dandle-og-image.jpg"
         onLoadedData={() => setIsLoaded(true)}
         style={{ 
           imageRendering: 'auto',

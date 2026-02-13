@@ -54,9 +54,9 @@ const Index = () => {
       <ScrollProgress />
       <OfflineNotice />
       <Navigation />
-      <TrustBar />
       <main>
         <Hero />
+        <TrustBar />
         <Quote />
         <CollectionIntro />
         <ProductGallery />
