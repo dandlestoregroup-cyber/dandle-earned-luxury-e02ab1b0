@@ -1,19 +1,31 @@
 
 
-## Fix: Remove poster image flash before hero video
+## Fix: Hero Video Poster Flash + Broken OMASH Partner Image
 
-### Problem
-The video element has `poster="/dandle-og-image.jpg"` which shows a static image (ornate door with recliner) before the video starts playing. On mobile 4G, this creates a jarring few-second flash of an unrelated image before the cinematic video begins.
+### Issues Found
 
-### Solution
-Remove the `poster` attribute from the video element entirely. The parent container already has a solid black background (`#000`), so the user will see a clean black screen until the video loads and auto-plays -- which is the correct cinematic experience.
+1. **Video poster flash**: The `<video>` element still has `poster="/dandle-og-image.jpg"` (line 101 in `HeroVideo.tsx`), which shows a static ornate-door image for 1-2 seconds before the video starts playing. The parent already has a black background, so removing the poster gives a clean cinematic start.
 
-### Technical Details
+2. **OMASH partner image broken**: The OMASH card shows a blank white rectangle because the image path `/images/dandle-omash-partnership.webp` is routed through `cdnUrl()` which rewrites it to Supabase storage -- but the file likely doesn't exist there. The actual file exists locally at `public/images/dandle-omash-partnership.webp`. Fix: use the local path directly instead of the CDN rewrite.
 
-**File: `src/components/hero/HeroVideo.tsx`**
+3. **Nav obstruction**: Already resolved in a previous change (TrustBar moved after Hero). Confirmed working.
+
+---
+
+### Changes
+
+**File 1: `src/components/hero/HeroVideo.tsx`**
 - Remove `poster="/dandle-og-image.jpg"` from the `<video>` tag (line 101)
-- The black background from the parent `HeroGiftingSeason` component already provides a clean pre-video state
-- Video will still autoplay muted with `preload="auto"` for fastest possible start
+- The solid black background from the parent container provides the pre-video state
 
-This is a single-line change. No other files need modification.
+**File 2: `src/components/Partners.tsx`**
+- Change the OMASH image from `cdnUrl(IMAGES.PARTNER_OMASH)` to the direct local path `"/images/dandle-omash-partnership.webp"` so the image loads from `public/` instead of being routed to cloud storage where it doesn't exist
+- Remove the unused `cdnUrl` and `IMAGES` imports if no longer needed
+
+---
+
+### Why This Works
+- Removing the poster eliminates the flash -- users see black, then the video fades in
+- Using the local path for the OMASH image bypasses the CDN rewrite that points to a non-existent storage file
+- Both are single-line fixes with no side effects
 
