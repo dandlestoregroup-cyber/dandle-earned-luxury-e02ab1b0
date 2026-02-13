@@ -1,43 +1,19 @@
 
 
-# Save Google Business Profile Setup as Reference Document + Align Structured Data
+## Fix: Remove poster image flash before hero video
 
-## What This Does
+### Problem
+The video element has `poster="/dandle-og-image.jpg"` which shows a static image (ornate door with recliner) before the video starts playing. On mobile 4G, this creates a jarring few-second flash of an unrelated image before the cinematic video begins.
 
-Two things:
-1. Saves the complete Google Business Profile (GBP) setup instructions as a reference document at `public/GOOGLE_BUSINESS_PROFILE.md` -- accessible at your published URL just like the Manus guide
-2. Updates the `LocalBusiness` structured data in `src/utils/structuredData.ts` to align with the GBP data (service areas, business type, description)
+### Solution
+Remove the `poster` attribute from the video element entirely. The parent container already has a solid black background (`#000`), so the user will see a clean black screen until the video loads and auto-plays -- which is the correct cinematic experience.
 
-## Changes
+### Technical Details
 
-### 1. New File: `public/GOOGLE_BUSINESS_PROFILE.md`
+**File: `src/components/hero/HeroVideo.tsx`**
+- Remove `poster="/dandle-og-image.jpg"` from the `<video>` tag (line 101)
+- The black background from the parent `HeroGiftingSeason` component already provides a clean pre-video state
+- Video will still autoplay muted with `preload="auto"` for fastest possible start
 
-The complete GBP setup guide you provided, formatted as a clean Markdown reference document covering:
-- Business name, categories, type
-- Service areas (20+ cities)
-- Business description
-- Services list (7 items)
-- Product names (9 products, exact names)
-- Photo upload checklist
-- Review system guidelines
-- Verification prep
-- Trust footer in EN/AR
-
-### 2. Update: `src/utils/structuredData.ts`
-
-Align the `generateLocalBusinessSchema` function with GBP data:
-- Change `@type` from `FurnitureStore` to include `HomeGoodsStore` as additional type
-- Add `description` matching the GBP business description
-- Add `areaServed` with the full list of Egyptian service cities
-- Add `hasOfferCatalog` listing the 9 product names
-- Keep existing fields (name, url, telephone, priceRange)
-
-This ensures Google sees consistent data between your GBP listing and your website's structured data.
-
-### Technical Detail
-
-| File | Change |
-|---|---|
-| `public/GOOGLE_BUSINESS_PROFILE.md` | New file -- complete GBP setup reference |
-| `src/utils/structuredData.ts` | Update LocalBusiness schema to match GBP service areas and description |
+This is a single-line change. No other files need modification.
 
