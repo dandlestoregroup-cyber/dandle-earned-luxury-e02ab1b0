@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Gift } from "lucide-react";
 import { useLang } from "@/hooks/useBilingualText";
 import { useRef, useEffect, useState } from "react";
-import { cdnUrl } from "@/lib/imageUrl";
-import { IMAGES } from "@/lib/imageRegistry";
 
 const COUNTER_TARGET = 2500;
 
@@ -48,7 +46,7 @@ const GiftOfComfort = () => {
       {/* Full-bleed background */}
       <div className="absolute inset-0 z-0">
         <img
-          src={cdnUrl(IMAGES.GIFT_BACKGROUND)}
+          src="/images/gift-comfort-hero.jpg"
           alt="Dandle living room"
           className="w-full h-full object-cover"
           loading="lazy"
