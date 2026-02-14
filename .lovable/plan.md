@@ -1,31 +1,81 @@
 
 
-## Fix: Hero Video Poster Flash + Broken OMASH Partner Image
+## Upload Genspark Product Images and Update Site References
 
-### Issues Found
+### What We Have
 
-1. **Video poster flash**: The `<video>` element still has `poster="/dandle-og-image.jpg"` (line 101 in `HeroVideo.tsx`), which shows a static ornate-door image for 1-2 seconds before the video starts playing. The parent already has a black background, so removing the poster gives a clean cinematic start.
+Your document contains 21 new product images hosted on Genspark/Manus CDN. These are the new truth and need to replace existing images across the site.
 
-2. **OMASH partner image broken**: The OMASH card shows a blank white rectangle because the image path `/images/dandle-omash-partnership.webp` is routed through `cdnUrl()` which rewrites it to Supabase storage -- but the file likely doesn't exist there. The actual file exists locally at `public/images/dandle-omash-partnership.webp`. Fix: use the local path directly instead of the CDN rewrite.
+### Complete Image Manifest (from your document)
 
-3. **Nav obstruction**: Already resolved in a previous change (TrustBar moved after Hero). Confirmed working.
+**Heroes (10 images):**
 
----
+| Product | New Filename | Genspark URL |
+|---------|-------------|--------------|
+| RelaxMax | dandle-relaxmax-cognac-leather-hero.webp | dULgNtTbBzMdTZkP.webp |
+| RelaxMax Limited | dandle-relaxmax-limited-camel-leather-hero.webp | (embedded in doc) |
+| ComfortPlus | dandle-comfortplus-tan-hero.webp | yAVQbhxxedZgNgtT.webp |
+| CozyCompanion | dandle-cozycompanion-mocha-taupe-hero.webp | SCBNCtpKUORKkWts.webp |
+| Diva | dandle-diva-terracotta-hero.webp | (embedded in doc) |
+| EasyUp Standard | dandle-easyup-standard-grey-hero.webp | EIAnetzTvQAMhswd.webp |
+| EasyUp Compact | dandle-easyup-compact-charcoal-hero.webp | zBiRHcMhsIPxKTpN.webp |
+| WorkNest | dandle-worknest-oasis-green-hero.webp | eFKPaFlCFEEXyGqu.webp |
+| SpaceSaver | dandle-spacesaver-alexandria-linen-hero.webp | ywZYwCUwpIjqguuh.webp |
+| Complete Set | complete-set-nile-view-living-room-lifestyle.webp | (embedded in doc) |
 
-### Changes
+**Variants / Gallery (10 images):**
 
-**File 1: `src/components/hero/HeroVideo.tsx`**
-- Remove `poster="/dandle-og-image.jpg"` from the `<video>` tag (line 101)
-- The solid black background from the parent container provides the pre-video state
+| Image | Genspark URL |
+|-------|-------------|
+| comfortplus-coastal-fog-variant.webp | gHDIPfQciBaEUZIT.webp |
+| diva-desert-sage-variant.webp | PDZqIKXKqYkrJiDs.webp |
+| diva-giza-gold-variant.webp | wApdkFcMIZcaPDeh.webp |
+| easyup-standard-oasis-green-variant.webp | ZZmysbPBlVTwQaSY.webp |
+| relaxmax-alexandria-linen-variant.webp | FdhyDvtpaMGNroZm.webp |
+| relaxmax-mocha-taupe-variant.webp | AnOHTiiCgXmepbiE.webp |
+| spacesaver-mocha-taupe-variant.webp | akmGLwQArviuIBXv.webp |
+| spacesaver-terracotta-reclined-variant.webp | mHKoZTwJrtyLNuWx.webp |
+| worknest-blue-nile-denim-variant.webp | (embedded in doc) |
+| worknest-desert-grey-variant.webp | oYQRUEVDHaVdUrga.webp |
 
-**File 2: `src/components/Partners.tsx`**
-- Change the OMASH image from `cdnUrl(IMAGES.PARTNER_OMASH)` to the direct local path `"/images/dandle-omash-partnership.webp"` so the image loads from `public/` instead of being routed to cloud storage where it doesn't exist
-- Remove the unused `cdnUrl` and `IMAGES` imports if no longer needed
+**Lifestyle (1 image):**
 
----
+| Image | Genspark URL |
+|-------|-------------|
+| easyup-pregnant-woman-accessibility-lifestyle.webp | (embedded in doc) |
 
-### Why This Works
-- Removing the poster eliminates the flash -- users see black, then the video fades in
-- Using the local path for the OMASH image bypasses the CDN rewrite that points to a non-existent storage file
-- Both are single-line fixes with no side effects
+### Plan
+
+**Step 1: Create a bulk import edge function**
+
+A new `import-genspark-images` edge function that:
+- Accepts an array of `{ filename, sourceUrl }` entries
+- Fetches each image from the Genspark/Manus CDN
+- Converts to bytes and uploads to the `product-images` storage bucket under `images/` prefix
+- Returns success/failure per image
+
+**Step 2: Update `productImageData.ts`**
+
+Replace all hero `mainImage` and `galleryImages` entries with the new filenames from your document:
+- Each product hero becomes `cdnUrl('/images/dandle-{product}-{color}-hero.webp')`
+- Gallery entries use the new variant filenames
+- Old filenames that have no replacement stay as fallbacks
+
+**Step 3: Update `product.ts` imageUrl fields**
+
+Update the `imageUrl` field on each product to match the new hero filenames (these are used for product cards in the gallery grid).
+
+**Step 4: Trigger the import**
+
+Call the new edge function with all 21 image URLs to populate cloud storage. For the 5 images where the URL was embedded in the doc (not parsed as text), we extract those from the document's embedded images directly.
+
+### Note on Missing URLs
+
+5 of 21 images had their URLs embedded as clickable links in the Word doc rather than plain text. For those (RelaxMax Limited hero, Diva hero, Complete Set lifestyle, EasyUp lifestyle, WorkNest Blue Nile variant), we will extract the actual images from the parsed document and upload them directly.
+
+### Technical Details
+
+- **Files modified:** `supabase/functions/import-genspark-images/index.ts` (new), `src/data/productImageData.ts`, `src/types/product.ts`
+- **No catalog changes:** Pricing, names, and availability remain frozen
+- **CDN system preserved:** All images still served through `cdnUrl()` from cloud storage
 
