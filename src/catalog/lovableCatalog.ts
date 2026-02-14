@@ -1,15 +1,12 @@
 // Lovable Catalog - Single Source of Truth for Product Images
-// This catalog is INDEPENDENT of Shopify and controls all visual rendering
-
-import { siteImageManifest } from "@/data/siteImageManifest";
-import { getStorageUrl } from "@/utils/siteImageResolver";
+// Simplified: no siteImageManifest override, catalog paths are final
 
 export interface LovableImage {
-  src: string; // Import path or asset URL
-  fallbackSrc?: string; // Optional fallback URL if src 404s
-  width: number; // Exact pixel width
-  height: number; // Exact pixel height
-  alt: string; // Descriptive alt text
+  src: string;
+  fallbackSrc?: string;
+  width: number;
+  height: number;
+  alt: string;
 }
 
 export interface LovableProduct {
@@ -18,7 +15,7 @@ export interface LovableProduct {
   subtitle: string;
   heroImage: LovableImage;
   gallery: LovableImage[];
-  aspectRatio: number;  // width/height for perfect containers
+  aspectRatio: number;
 }
 
 // Product Images - Lovable as Visual Master
@@ -200,64 +197,9 @@ export const lovableCatalog: LovableProduct[] = [
   }
 ];
 
-// Helper: Map catalog handles to manifest handles
-const normalizeHandleForManifest = (handle: string): string => {
-  // The catalog uses "easyup" while the manifest uses "easyup-standard"
-  if (handle === "easyup") return "easyup-standard";
-  return handle;
-};
-
-// Helper: Get product by handle - fail-safe
+// Helper: Get product by handle — direct catalog lookup, no overrides
 export function getLovableProduct(handle: string): LovableProduct | null {
-  const base = lovableCatalog.find((p) => p.productHandle === handle) || null;
-  if (!base) return null;
-
-  // Hydrate hero + gallery from the site image manifest (generated images live in storage)
-  const manifestHandle = normalizeHandleForManifest(base.productHandle);
-
-  const heroManifest = siteImageManifest.find(
-    (img) => img.category === "product-hero" && img.productHandle === manifestHandle
-  );
-  const galleryManifest = siteImageManifest.filter(
-    (img) => img.category === "product-gallery" && img.productHandle === manifestHandle
-  );
-
-  // Only use storage URL if image actually exists (status === 'exists')
-  // Otherwise fall back to generatedUrl or referenceUrl
-  const getImageSrc = (img: typeof heroManifest) => {
-    if (!img) return null;
-    if (img.status === 'exists' && img.generatedUrl) {
-      return img.generatedUrl;
-    }
-    // Fallback to referenceUrl for missing images
-    return img.referenceUrl;
-  };
-
-  const heroImage = heroManifest
-    ? {
-        ...base.heroImage,
-        src: getImageSrc(heroManifest) || base.heroImage.src,
-        fallbackSrc: heroManifest.referenceUrl,
-        width: heroManifest.dimensions.width,
-        height: heroManifest.dimensions.height,
-      }
-    : base.heroImage;
-
-  const generatedGallery = galleryManifest
-    .filter((img) => img.status === 'exists') // Only include images that exist
-    .map((img) => ({
-      src: img.generatedUrl || img.referenceUrl,
-      fallbackSrc: img.referenceUrl,
-      width: img.dimensions.width,
-      height: img.dimensions.height,
-      alt: `${base.title} — ${img.setting}`,
-    }));
-
-  return {
-    ...base,
-    heroImage,
-    gallery: generatedGallery.length ? [...generatedGallery, ...base.gallery] : base.gallery,
-  };
+  return lovableCatalog.find((p) => p.productHandle === handle) || null;
 }
 
 // Helper: Get all product handles for routing
