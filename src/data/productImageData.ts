@@ -4,8 +4,8 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
   'relaxmax': {
     mainImage: '/images/dandle-relaxmax-cognac-leather-hero.webp',
     galleryImages: [
-      '/images/relaxmax-alexandria-linen.webp',
-      '/images/relaxmax-mocha-taupe.webp',
+      '/images/relaxmax-alexandria-linen-variant.webp',
+      '/images/relaxmax-mocha-taupe-variant.webp',
       '/images/relaxmax-coastal-fog.webp',
       '/images/relaxmax-lifestyle-day.png',
       '/images/relaxmax-lifestyle-night.png',
@@ -20,8 +20,8 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
   'spacesaver': {
     mainImage: '/images/dandle-spacesaver-alexandria-linen-hero.webp',
     galleryImages: [
-      '/images/spacesaver-mocha-taupe.webp',
-      '/images/spacesaver-terracotta-reclined.webp',
+      '/images/spacesaver-mocha-taupe-variant.webp',
+      '/images/spacesaver-terracotta-reclined-variant.webp',
       '/images/spacesaver-desert-grey.webp',
       '/images/spacesaver-desert-grey-reclined.webp',
     ],
@@ -29,14 +29,14 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
   'comfortplus': {
     mainImage: '/images/dandle-comfortplus-tan-hero.webp',
     galleryImages: [
-      '/images/comfortplus-coastal-fog-lifestyle.webp',
+      '/images/comfortplus-coastal-fog-variant.webp',
     ],
   },
   'diva': {
     mainImage: '/images/dandle-diva-terracotta-hero.jpg',
     galleryImages: [
-      '/images/diva-desert-sage-green.webp',
-      '/images/diva-giza-gold.webp',
+      '/images/diva-desert-sage-variant.webp',
+      '/images/diva-giza-gold-variant.webp',
       '/images/diva-oasis-green.webp',
     ],
   },
@@ -52,14 +52,14 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
     mainImage: '/images/dandle-worknest-oasis-green-hero.webp',
     galleryImages: [
       '/images/worknest-blue-nile.webp',
-      '/images/worknest-desert-grey.webp',
+      '/images/worknest-desert-grey-variant.webp',
       '/images/worknest-oasis-green-lifestyle.webp',
     ],
   },
   'easyup': {
     mainImage: '/images/dandle-easyup-standard-grey-hero.webp',
     galleryImages: [
-      '/images/easyup-standard-oasis-green.webp',
+      '/images/easyup-standard-oasis-green-variant.webp',
       '/images/easyup-pregnant-woman-accessibility-lifestyle.jpg',
       '/images/easyup-standard-coastal-fog.webp',
       '/images/easyup-standard-mocha-taupe.webp',

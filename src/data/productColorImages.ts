@@ -12,8 +12,8 @@ export type ColorVariant = {
 export const productColorImages: Record<string, ColorVariant[]> = {
   'relaxmax': [
     { swatchKey: 'cognac-leather', imageSrc: '/images/relaxmax-primary-cognac.webp' },
-    { swatchKey: 'alexandria-linen', imageSrc: '/images/relaxmax-alexandria-linen.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/relaxmax-mocha-taupe.webp' },
+    { swatchKey: 'alexandria-linen', imageSrc: '/images/relaxmax-alexandria-linen-variant.webp' },
+    { swatchKey: 'mocha-taupe', imageSrc: '/images/relaxmax-mocha-taupe-variant.webp' },
     { swatchKey: 'coastal-fog', imageSrc: '/images/relaxmax-coastal-fog.webp' },
   ],
   'relaxmax-limited': [
@@ -22,29 +22,29 @@ export const productColorImages: Record<string, ColorVariant[]> = {
   ],
   'spacesaver': [
     { swatchKey: 'alexandria-linen', imageSrc: '/images/spacesaver-primary-linen.webp' },
-    { swatchKey: 'mocha-taupe', imageSrc: '/images/spacesaver-mocha-taupe.webp' },
+    { swatchKey: 'mocha-taupe', imageSrc: '/images/spacesaver-mocha-taupe-variant.webp' },
     { swatchKey: 'desert-grey', imageSrc: '/images/spacesaver-desert-grey.webp' },
-    { swatchKey: 'terracotta', imageSrc: '/images/spacesaver-terracotta-reclined.webp' },
+    { swatchKey: 'terracotta', imageSrc: '/images/spacesaver-terracotta-reclined-variant.webp' },
     { swatchKey: 'offwhite', imageSrc: '/images/spacesaver-primary.webp' },
   ],
   'comfortplus': [
     { swatchKey: 'tan', imageSrc: '/images/comfortplus-tan-lifestyle.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/comfortplus-coastal-fog-lifestyle.webp' },
+    { swatchKey: 'coastal-fog', imageSrc: '/images/comfortplus-coastal-fog-variant.webp' },
   ],
   'diva': [
     { swatchKey: 'terracotta', imageSrc: '/images/diva-primary-terracotta.webp' },
-    { swatchKey: 'giza-gold', imageSrc: '/images/diva-giza-gold.webp' },
+    { swatchKey: 'giza-gold', imageSrc: '/images/diva-giza-gold-variant.webp' },
     { swatchKey: 'oasis-green', imageSrc: '/images/diva-oasis-green-reclined.webp' },
-    { swatchKey: 'desert-sage', imageSrc: '/images/diva-desert-sage-green.webp' },
+    { swatchKey: 'desert-sage', imageSrc: '/images/diva-desert-sage-variant.webp' },
   ],
   'worknest': [
     { swatchKey: 'oasis-green', imageSrc: '/images/worknest-primary-green.webp' },
     { swatchKey: 'blue-nile-denim', imageSrc: '/images/worknest-blue-nile.webp' },
-    { swatchKey: 'desert-grey', imageSrc: '/images/worknest-desert-grey.webp' },
+    { swatchKey: 'desert-grey', imageSrc: '/images/worknest-desert-grey-variant.webp' },
   ],
   'easyup': [
     { swatchKey: 'grey', imageSrc: '/images/easyup-standard-grey-pregnant.webp' },
-    { swatchKey: 'oasis-green', imageSrc: '/images/easyup-standard-oasis-green.webp' },
+    { swatchKey: 'oasis-green', imageSrc: '/images/easyup-standard-oasis-green-variant.webp' },
     { swatchKey: 'mocha-taupe', imageSrc: '/images/easyup-standard-mocha-taupe.webp' },
     { swatchKey: 'coastal-fog', imageSrc: '/images/easyup-standard-coastal-fog.webp' },
   ],
