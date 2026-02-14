@@ -1,108 +1,87 @@
-/* Product image data — Genspark v1 (Feb 2026) */
-
-import { generationManifest } from './imageGenerationManifest';
-import { cdnUrl } from '@/lib/imageUrl';
-
-// Build generated images by product
-const generatedByProduct: Record<string, string[]> = {};
-for (const entry of generationManifest) {
-  const url = `/images/generated/${entry.outputFileName}`;
-  (generatedByProduct[entry.productKey] ||= []).push(url);
-}
+/* Product image data — local paths only (no CDN rewriting) */
 
 export const productImageData: Record<string, { mainImage: string; galleryImages: string[] }> = {
   'relaxmax': {
-    mainImage: cdnUrl('/images/dandle-relaxmax-cognac-leather-hero.webp'),
+    mainImage: '/images/dandle-relaxmax-cognac-leather-hero.webp',
     galleryImages: [
-      cdnUrl('/images/relaxmax-alexandria-linen-variant.webp'),
-      cdnUrl('/images/relaxmax-mocha-taupe-variant.webp'),
-      cdnUrl('/images/relaxmax-coastal-fog.webp'),
-      cdnUrl('/images/relaxmax-lifestyle-day.png'),
-      cdnUrl('/images/relaxmax-lifestyle-night.png'),
-      ...(generatedByProduct['relaxmax'] || []),
+      '/images/relaxmax-alexandria-linen.webp',
+      '/images/relaxmax-mocha-taupe.webp',
+      '/images/relaxmax-coastal-fog.webp',
+      '/images/relaxmax-lifestyle-day.png',
+      '/images/relaxmax-lifestyle-night.png',
     ],
   },
   'relaxmax-limited': {
-    mainImage: cdnUrl('/images/dandle-relaxmax-limited-camel-leather-hero.jpg'),
+    mainImage: '/images/dandle-relaxmax-limited-camel-leather-hero.jpg',
     galleryImages: [
-      cdnUrl('/images/relaxmax-limited-mocha-taupe.webp'),
-      ...(generatedByProduct['relaxmax-limited'] || []),
+      '/images/relaxmax-limited-mocha-taupe.webp',
     ],
   },
   'spacesaver': {
-    mainImage: cdnUrl('/images/dandle-spacesaver-alexandria-linen-hero.webp'),
+    mainImage: '/images/dandle-spacesaver-alexandria-linen-hero.webp',
     galleryImages: [
-      cdnUrl('/images/spacesaver-mocha-taupe-variant.webp'),
-      cdnUrl('/images/spacesaver-terracotta-reclined-variant.webp'),
-      cdnUrl('/images/spacesaver-desert-grey.webp'),
-      cdnUrl('/images/spacesaver-desert-grey-reclined.webp'),
-      ...(generatedByProduct['spacesaver'] || []),
+      '/images/spacesaver-mocha-taupe.webp',
+      '/images/spacesaver-terracotta-reclined.webp',
+      '/images/spacesaver-desert-grey.webp',
+      '/images/spacesaver-desert-grey-reclined.webp',
     ],
   },
   'comfortplus': {
-    mainImage: cdnUrl('/images/dandle-comfortplus-tan-hero.webp'),
+    mainImage: '/images/dandle-comfortplus-tan-hero.webp',
     galleryImages: [
-      cdnUrl('/images/comfortplus-coastal-fog-variant.webp'),
-      ...(generatedByProduct['comfortplus'] || []),
+      '/images/comfortplus-coastal-fog-lifestyle.webp',
     ],
   },
   'diva': {
-    mainImage: cdnUrl('/images/dandle-diva-terracotta-hero.jpg'),
+    mainImage: '/images/dandle-diva-terracotta-hero.jpg',
     galleryImages: [
-      cdnUrl('/images/diva-desert-sage-variant.webp'),
-      cdnUrl('/images/diva-giza-gold-variant.webp'),
-      cdnUrl('/images/diva-oasis-green.webp'),
-      ...(generatedByProduct['diva'] || []),
+      '/images/diva-desert-sage-green.webp',
+      '/images/diva-giza-gold.webp',
+      '/images/diva-oasis-green.webp',
     ],
   },
   'cozycompanion': {
-    mainImage: cdnUrl('/images/dandle-cozycompanion-mocha-taupe-hero.webp'),
+    mainImage: '/images/dandle-cozycompanion-mocha-taupe-hero.webp',
     galleryImages: [
-      cdnUrl('/images/cozycompanion-alexandria-linen-variant.jpg'),
-      cdnUrl('/images/cozycompanion-coastal-fog.webp'),
-      cdnUrl('/images/cozycompanion-couple-lifestyle.webp'),
-      cdnUrl('/images/cozycompanion-couple-lifestyle-2.webp'),
-      ...(generatedByProduct['cozycompanion'] || []),
+      '/images/cozycompanion-coastal-fog.webp',
+      '/images/cozycompanion-couple-lifestyle.webp',
+      '/images/cozycompanion-couple-lifestyle-2.webp',
     ],
   },
   'worknest': {
-    mainImage: cdnUrl('/images/dandle-worknest-oasis-green-hero.webp'),
+    mainImage: '/images/dandle-worknest-oasis-green-hero.webp',
     galleryImages: [
-      cdnUrl('/images/worknest-blue-nile-denim-variant.jpg'),
-      cdnUrl('/images/worknest-desert-grey-variant.webp'),
-      cdnUrl('/images/worknest-oasis-green-lifestyle.webp'),
-      ...(generatedByProduct['worknest'] || []),
+      '/images/worknest-blue-nile.webp',
+      '/images/worknest-desert-grey.webp',
+      '/images/worknest-oasis-green-lifestyle.webp',
     ],
   },
   'easyup': {
-    mainImage: cdnUrl('/images/dandle-easyup-standard-grey-hero.webp'),
+    mainImage: '/images/dandle-easyup-standard-grey-hero.webp',
     galleryImages: [
-      cdnUrl('/images/easyup-standard-oasis-green-variant.webp'),
-      cdnUrl('/images/easyup-pregnant-woman-accessibility-lifestyle.jpg'),
-      cdnUrl('/images/easyup-standard-coastal-fog.webp'),
-      cdnUrl('/images/easyup-standard-mocha-taupe.webp'),
-      cdnUrl('/images/easyup-lift-assist-lifestyle.webp'),
-      ...(generatedByProduct['easyup'] || []),
+      '/images/easyup-standard-oasis-green.webp',
+      '/images/easyup-pregnant-woman-accessibility-lifestyle.jpg',
+      '/images/easyup-standard-coastal-fog.webp',
+      '/images/easyup-standard-mocha-taupe.webp',
+      '/images/easyup-lift-assist-lifestyle.webp',
     ],
   },
   'easyup-compact': {
-    mainImage: cdnUrl('/images/dandle-easyup-compact-charcoal-hero.webp'),
+    mainImage: '/images/dandle-easyup-compact-charcoal-hero.webp',
     galleryImages: [
-      cdnUrl('/images/easyup-compact-grey-front.webp'),
-      cdnUrl('/images/easyup-compact-oasis-green.webp'),
-      cdnUrl('/images/easyup-compact-oasis-green-2.webp'),
-      ...(generatedByProduct['easyup-compact'] || []),
+      '/images/easyup-compact-grey-front.webp',
+      '/images/easyup-compact-oasis-green.webp',
+      '/images/easyup-compact-oasis-green-2.webp',
     ],
   },
   'complete-set': {
-    mainImage: cdnUrl('/images/complete-set-nile-view-living-room-lifestyle.jpg'),
+    mainImage: '/images/complete-set-nile-view-living-room-lifestyle.jpg',
     galleryImages: [
-      cdnUrl('/images/complete-set-classic.jpg'),
-      cdnUrl('/images/complete-set-coastal-modern.jpg'),
-      cdnUrl('/images/complete-set-family-modern.jpg'),
-      cdnUrl('/images/complete-set-modern-fireplace.jpg'),
-      cdnUrl('/images/complete-set-sunset-fireplace.jpg'),
-      ...(generatedByProduct['complete-set'] || []),
+      '/images/complete-set-classic.jpg',
+      '/images/complete-set-coastal-modern.jpg',
+      '/images/complete-set-family-modern.jpg',
+      '/images/complete-set-modern-fireplace.jpg',
+      '/images/complete-set-sunset-fireplace.jpg',
     ],
   },
 };
