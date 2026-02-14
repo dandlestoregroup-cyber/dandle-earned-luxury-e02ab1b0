@@ -44,3 +44,6 @@ verify_jwt = false
 
 [functions.manage-images]
 verify_jwt = false
+
+[functions.import-genspark-images]
+verify_jwt = false

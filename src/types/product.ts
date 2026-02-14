@@ -32,7 +32,7 @@ export const products: Product[] = [
       "Premium Leather Upholstery",
     ],
     targetAudience: "High-performing professionals",
-    imageUrl: "/images/dandle-relaxmax-hero.webp",
+    imageUrl: "/images/dandle-relaxmax-cognac-leather-hero.webp",
   },
   {
     id: "relaxmax-limited",
@@ -50,7 +50,7 @@ export const products: Product[] = [
       "Premium Full-Grain Leather",
     ],
     targetAudience: "Discerning professionals who want the best",
-    imageUrl: "/images/relaxmax-limited-mocha-taupe.webp",
+    imageUrl: "/images/dandle-relaxmax-limited-camel-leather-hero.jpg",
   },
   {
     id: "comfortplus",
@@ -68,7 +68,7 @@ export const products: Product[] = [
       "Memory Foam Cushioning",
     ],
     targetAudience: "Wellness enthusiasts seeking therapy",
-    imageUrl: "/images/comfortplus-hero-new.jpg",
+    imageUrl: "/images/dandle-comfortplus-tan-hero.webp",
   },
   {
     id: "diva",
@@ -86,7 +86,7 @@ export const products: Product[] = [
       "Bold Color Options",
     ],
     targetAudience: "Design-conscious taste makers",
-    imageUrl: "/images/dandle-diva.jpg",
+    imageUrl: "/images/dandle-diva-terracotta-hero.jpg",
   },
   {
     id: "cozycompanion",
@@ -104,7 +104,7 @@ export const products: Product[] = [
       "Center Console with Storage",
     ],
     targetAudience: "Couples and families",
-    imageUrl: "/images/cozycompanion-hero-new.jpg",
+    imageUrl: "/images/dandle-cozycompanion-mocha-taupe-hero.webp",
   },
   {
     id: "easyup",
@@ -121,7 +121,7 @@ export const products: Product[] = [
       "Easy-Clean Fabric",
     ],
     targetAudience: "Seniors and mobility assistance",
-    imageUrl: "/images/easyup-standard-grey-pregnant.webp",
+    imageUrl: "/images/dandle-easyup-standard-grey-hero.webp",
   },
   {
     id: "easyup-compact",
@@ -138,7 +138,7 @@ export const products: Product[] = [
       "Limited Colors Available",
     ],
     targetAudience: "Seniors and mobility assistance in smaller spaces",
-    imageUrl: "/images/easyup-compact-hero-new.jpg",
+    imageUrl: "/images/dandle-easyup-compact-charcoal-hero.webp",
   },
   {
     id: "worknest",
@@ -156,7 +156,7 @@ export const products: Product[] = [
       "Laptop Storage",
     ],
     targetAudience: "Remote workers and executives",
-    imageUrl: "/images/dandle-worknest.jpg",
+    imageUrl: "/images/dandle-worknest-oasis-green-hero.webp",
     beFirstToKnow: true,
   },
 {
@@ -175,7 +175,7 @@ export const products: Product[] = [
       "Full RelaxMax Features",
     ],
     targetAudience: "Urban dwellers with smaller spaces",
-    imageUrl: "/images/dandle-spacesaver-hero.webp",
+    imageUrl: "/images/dandle-spacesaver-alexandria-linen-hero.webp",
     beFirstToKnow: true,
   },
   {
@@ -194,6 +194,6 @@ export const products: Product[] = [
       "Full Home Comfort Solution",
     ],
     targetAudience: "Families seeking complete home solutions",
-    imageUrl: "/images/complete-set-final.webp",
+    imageUrl: "/images/complete-set-nile-view-living-room-lifestyle.jpg",
   },
 ];
