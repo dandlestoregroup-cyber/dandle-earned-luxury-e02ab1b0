@@ -34,7 +34,11 @@ export const lovableCatalog: LovableProduct[] = [
     gallery: [
       { src: "/images/relaxmax-lifestyle-day.png", width: 2752, height: 1536, alt: "RelaxMax Recliner - Day Lifestyle" },
       { src: "/images/relaxmax-lifestyle-night.png", width: 2752, height: 1536, alt: "RelaxMax Recliner - Night Lifestyle" },
-      { src: "/images/relaxmax-brown-lifestyle.jpg", width: 2752, height: 1536, alt: "RelaxMax Recliner - Brown Lifestyle" }
+      { src: "/images/relaxmax-brown-lifestyle.jpg", width: 2752, height: 1536, alt: "RelaxMax Recliner - Brown Lifestyle" },
+      { src: "/images/relaxmax-mediterranean-home-lifestyle.webp", width: 2752, height: 1536, alt: "RelaxMax in Mediterranean Home" },
+      { src: "/images/relaxmax-hotel-room-lifestyle.webp", width: 2752, height: 1536, alt: "RelaxMax in Hotel Room" },
+      { src: "/images/relaxmax-lounge-lifestyle.webp", width: 2752, height: 1536, alt: "RelaxMax in Modern Lounge" },
+      { src: "/images/relaxmax-cozy-adobe-lifestyle.webp", width: 2752, height: 1536, alt: "RelaxMax in Cozy Adobe Home" }
     ]
   },
   {
@@ -66,7 +70,8 @@ export const lovableCatalog: LovableProduct[] = [
       { src: "/images/spacesaver-offwhite-side.jpg", width: 2752, height: 1536, alt: "SpaceSaver - Side View" },
       { src: "/images/spacesaver-desert-grey.webp", width: 2752, height: 1536, alt: "SpaceSaver - Desert Grey" },
       { src: "/images/spacesaver-desert-grey-reclined.webp", width: 2752, height: 1536, alt: "SpaceSaver - Desert Grey Reclined" },
-      { src: "/images/spacesaver-mocha-taupe.webp", width: 2752, height: 1536, alt: "SpaceSaver - Mocha Taupe" }
+      { src: "/images/spacesaver-mocha-taupe.webp", width: 2752, height: 1536, alt: "SpaceSaver - Mocha Taupe" },
+      { src: "/images/spacesaver-office-lifestyle.webp", width: 2752, height: 1536, alt: "SpaceSaver in Home Office" }
     ]
   },
   {
@@ -85,7 +90,9 @@ export const lovableCatalog: LovableProduct[] = [
       { src: "/images/diva-terracotta-reclined.webp", width: 2752, height: 1536, alt: "Diva Recliner - Terracotta Reclined" },
       { src: "/images/diva-desert-sage-green.webp", width: 2752, height: 1536, alt: "Diva Recliner - Desert Sage Green" },
       { src: "/images/diva-giza-gold.webp", width: 2752, height: 1536, alt: "Diva Recliner - Giza Gold" },
-      { src: "/images/diva-oasis-green.webp", width: 2752, height: 1536, alt: "Diva Recliner - Oasis Green" }
+      { src: "/images/diva-oasis-green.webp", width: 2752, height: 1536, alt: "Diva Recliner - Oasis Green" },
+      { src: "/images/diva-mediterranean-home-lifestyle.webp", width: 2752, height: 1536, alt: "Diva in Mediterranean Home" },
+      { src: "/images/diva-lounge-lifestyle.webp", width: 2752, height: 1536, alt: "Diva in Modern Lounge" }
     ]
   },
   {
@@ -103,7 +110,9 @@ export const lovableCatalog: LovableProduct[] = [
       { src: "/images/cozycompanion-yellow-front.jpg", width: 2752, height: 1536, alt: "CozyCompanion - Yellow Front View" },
       { src: "/images/cozycompanion-couple-lifestyle.webp", width: 2752, height: 1536, alt: "CozyCompanion - Couple Lifestyle" },
       { src: "/images/cozycompanion-mocha-taupe.webp", width: 2752, height: 1536, alt: "CozyCompanion - Mocha Taupe" },
-      { src: "/images/cozycompanion-coastal-fog.webp", width: 2752, height: 1536, alt: "CozyCompanion - Coastal Fog" }
+      { src: "/images/cozycompanion-coastal-fog.webp", width: 2752, height: 1536, alt: "CozyCompanion - Coastal Fog" },
+      { src: "/images/cozycompanion-cozy-adobe-lifestyle.webp", width: 2752, height: 1536, alt: "CozyCompanion in Cozy Adobe Home" },
+      { src: "/images/cozycompanion-hotel-room-lifestyle.webp", width: 2752, height: 1536, alt: "CozyCompanion in Hotel Suite" }
     ]
   },
   {
@@ -156,7 +165,8 @@ export const lovableCatalog: LovableProduct[] = [
       { src: "/images/easyup-standard-oasis-green.webp", width: 2752, height: 1536, alt: "EasyUp - Oasis Green" },
       { src: "/images/easyup-standard-mocha-taupe.webp", width: 2752, height: 1536, alt: "EasyUp - Mocha Taupe" },
       { src: "/images/easyup-standard-mocha-taupe-lifted.webp", width: 2752, height: 1536, alt: "EasyUp - Mocha Taupe Lifted" },
-      { src: "/images/easyup-lift-assist-lifestyle.webp", width: 2752, height: 1536, alt: "EasyUp - Lift Assist Lifestyle" }
+      { src: "/images/easyup-lift-assist-lifestyle.webp", width: 2752, height: 1536, alt: "EasyUp - Lift Assist Lifestyle" },
+      { src: "/images/easyup-reception-area-lifestyle.webp", width: 2752, height: 1536, alt: "EasyUp in Reception Area" }
     ]
   },
   {

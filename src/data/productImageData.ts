@@ -9,6 +9,10 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
       '/images/relaxmax-coastal-fog.webp',
       '/images/relaxmax-lifestyle-day.png',
       '/images/relaxmax-lifestyle-night.png',
+      '/images/relaxmax-mediterranean-home-lifestyle.webp',
+      '/images/relaxmax-hotel-room-lifestyle.webp',
+      '/images/relaxmax-lounge-lifestyle.webp',
+      '/images/relaxmax-cozy-adobe-lifestyle.webp',
     ],
   },
   'relaxmax-limited': {
@@ -24,6 +28,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
       '/images/spacesaver-terracotta-reclined-variant.webp',
       '/images/spacesaver-desert-grey.webp',
       '/images/spacesaver-desert-grey-reclined.webp',
+      '/images/spacesaver-office-lifestyle.webp',
     ],
   },
   'comfortplus': {
@@ -38,6 +43,8 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
       '/images/diva-desert-sage-variant.webp',
       '/images/diva-giza-gold-variant.webp',
       '/images/diva-oasis-green.webp',
+      '/images/diva-mediterranean-home-lifestyle.webp',
+      '/images/diva-lounge-lifestyle.webp',
     ],
   },
   'cozycompanion': {
@@ -46,6 +53,8 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
       '/images/cozycompanion-coastal-fog.webp',
       '/images/cozycompanion-couple-lifestyle.webp',
       '/images/cozycompanion-couple-lifestyle-2.webp',
+      '/images/cozycompanion-cozy-adobe-lifestyle.webp',
+      '/images/cozycompanion-hotel-room-lifestyle.webp',
     ],
   },
   'worknest': {
@@ -64,6 +73,7 @@ export const productImageData: Record<string, { mainImage: string; galleryImages
       '/images/easyup-standard-coastal-fog.webp',
       '/images/easyup-standard-mocha-taupe.webp',
       '/images/easyup-lift-assist-lifestyle.webp',
+      '/images/easyup-reception-area-lifestyle.webp',
     ],
   },
   'easyup-compact': {
