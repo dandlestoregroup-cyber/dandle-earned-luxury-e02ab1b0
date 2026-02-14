@@ -7,7 +7,7 @@ export const productSwatches: Record<string, string[]> = {
   'comfortplus': ['tan', 'coastal-fog'],
   'diva': ['terracotta', 'giza-gold', 'oasis-green', 'desert-sage'],
   'cozycompanion': ['mocha-taupe', 'alexandria-linen', 'coastal-fog'],
-  'easyup-standard': ['grey', 'oasis-green', 'mocha-taupe', 'coastal-fog'],
+  'easyup': ['grey', 'oasis-green', 'mocha-taupe', 'coastal-fog'],
   'easyup-compact': ['charcoal', 'grey', 'oasis-green'],
   'worknest': ['oasis-green', 'blue-nile-denim', 'desert-grey'],
   'complete-set': ['family-modern'],

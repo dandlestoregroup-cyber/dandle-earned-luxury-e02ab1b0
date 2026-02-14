@@ -44,7 +44,7 @@ export const productColorImages: Record<string, ColorVariant[]> = {
     { swatchKey: 'blue-nile-denim', imageSrc: cdnUrl('/images/worknest-blue-nile.webp') },
     { swatchKey: 'desert-grey', imageSrc: cdnUrl('/images/worknest-desert-grey.webp') },
   ],
-  'easyup-standard': [
+  'easyup': [
     { swatchKey: 'grey', imageSrc: cdnUrl('/images/easyup-standard-grey-pregnant.webp') },
     { swatchKey: 'oasis-green', imageSrc: cdnUrl('/images/easyup-standard-oasis-green.webp') },
     { swatchKey: 'mocha-taupe', imageSrc: cdnUrl('/images/easyup-standard-mocha-taupe.webp') },
