@@ -1,81 +1,66 @@
 
 
-## Upload Genspark Product Images and Update Site References
+## Fix: Simplified Image Upload and Display System
 
-### What We Have
+### The Problem
 
-Your document contains 21 new product images hosted on Genspark/Manus CDN. These are the new truth and need to replace existing images across the site.
+Your image system has become unreliable because there are **4 competing layers** that determine which image shows on a product card:
 
-### Complete Image Manifest (from your document)
+1. **`lovableCatalog.ts`** -- defines `heroImage.src` per product
+2. **`siteImageManifest.ts`** -- can override the catalog hero via `getLovableProduct()` if `status === 'exists'`
+3. **`productColorImages.ts`** -- defines swatch-click images (used when a swatch is selected)
+4. **`product.ts`** -- has its own `imageUrl` field (used as fallback)
 
-**Heroes (10 images):**
+When you upload a new image, it needs to land in the right place in **all 4 files** AND physically exist at the path referenced. If any layer is out of sync, you get blank images or wrong images.
 
-| Product | New Filename | Genspark URL |
-|---------|-------------|--------------|
-| RelaxMax | dandle-relaxmax-cognac-leather-hero.webp | dULgNtTbBzMdTZkP.webp |
-| RelaxMax Limited | dandle-relaxmax-limited-camel-leather-hero.webp | (embedded in doc) |
-| ComfortPlus | dandle-comfortplus-tan-hero.webp | yAVQbhxxedZgNgtT.webp |
-| CozyCompanion | dandle-cozycompanion-mocha-taupe-hero.webp | SCBNCtpKUORKkWts.webp |
-| Diva | dandle-diva-terracotta-hero.webp | (embedded in doc) |
-| EasyUp Standard | dandle-easyup-standard-grey-hero.webp | EIAnetzTvQAMhswd.webp |
-| EasyUp Compact | dandle-easyup-compact-charcoal-hero.webp | zBiRHcMhsIPxKTpN.webp |
-| WorkNest | dandle-worknest-oasis-green-hero.webp | eFKPaFlCFEEXyGqu.webp |
-| SpaceSaver | dandle-spacesaver-alexandria-linen-hero.webp | ywZYwCUwpIjqguuh.webp |
-| Complete Set | complete-set-nile-view-living-room-lifestyle.webp | (embedded in doc) |
+Additionally, `cdnUrl()` rewrites `/images/filename.webp` to a cloud storage URL -- but many images only exist locally in `public/images/` and were never uploaded to cloud storage, causing 404s.
 
-**Variants / Gallery (10 images):**
+### The Fix
 
-| Image | Genspark URL |
-|-------|-------------|
-| comfortplus-coastal-fog-variant.webp | gHDIPfQciBaEUZIT.webp |
-| diva-desert-sage-variant.webp | PDZqIKXKqYkrJiDs.webp |
-| diva-giza-gold-variant.webp | wApdkFcMIZcaPDeh.webp |
-| easyup-standard-oasis-green-variant.webp | ZZmysbPBlVTwQaSY.webp |
-| relaxmax-alexandria-linen-variant.webp | FdhyDvtpaMGNroZm.webp |
-| relaxmax-mocha-taupe-variant.webp | AnOHTiiCgXmepbiE.webp |
-| spacesaver-mocha-taupe-variant.webp | akmGLwQArviuIBXv.webp |
-| spacesaver-terracotta-reclined-variant.webp | mHKoZTwJrtyLNuWx.webp |
-| worknest-blue-nile-denim-variant.webp | (embedded in doc) |
-| worknest-desert-grey-variant.webp | oYQRUEVDHaVdUrga.webp |
+Consolidate the system so uploading an image is simple and predictable.
 
-**Lifestyle (1 image):**
+**Step 1: Make `productColorImages.ts` the single source of truth for swatch images**
 
-| Image | Genspark URL |
-|-------|-------------|
-| easyup-pregnant-woman-accessibility-lifestyle.webp | (embedded in doc) |
+- Keep using direct local paths (`/images/filename.webp`) since these are reliable and always available
+- Remove `cdnUrl()` wrapping from `productImageData.ts` gallery entries -- use local paths there too
+- This eliminates the "uploaded locally but CDN returns 404" problem entirely
 
-### Plan
+**Step 2: Create an admin "Image Upload" page that actually works**
 
-**Step 1: Create a bulk import edge function**
+Replace the current broken upload flow with a simple drag-and-drop page at `/admin/upload-product-images`:
 
-A new `import-genspark-images` edge function that:
-- Accepts an array of `{ filename, sourceUrl }` entries
-- Fetches each image from the Genspark/Manus CDN
-- Converts to bytes and uploads to the `product-images` storage bucket under `images/` prefix
-- Returns success/failure per image
+- Drop an image onto a product card slot (hero, swatch variant, or gallery)
+- The image is saved to `public/images/` with the correct filename
+- The code references are automatically correct because filenames follow a convention
+- No edge function needed, no cloud storage sync needed
 
-**Step 2: Update `productImageData.ts`**
+**Step 3: Simplify `getLovableProduct()` in the catalog**
 
-Replace all hero `mainImage` and `galleryImages` entries with the new filenames from your document:
-- Each product hero becomes `cdnUrl('/images/dandle-{product}-{color}-hero.webp')`
-- Gallery entries use the new variant filenames
-- Old filenames that have no replacement stay as fallbacks
+- Remove the `siteImageManifest` override layer that silently replaces hero images
+- The catalog `heroImage.src` becomes the final answer -- no surprises
+- Gallery images come from `lovableCatalog.ts` directly
 
-**Step 3: Update `product.ts` imageUrl fields**
+**Step 4: Provide a clear "How to upload" workflow for you**
 
-Update the `imageUrl` field on each product to match the new hero filenames (these are used for product cards in the gallery grid).
+Going forward, when you want to update an image:
 
-**Step 4: Trigger the import**
-
-Call the new edge function with all 21 image URLs to populate cloud storage. For the 5 images where the URL was embedded in the doc (not parsed as text), we extract those from the document's embedded images directly.
-
-### Note on Missing URLs
-
-5 of 21 images had their URLs embedded as clickable links in the Word doc rather than plain text. For those (RelaxMax Limited hero, Diva hero, Complete Set lifestyle, EasyUp lifestyle, WorkNest Blue Nile variant), we will extract the actual images from the parsed document and upload them directly.
+1. **Attach the image** in chat (drag and drop into this chat)
+2. **Tell me** which product and which slot (e.g., "RelaxMax hero" or "Diva oasis-green swatch")
+3. I save it to `public/images/` with the correct filename
+4. I update the relevant data file if the filename changed
+5. Done -- it shows immediately, no CDN sync needed
 
 ### Technical Details
 
-- **Files modified:** `supabase/functions/import-genspark-images/index.ts` (new), `src/data/productImageData.ts`, `src/types/product.ts`
-- **No catalog changes:** Pricing, names, and availability remain frozen
-- **CDN system preserved:** All images still served through `cdnUrl()` from cloud storage
+**Files to modify:**
+- `src/catalog/lovableCatalog.ts` -- Remove `siteImageManifest` override in `getLovableProduct()`, use catalog paths directly
+- `src/data/productImageData.ts` -- Remove `cdnUrl()` wrapper, use plain `/images/` paths
+- `src/data/productColorImages.ts` -- Already using local paths (keep as-is)
+- `src/components/ProductCard.tsx` -- No changes needed (already reads from catalog + productColorImages correctly)
+
+**Files unchanged:**
+- `src/lib/imageUrl.ts` -- Keep `cdnUrl()` available for future CDN migration, just stop using it as default
+- `supabase/functions/upload-images/` -- Keep for future bulk CDN migration if needed
+
+**Result:** One image upload = one file in `public/images/` = immediately visible on site. No more ghost images, no more CDN 404s, no more 4-layer overrides.
 
