@@ -4,7 +4,7 @@ export const productSwatches: Record<string, string[]> = {
   'relaxmax': ['cognac-leather', 'alexandria-linen', 'mocha-taupe', 'coastal-fog'],
   'relaxmax-limited': ['camel-leather', 'mocha-taupe'],
   'spacesaver': ['alexandria-linen', 'mocha-taupe', 'desert-grey', 'terracotta', 'offwhite'],
-  'comfortplus': ['tan', 'coastal-fog'],
+  'comfortplus': ['tan'],
   'diva': ['terracotta', 'giza-gold', 'oasis-green', 'desert-sage'],
   'cozycompanion': ['mocha-taupe', 'alexandria-linen', 'coastal-fog'],
   'easyup': ['grey', 'oasis-green', 'mocha-taupe', 'coastal-fog'],

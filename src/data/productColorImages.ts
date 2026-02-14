@@ -29,7 +29,6 @@ export const productColorImages: Record<string, ColorVariant[]> = {
   ],
   'comfortplus': [
     { swatchKey: 'tan', imageSrc: '/images/comfortplus-tan-lifestyle.webp' },
-    { swatchKey: 'coastal-fog', imageSrc: '/images/comfortplus-coastal-fog-variant.webp' },
   ],
   'diva': [
     { swatchKey: 'terracotta', imageSrc: '/images/diva-primary-terracotta.webp' },
