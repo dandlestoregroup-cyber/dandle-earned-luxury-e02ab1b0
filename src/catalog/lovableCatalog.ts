@@ -29,7 +29,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "The Default Seat",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-relaxmax-hero.webp",
+      src: "/images/dandle-relaxmax-cognac-leather-hero.webp",
       width: 1024,
       height: 1024,
       alt: "Dandle RelaxMax: The flagship recliner. Iconic cinematic comfort and perfectly balanced proportions."
@@ -46,7 +46,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Premium Meets Performance",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/relaxmax-limited-hero-new.webp",
+      src: "/images/dandle-relaxmax-limited-camel-leather-hero.jpg",
       width: 1024,
       height: 1024,
       alt: "Dandle RelaxMax Limited Edition: 360° swivel, dual cup holders, premium full-grain leather."
@@ -59,7 +59,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Same Comfort, Smaller Footprint",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-spacesaver-hero.webp",
+      src: "/images/dandle-spacesaver-alexandria-linen-hero.webp",
       width: 1024,
       height: 1024,
       alt: "Dandle SpaceSaver: Compact 75cm width with all RelaxMax features."
@@ -78,7 +78,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Where Style Meets Comfort",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-diva-hero.webp",
+      src: "/images/dandle-diva-terracotta-hero.jpg",
       width: 1024,
       height: 1024,
       alt: "Dandle Diva: Bold personality in vivid color and fine-grade fabrics."
@@ -97,7 +97,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Comfort for Two",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/cozycompanion-hero-new.jpg",
+      src: "/images/dandle-cozycompanion-mocha-taupe-hero.webp",
       width: 1024,
       height: 1024,
       alt: "Dandle CozyCompanion: A premium two-seated recliner loveseat — mother and daughter reading together."
@@ -115,7 +115,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Feel Better. Work Better.",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-worknest-hero.webp",
+      src: "/images/dandle-worknest-oasis-green-hero.webp",
       width: 1024,
       height: 1024,
       alt: "Dandle WorkNest: The work chair that makes hours feel lighter."
@@ -132,7 +132,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Settle Deep. Think Clear.",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/comfortplus-hero-new.jpg",
+      src: "/images/dandle-comfortplus-tan-hero.webp",
       width: 1024,
       height: 1024,
       alt: "Dandle ComfortPlus: Built-in massage experience that resets the day."
@@ -147,7 +147,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Sit Easy, Stand Easier",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-easyup-standard-hero.jpg",
+      src: "/images/dandle-easyup-standard-grey-hero.webp",
       width: 1024,
       height: 1024,
       alt: "Dandle EasyUp Standard: Power lift for everyday independence."
@@ -168,7 +168,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Gentle Lift, Compact Design",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/easyup-compact-hero-new.jpg",
+      src: "/images/dandle-easyup-compact-charcoal-hero.webp",
       width: 1024,
       height: 1024,
       alt: "Dandle EasyUp Compact: Pregnant woman using the green lift recliner for gentle support."
@@ -186,7 +186,7 @@ export const lovableCatalog: LovableProduct[] = [
     subtitle: "Comfort for the Whole Family",
     aspectRatio: 1,
     heroImage: {
-      src: "/images/dandle-complete-set-hero.webp",
+      src: "/images/complete-set-nile-view-living-room-lifestyle.jpg",
       width: 1024,
       height: 1024,
       alt: "Dandle Complete Set: 3-piece living room set for the whole family."
